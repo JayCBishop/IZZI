@@ -8,10 +8,12 @@
 package prog01repo.IZZI.src;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class Tile extends JButton {
+public class Tile extends JButton implements ActionListener {
 
     private boolean drawn;
     private boolean inGrid;
@@ -64,4 +66,9 @@ public class Tile extends JButton {
         return inGrid;
     }
 
+
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        // Do whatever needs to be done when the tile is clicked
+    }
 }
