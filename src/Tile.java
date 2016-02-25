@@ -5,7 +5,6 @@
  * Created 2/23/2016
  */
 
-package prog01repo.IZZI.src;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;

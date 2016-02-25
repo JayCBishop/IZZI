@@ -64,7 +64,7 @@ public class GameWindow extends JFrame implements ActionListener
         System.out.println("reset pressed\n");
       if("new".equals(e.getActionCommand()))
         System.out.println("new pressed\n");
-      }
+    } 
 
     /**
      *  Establishes the initial board
@@ -87,6 +87,28 @@ public class GameWindow extends JFrame implements ActionListener
     	  this.addButtons(this,grid[i].button,(i%4),(i/4),1,1,basic.CENTER,basic.BOTH,inset);
       }
       
+      //This will hold the new, reset, and exit buttons
+      JToolBar toolbar = new JToolBar();
+      //toolbar can't be dragged around/out of JFrame
+      toolbar.setFloatable(false);
+      
+      //Initialize buttons
+      Main.newGameButton = new JButton("new");
+      Main.newGameButton.addActionListener(this);
+      
+      Main.resetButton = new JButton("reset");
+      Main.resetButton.addActionListener(this);
+      
+      Main.quitButton = new JButton("exit");
+      Main.quitButton.addActionListener(this);
+      
+      toolbar.add(Main.newGameButton);
+      toolbar.add(Main.resetButton);
+      toolbar.add(Main.quitButton);
+      
+      //Add toolbar to JFrame at index 0 (in the top left)
+      add(toolbar, 0);
+
       return;
     }
     /**
