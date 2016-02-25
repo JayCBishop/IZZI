@@ -1,3 +1,10 @@
+/**
+ * GridButton.java
+ * Software Design
+ * Group G
+ * 2/25/2016
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,6 +14,12 @@ public class GridButton {
 	public final JButton button = new JButton();
 	public Insets inset;
 	
+	/**
+	 * A JButton that contains a unique inset
+	 *
+	 * @param  JFrame:  The Frame to add the button to
+	 * @param  i:       The index of the button relative to the rest of the grid
+	 */
 	GridButton(JFrame frame,int i)
 	{
 		int width = frame.getWidth();
