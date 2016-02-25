@@ -76,7 +76,7 @@ public class GameWindow extends JFrame implements ActionListener
       // Need to play around with the dimensions and the gridx/y values
       // These constraints are going to be added to the pieces/parts I 
       // stuff into the "GridBag".
-    	
+   
       GridBagConstraints basic = new GridBagConstraints();
 
       //Here I create 16 elements to put into my gameBoard and add them
@@ -91,6 +91,8 @@ public class GameWindow extends JFrame implements ActionListener
       JToolBar toolbar = new JToolBar();
       //toolbar can't be dragged around/out of JFrame
       toolbar.setFloatable(false);
+      
+      toolbar.setBackground(Color.YELLOW);
       
       //Initialize buttons
       Main.newGameButton = new JButton("new");
