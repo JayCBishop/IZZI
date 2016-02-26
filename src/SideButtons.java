@@ -4,13 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class SideButton 
+public class SideButtons
 {
 
 			public final JButton button = new JButton();
 			public Insets inset;
 			
-			SideButton(JFrame frame,int i)
+			SideButtons(JFrame frame,int i)
 			{
 				int width = frame.getWidth();
 			    int height = frame.getHeight();
