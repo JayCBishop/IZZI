@@ -93,19 +93,21 @@ public class GameWindow extends JFrame implements ActionListener {
         Main.newGameButton.setMaximumSize(new Dimension(100, 75));
         Main.newGameButton.setPreferredSize(new Dimension(100, 75));
         Main.newGameButton.addActionListener(this);
+        Main.newGameButton.setFont(new Font("Arial", Font.PLAIN, 40));
 
         Main.resetButton = new JButton("reset");
         Main.resetButton.setMinimumSize(new Dimension(100, 75));
         Main.resetButton.setMaximumSize(new Dimension(100, 75));
         Main.resetButton.setPreferredSize(new Dimension(100, 75));
         Main.resetButton.addActionListener(this);
+        Main.resetButton.setFont(new Font("Arial", Font.PLAIN, 40));
 
         Main.quitButton = new JButton("exit");
         Main.quitButton.setMinimumSize(new Dimension(100, 75));
         Main.quitButton.setMaximumSize(new Dimension(100, 75));
-        Main.quitButton.setPreferredSize(new Dimension(100, 75));
-
+        Main.quitButton.setPreferredSize(new Dimension(100, 75));        
         Main.quitButton.addActionListener(this);
+        Main.quitButton.setFont(new Font("Arial", Font.PLAIN, 40));
 
         toolbar.add(Main.newGameButton);
         toolbar.add(Main.resetButton);
