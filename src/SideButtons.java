@@ -32,15 +32,7 @@ public class SideButtons extends TileArea
             this.addButtons(rightPanel, tiles[index], 1,
                     index, 1, 1, basic.CENTER, basic.BOTH, inset);
         }
-    }
-
-    public void addButtons(Container container, Component component, int gridx,
-            int gridy, int gridwidth, int gridheight, int anchor, int fill,
-            Insets in) {
-        GridBagConstraints gbc = new GridBagConstraints(gridx, gridy, gridwidth,
-                gridheight, 0, 0, anchor, fill, in, 0, 0);
-        container.add(component, gbc);
-        return;
+    
     }
 }
 
