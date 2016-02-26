@@ -79,7 +79,6 @@ public class GameWindow extends JFrame implements ActionListener {
         setLayout(gbl);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        GridBagConstraints sbc = new GridBagConstraints();
 
         // This will hold the new, reset, and exit buttons
         JToolBar toolbar = new JToolBar();
@@ -117,35 +116,44 @@ public class GameWindow extends JFrame implements ActionListener {
         toolbar.setMinimumSize(new Dimension(200, 50));
 
         // Add toolbar to JFrame at index 0 (in the top left)
-        gbc.weightx = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weighty = 1;
         gbc.gridheight = 1;
+        gbc.gridwidth = 1;
+        
+        
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
 
         add(toolbar, gbc);
 
-        GridButtons grid = new GridButtons(this);
-        gbc.gridheight = 2;
-        gbc.gridwidth = 1;
-        gbc.fill = gbc.BOTH;
+        TileArea grid = new GridButtons(this);
+
+      
+        
+        TileArea sideButtons = new SideButtons(this);
+       // gbc.fill = gbc.BOTH;
         gbc.gridy = 1;
-        gbc.insets = new Insets(0, 250, 100, 250);
+      
+        gbc.gridx = 0;
+        gbc.insets = new Insets(50, 25, 75, 0);
+        gbc.gridheight = 4;
+        add(((SideButtons) sideButtons).leftPanel, gbc);
+        
+        gbc.gridy = 2;
+        gbc.gridheight = 1;
+        gbc.gridx = 1;
+        gbc.insets = new Insets(250, 75, 225, 75);
+        gbc.gridwidth = 1;
         add(grid, gbc);
         
-        sbc.weightx = 1;
-        sbc.gridx = 0;
-        sbc.gridy = 0;
-        sbc.weighty = 1;
-        sbc.gridheight = 1;
         
-        SideButtons sideButtons = new SideButtons(this);
-        sbc.gridheight = 2;
-        sbc.gridwidth = 1;
-        sbc.fill = sbc.BOTH;
-        sbc.gridy = 1;
-        sbc.insets = new Insets(0, 100, 100, 100);
-        add(sideButtons, sbc);
+        gbc.gridy = 1;
+        gbc.gridx = 3;
+        gbc.gridheight = 4;
+        gbc.insets = new Insets(50, 0, 75, 25);
+        add(((SideButtons) sideButtons).rightPanel, gbc);
+        
         
         return;
     }

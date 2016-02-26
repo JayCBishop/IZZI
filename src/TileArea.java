@@ -10,8 +10,8 @@ public abstract class TileArea extends JPanel{
    */
   private static final long serialVersionUID = 2L;
   
-  public TileArea(){
-	  
+  protected TileArea(){
+	  super();
     //stub for constructor
   }
   
@@ -19,8 +19,8 @@ public abstract class TileArea extends JPanel{
           int gridy, int gridwidth, int gridheight, int anchor, int fill,
           Insets in) {
       GridBagConstraints gbc = new GridBagConstraints(gridx, gridy, gridwidth,
-              gridheight, 1.0, 1.0, anchor, fill, in, 0, 0);
-      add(component, gbc);
+              gridheight, 0, 0, anchor, fill, in, 0, 0);
+      container.add(component, gbc);
       return;
   }
 

@@ -1,3 +1,4 @@
+
 /**
  * Software Design, Spring 2016
  * Group G
@@ -5,6 +6,7 @@
  * Created 2/23/2016
  */
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -19,9 +21,11 @@ public class Tile extends JButton implements ActionListener {
     private boolean drawn;
     private boolean inGrid;
     private Image image;
+    private JPanel panel;
 
     public final JButton button = new JButton();
     public Insets inset;
+    private int index;
 
     /**
      * Stupid serializable stuff
@@ -33,84 +37,14 @@ public class Tile extends JButton implements ActionListener {
         super();
     }
 
-    public Tile(JPanel frame, int i) {
+    public Tile(JPanel panel, int i) {
         super();
-        int width = frame.getWidth();
-        int height = frame.getHeight();
-
-        switch (i) {
-        // Center Grid Pieces
-        case 5:
-        case 6:
-        case 9:
-        case 10:
-            inset = new Insets(0, 0, 0, 0);
-            break;
-        // Top Grid Pieces
-        case 1:
-        case 2:
-            inset = new Insets(height / 3, 0, 0, 0);
-            break;
-        // Bottom Grid Pieces
-        case 13:
-        case 14:
-            inset = new Insets(0, 0, height / 3, 0);
-            break;
-        // Left Grid Pieces
-        case 4:
-        case 8:
-            inset = new Insets(0, width / 3, 0, 0);
-            break;
-        // Right Grid Pieces
-        case 7:
-        case 11:
-            inset = new Insets(0, 0, 0, width / 3);
-            break;
-        // TopLeft Piece
-        case 0:
-            inset = new Insets(height / 3, width / 3, 0, 0);
-            break;
-        // TopRight Piece
-        case 3:
-            inset = new Insets(height / 3, 0, 0, width / 3);
-            break;
-        // BotLeft Piece
-        case 12:
-            inset = new Insets(0, width / 3, height / 3, 0);
-            break;
-        // BotRight Piece
-        case 15:
-            inset = new Insets(0, 0, height / 3, width / 3);
-            break;
-        case 16:
-        	inset = new Insets(height/2,width/2,0,0);
-        	break;
-        case 17:
-        case 18:
-        case 19:
-        case 20:
-        case 21:
-        case 22:
-        	inset = new Insets(height/5,width/2,0,0);
-        	break;
-        case 23:
-        	inset = new Insets(height/5,width/2,height/2,0);
-        	break;
-        case 24:
-        	inset = new Insets(height/2,width/2,0,width/2);
-        	break;
-        case 25:
-        case 26:
-        case 27:
-        case 28:
-        case 29:
-        case 30:
-        	inset = new Insets(height/5,width/2,0,width/2);
-        	break;
-        case 31:
-        	inset = new Insets(height/5, width/2, height/2, width/2);
-        	break;
-        }
+        this.panel = panel;
+        index = i;
+        Dimension d = new Dimension(75, 75);
+        this.setPreferredSize(d);
+        this.setMaximumSize(d);
+        this.setMinimumSize(d);
     }
 
     public void rotate(int numberOfRotations) {
@@ -144,5 +78,62 @@ public class Tile extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent arg0) {
         // Do whatever needs to be done when the tile is clicked
+    }
+
+    public Insets getTileInsets() {
+        int width = panel.getWidth();
+        int height = panel.getHeight();
+
+        if (inGrid) {
+            switch (index) {
+            // Center Grid Pieces
+            case 5:
+            case 6:
+            case 9:
+            case 10:
+                inset = new Insets(0, 0, 0, 0);
+                break;
+            // Top Grid Pieces
+            case 1:
+            case 2:
+                inset = new Insets(height / 3, 0, 0, 0);
+                break;
+            // Bottom Grid Pieces
+            case 13:
+            case 14:
+                inset = new Insets(0, 0, height / 3, 0);
+                break;
+            // Left Grid Pieces
+            case 4:
+            case 8:
+                inset = new Insets(0, width / 3, 0, 0);
+                break;
+            // Right Grid Pieces
+            case 7:
+            case 11:
+                inset = new Insets(0, 0, 0, width / 3);
+                break;
+            // TopLeft Piece
+            case 0:
+                inset = new Insets(height / 3, width / 3, 0, 0);
+                break;
+            // TopRight Piece
+            case 3:
+                inset = new Insets(height / 3, 0, 0, width / 3);
+                break;
+            // BotLeft Piece
+            case 12:
+                inset = new Insets(0, width / 3, height / 3, 0);
+                break;
+            // BotRight Piece
+            case 15:
+                inset = new Insets(0, 0, height / 3, width / 3);
+                break;
+            }
+        } else {
+            inset = new Insets(0, 0, 0, 0);
+        }
+
+        return inset;
     }
 }
