@@ -1,4 +1,3 @@
-package program01;
 import java.awt.*;
 
 public abstract class TileArea {
