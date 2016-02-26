@@ -79,6 +79,7 @@ public class GameWindow extends JFrame implements ActionListener {
         setLayout(gbl);
 
         GridBagConstraints gbc = new GridBagConstraints();
+        GridBagConstraints sbc = new GridBagConstraints();
 
         // This will hold the new, reset, and exit buttons
         JToolBar toolbar = new JToolBar();
@@ -120,7 +121,6 @@ public class GameWindow extends JFrame implements ActionListener {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weighty = 1;
-
         gbc.gridheight = 1;
 
         add(toolbar, gbc);
@@ -133,13 +133,19 @@ public class GameWindow extends JFrame implements ActionListener {
         gbc.insets = new Insets(0, 250, 100, 250);
         add(grid, gbc);
         
+        sbc.weightx = 1;
+        sbc.gridx = 0;
+        sbc.gridy = 0;
+        sbc.weighty = 1;
+        sbc.gridheight = 1;
+        
         SideButtons sideButtons = new SideButtons(this);
-        gbc.gridheight = 2;
-        gbc.gridwidth = 1;
-        gbc.fill = gbc.BOTH;
-        gbc.gridy = 1;
-        gbc.insets = new Insets(0, 250, 100, 250);
-        add(sideButtons, gbc);
+        sbc.gridheight = 2;
+        sbc.gridwidth = 1;
+        sbc.fill = sbc.BOTH;
+        sbc.gridy = 1;
+        sbc.insets = new Insets(0, 100, 100, 100);
+        add(sideButtons, sbc);
         
         return;
     }

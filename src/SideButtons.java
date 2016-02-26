@@ -14,16 +14,20 @@ public class SideButtons extends TileArea
     SideButtons(JFrame frame) {
         GridBagLayout gbl=new GridBagLayout();
         setLayout(gbl);
-        for (int index = 0; index < 8; index++) {
-            leftPanel[index] = new Tile(this, index);
-            Insets inset = leftPanel[index].inset;
-            this.addButtons(this, leftPanel[index].button, (index % 1),
+        
+        //Left Side Panel
+        for (int index = 16; index < 24; index++) {
+            leftPanel[index - 16] = new Tile(this, index);
+            Insets inset = leftPanel[index - 16].inset;
+            this.addButtons(this, leftPanel[index - 16].button, (index % 1),
                     (index / 8), 1, 1, basic.CENTER, basic.BOTH, inset);
         }
-        for (int index = 0; index < 8; index++) {
-            rightPanel[index] = new Tile(this, index);
-            Insets inset = rightPanel[index].inset;
-            this.addButtons(this, rightPanel[index].button, (index % 1),
+        
+        // Right Side Panel
+        for (int index = 24; index < 32; index++) {
+            rightPanel[index - 24] = new Tile(this, index);
+            Insets inset = rightPanel[index - 24].inset;
+            this.addButtons(this, rightPanel[index - 24].button, (index % 1),
                     (index / 8), 1, 1, basic.CENTER, basic.BOTH, inset);
         }
     }

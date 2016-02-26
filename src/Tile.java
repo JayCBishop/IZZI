@@ -82,6 +82,34 @@ public class Tile extends JButton implements ActionListener {
         case 15:
             inset = new Insets(0, 0, height / 3, width / 3);
             break;
+        case 16:
+        	inset = new Insets(height/2,width/2,0,0);
+        	break;
+        case 17:
+        case 18:
+        case 19:
+        case 20:
+        case 21:
+        case 22:
+        	inset = new Insets(height/5,width/2,0,0);
+        	break;
+        case 23:
+        	inset = new Insets(height/5,width/2,height/2,0);
+        	break;
+        case 24:
+        	inset = new Insets(height/2,width/2,0,width/2);
+        	break;
+        case 25:
+        case 26:
+        case 27:
+        case 28:
+        case 29:
+        case 30:
+        	inset = new Insets(height/5,width/2,0,width/2);
+        	break;
+        case 31:
+        	inset = new Insets(height/5, width/2, height/2, width/2);
+        	break;
         }
     }
 
