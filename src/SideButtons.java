@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class SideButtons extends JPanel
+public class SideButtons extends TileArea
 {
 	private static final long serialVersionUID = -2508093488142888043L;
     Tile[] leftPanel = new Tile[8];
@@ -28,13 +28,6 @@ public class SideButtons extends JPanel
         }
     }
 
-    public void addButtons(Container container, Component component, int gridx,
-            int gridy, int gridwidth, int gridheight, int anchor, int fill,
-            Insets in) {
-        GridBagConstraints gbc = new GridBagConstraints(gridx, gridy, gridwidth,
-                gridheight, 1.0, 1.0, anchor, fill, in, 0, 0);
-        add(component, gbc);
-        return;
-    }
+
 }
 
