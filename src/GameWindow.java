@@ -1,17 +1,12 @@
-
 /**
- * @author Kim Buckner
- * Date: Feb 19, 2016
- *
- * This is the actual "game". May/will have to make some major changes.
- * This is just a "hollow" shell.
- *
- * When you get done, I should see the buttons at the top in the "play" area
- * (not a pull-down menu). The only one that should do anything is Quit.
- *
- * Should also see something that shows where the 4x4 board and the "spare"
- * tiles will be when we get them stuffed in.
+ * GameWindow.java
+ * Software Design
+ * Group G
+ * 2/26/2016
+ * 
+ * The playing area - contains buttons, side tiles, and grid
  */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -70,11 +65,6 @@ public class GameWindow extends JFrame implements ActionListener {
      */
 
     public void setUp() {
-        // actually create the array for elements, make sure it is big enough
-        // Need to play around with the dimensions and the gridx/y values
-        // These constraints are going to be added to the pieces/parts I
-        // stuff into the "GridBag".
-
         GridBagLayout gbl = new GridBagLayout();
         setLayout(gbl);
 
@@ -105,7 +95,7 @@ public class GameWindow extends JFrame implements ActionListener {
         Main.quitButton = new JButton("exit");
         Main.quitButton.setMinimumSize(new Dimension(100, 75));
         Main.quitButton.setMaximumSize(new Dimension(100, 75));
-        Main.quitButton.setPreferredSize(new Dimension(100, 75));        
+        Main.quitButton.setPreferredSize(new Dimension(100, 75));
         Main.quitButton.addActionListener(this);
         Main.quitButton.setFont(new Font("Arial", Font.PLAIN, 40));
 
@@ -118,8 +108,7 @@ public class GameWindow extends JFrame implements ActionListener {
         // Add toolbar to JFrame at index 0 (in the top left)
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
-        
-        
+
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 1;
@@ -127,39 +116,33 @@ public class GameWindow extends JFrame implements ActionListener {
 
         add(toolbar, gbc);
 
+        // Initialize Grid and SideButton objects
+        // These variables will need to be class variables eventually
         TileArea grid = new GridButtons(this);
-
-      
-        
         TileArea sideButtons = new SideButtons(this);
-       // gbc.fill = gbc.BOTH;
+        
+        // Add leftPanel
         gbc.gridy = 1;
-      
         gbc.gridx = 0;
         gbc.insets = new Insets(50, 25, 75, 0);
         gbc.gridheight = 4;
         add(((SideButtons) sideButtons).leftPanel, gbc);
-        
+
+        // Add grid
         gbc.gridy = 2;
         gbc.gridheight = 1;
         gbc.gridx = 1;
         gbc.insets = new Insets(250, 75, 225, 75);
         gbc.gridwidth = 1;
         add(grid, gbc);
-        
-        
+
+        // Add rightPanel
         gbc.gridy = 1;
         gbc.gridx = 3;
         gbc.gridheight = 4;
         gbc.insets = new Insets(50, 0, 75, 25);
         add(((SideButtons) sideButtons).rightPanel, gbc);
-        
-        
+
         return;
     }
-    /**
-     * Used by setUp() to configure the buttons on a button bar and add it to
-     * the gameBoard
-     */
-
 };

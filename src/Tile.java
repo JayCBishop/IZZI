@@ -1,9 +1,11 @@
-
 /**
- * Software Design, Spring 2016
+ * Tile.java
+ * Software Design
  * Group G
+ * 2/26/2016
  * 
- * Created 2/23/2016
+ * The actual buttons that populate the grid and side areas
+ * 
  */
 
 import java.awt.Dimension;
@@ -27,9 +29,6 @@ public class Tile extends JButton implements ActionListener {
     public Insets inset;
     private int index;
 
-    /**
-     * Stupid serializable stuff
-     */
     private static final long serialVersionUID = 2L;
 
     // default constructor -- right now this just creates a button
@@ -41,6 +40,7 @@ public class Tile extends JButton implements ActionListener {
         super();
         this.panel = panel;
         index = i;
+
         Dimension d = new Dimension(75, 75);
         this.setPreferredSize(d);
         this.setMaximumSize(d);
@@ -80,6 +80,10 @@ public class Tile extends JButton implements ActionListener {
         // Do whatever needs to be done when the tile is clicked
     }
 
+    /*
+     * Method to determine the appropriate insets Depends on which TileArea the
+     * tile is in as well as its position in the area
+     */
     public Insets getTileInsets() {
         int width = panel.getWidth();
         int height = panel.getHeight();
@@ -133,7 +137,6 @@ public class Tile extends JButton implements ActionListener {
         } else {
             inset = new Insets(0, 0, 0, 0);
         }
-
         return inset;
     }
 }
