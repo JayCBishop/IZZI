@@ -31,6 +31,8 @@ public class SideButtons extends TileArea
         GridBagLayout gbl=new GridBagLayout();
         leftPanel.setLayout(gbl);
         rightPanel.setLayout(gbl);
+        leftPanel.setBackground(Color.cyan);
+        rightPanel.setBackground(Color.cyan);
         
         //Add the left SideButtons panel
         for (int index = 0; index < 8; index++) {

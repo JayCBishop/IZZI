@@ -28,7 +28,17 @@ public abstract class TileArea extends JPanel{
   /**
    * Adds the button to a container
    * 
-   * @param container: the 
+   * @param container: container to place components in
+   * @param component: what we are placing in the container
+   * @param gridx: the x position relative to the container
+   *               for the component
+   * @param gridy: the y position relative to the container
+   *               for the component
+   * @param gridWidth: the width of the grid
+   * @param gridHeight: the height of the grid
+   * @param anchor
+   * @param fill
+   * @param in: the inset of the component on the container
    */
   public void addButtons(Container container, Component component, int gridx,
           int gridy, int gridwidth, int gridheight, int anchor, int fill,
@@ -39,6 +49,9 @@ public abstract class TileArea extends JPanel{
       return;
   }
 
+  /**
+   * returns blank if the tile has no image
+   */
   public boolean isSpaceBlank(){
     return blank;
     

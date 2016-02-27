@@ -13,9 +13,6 @@ import java.awt.*;
 
 public class GridButtons extends TileArea {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -2508093488142888044L;
     Tile[] buttons = new Tile[16];
     GridBagConstraints basic = new GridBagConstraints();
@@ -25,11 +22,13 @@ public class GridButtons extends TileArea {
      *
      * @param framee
      */
-
     GridButtons(JFrame frame) {
         super();
         GridBagLayout gbl=new GridBagLayout();
         setLayout(gbl);
+        
+        this.setBackground(Color.PINK);
+        basic.ipadx = -100;
         
         for (int index = 0; index < 16; index++) {
             buttons[index] = new Tile(this, index);

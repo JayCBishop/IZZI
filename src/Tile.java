@@ -35,7 +35,7 @@ public class Tile extends JButton implements ActionListener {
 
     // default constructor -- right now this just creates a button
     public Tile() {
-        super();
+    	super();
     }
 
     /**
