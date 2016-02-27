@@ -1,3 +1,12 @@
+/**
+ * Tile.java
+ * Software Design, Spring 2016
+ * Group G
+ * Created 2/23/2016
+ * 
+ * Two collections of tiles that form two side panels
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +27,6 @@ public class SideButtons extends TileArea
      *
      * @param framee
      */
-
     SideButtons(JFrame frame) {
         GridBagLayout gbl=new GridBagLayout();
         leftPanel.setLayout(gbl);

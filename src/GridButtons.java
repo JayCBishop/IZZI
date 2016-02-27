@@ -1,9 +1,11 @@
 
 /**
- * GridButton.java
- * Software Design
+ * Tile.java
+ * Software Design, Spring 2016
  * Group G
- * 2/25/2016
+ * Created 2/23/2016
+ * 
+ * Is a collection of multiple tiles that form a grid
  */
 
 import javax.swing.*;
@@ -24,7 +26,6 @@ public class GridButtons extends TileArea {
      * @param framee
      */
 
-    
     GridButtons(JFrame frame) {
         super();
         GridBagLayout gbl=new GridBagLayout();

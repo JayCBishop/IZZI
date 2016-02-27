@@ -1,9 +1,13 @@
 
 /**
+ * Tile.java
  * Software Design, Spring 2016
  * Group G
- * 
  * Created 2/23/2016
+ * 
+ * A Tile extends JButton but may also contain an
+ * image and be rotated. Each tile has a unique inset,
+ * index, and button.
  */
 
 import java.awt.Dimension;
@@ -27,9 +31,6 @@ public class Tile extends JButton implements ActionListener {
     public Insets inset;
     private int index;
 
-    /**
-     * Stupid serializable stuff
-     */
     private static final long serialVersionUID = 2L;
 
     // default constructor -- right now this just creates a button
@@ -37,6 +38,9 @@ public class Tile extends JButton implements ActionListener {
         super();
     }
 
+    /**
+     * Establishes the initial board
+     */
     public Tile(JPanel panel, int i) {
         super();
         this.panel = panel;
@@ -47,22 +51,44 @@ public class Tile extends JButton implements ActionListener {
         this.setMinimumSize(d);
     }
 
+    /**
+     * Rotates the tile 90 degrees clockwise
+     * 
+     * @param numberOfRotations controls
+     * how many times the tile is rotated
+     */
     public void rotate(int numberOfRotations) {
         // stub
     }
 
+    /**
+     * Sets the image ddisplayed on the tile
+     * 
+     * @param i 
+     */
     public void setImage(Image i) {
         image = i;
     }
 
+    /**
+     * Returns the image on the tile
+     */
     public Image getImage() {
         return image;
     }
 
+    /**
+     * sets the drawn variable to true or false
+     * 
+     * @param isDrawn
+     */
     public void setIsDrawn(boolean isDrawn) {
         drawn = isDrawn;
     }
 
+    /**
+     * returns the boolean value drawn
+     */
     public boolean isDrawn() {
         return drawn;
     }
@@ -80,6 +106,9 @@ public class Tile extends JButton implements ActionListener {
         // Do whatever needs to be done when the tile is clicked
     }
 
+    /**
+     * Gets the inset of the tile
+     */
     public Insets getTileInsets() {
         int width = panel.getWidth();
         int height = panel.getHeight();     

@@ -1,3 +1,13 @@
+/**
+ * Tile.java
+ * Software Design, Spring 2016
+ * Group G
+ * Created 2/23/2016
+ * 
+ * Contains functionality used by SideButtons and
+ * GridButtons, such as an addButton method.
+ */
+
 import java.awt.*;
 
 import javax.swing.JPanel;
@@ -15,6 +25,11 @@ public abstract class TileArea extends JPanel{
     //stub for constructor
   }
   
+  /**
+   * Adds the button to a container
+   * 
+   * @param container: the 
+   */
   public void addButtons(Container container, Component component, int gridx,
           int gridy, int gridwidth, int gridheight, int anchor, int fill,
           Insets in) {
