@@ -1,11 +1,9 @@
+
 /**
- * Tile.java
- * Software Design
+ * Software Design, Spring 2016
  * Group G
- * 2/26/2016
  * 
- * The actual buttons that populate the grid and side areas
- * 
+ * Created 2/23/2016
  */
 
 import java.awt.Dimension;
@@ -29,6 +27,9 @@ public class Tile extends JButton implements ActionListener {
     public Insets inset;
     private int index;
 
+    /**
+     * Stupid serializable stuff
+     */
     private static final long serialVersionUID = 2L;
 
     // default constructor -- right now this just creates a button
@@ -40,7 +41,6 @@ public class Tile extends JButton implements ActionListener {
         super();
         this.panel = panel;
         index = i;
-
         Dimension d = new Dimension(75, 75);
         this.setPreferredSize(d);
         this.setMaximumSize(d);
@@ -80,63 +80,10 @@ public class Tile extends JButton implements ActionListener {
         // Do whatever needs to be done when the tile is clicked
     }
 
-    /*
-     * Method to determine the appropriate insets Depends on which TileArea the
-     * tile is in as well as its position in the area
-     */
     public Insets getTileInsets() {
         int width = panel.getWidth();
-        int height = panel.getHeight();
-
-        if (inGrid) {
-            switch (index) {
-            // Center Grid Pieces
-            case 5:
-            case 6:
-            case 9:
-            case 10:
-                inset = new Insets(0, 0, 0, 0);
-                break;
-            // Top Grid Pieces
-            case 1:
-            case 2:
-                inset = new Insets(height / 3, 0, 0, 0);
-                break;
-            // Bottom Grid Pieces
-            case 13:
-            case 14:
-                inset = new Insets(0, 0, height / 3, 0);
-                break;
-            // Left Grid Pieces
-            case 4:
-            case 8:
-                inset = new Insets(0, width / 3, 0, 0);
-                break;
-            // Right Grid Pieces
-            case 7:
-            case 11:
-                inset = new Insets(0, 0, 0, width / 3);
-                break;
-            // TopLeft Piece
-            case 0:
-                inset = new Insets(height / 3, width / 3, 0, 0);
-                break;
-            // TopRight Piece
-            case 3:
-                inset = new Insets(height / 3, 0, 0, width / 3);
-                break;
-            // BotLeft Piece
-            case 12:
-                inset = new Insets(0, width / 3, height / 3, 0);
-                break;
-            // BotRight Piece
-            case 15:
-                inset = new Insets(0, 0, height / 3, width / 3);
-                break;
-            }
-        } else {
-            inset = new Insets(0, 0, 0, 0);
-        }
+        int height = panel.getHeight();     
+        inset = new Insets(0, 0, 0, 0);
         return inset;
     }
 }
