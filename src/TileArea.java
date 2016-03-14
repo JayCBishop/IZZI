@@ -70,6 +70,16 @@ public abstract class TileArea extends JPanel{
 				  {
 					  System.out.println("A Grid Tile is already selected");
 				  }
+				  else if(window.sideClicked != null)
+				  {
+					  System.out.println("Move images of the selected tiles");
+					  
+					  window.sideClicked.isClicked = false;
+					  tile.isClicked = false;
+					  
+					  window.sideClicked = null;
+					  window.gridClicked = null;
+				  }
 				  else
 				  {
 					  window.gridClicked = tile;
@@ -82,6 +92,16 @@ public abstract class TileArea extends JPanel{
 				  if(window.sideClicked != null)
 				  {
 					  System.out.println("A Side Tile is already selected");
+				  }
+				  else if(window.gridClicked != null)
+				  {
+					  System.out.println("Move images of the selected tiles");
+					  
+					  window.gridClicked.isClicked = false;
+					  tile.isClicked = false;
+					  
+					  window.sideClicked = null;
+					  window.gridClicked = null;
 				  }
 				  else
 				  {
