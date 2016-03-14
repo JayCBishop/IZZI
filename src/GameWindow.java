@@ -22,6 +22,12 @@ public class GameWindow extends JFrame implements ActionListener {
      * because it is a serializable object, need this or javac complains a lot
      */
     public static final long serialVersionUID = 1;
+    
+    TileArea grid;
+    TileArea sideButtons;
+    
+    Tile firstClicked;
+    Tile secondClicked;
 
     /*
      * Here I declare some buttons and declare an array to hold the grid
@@ -127,11 +133,10 @@ public class GameWindow extends JFrame implements ActionListener {
 
         add(toolbar, gbc);
 
-        TileArea grid = new GridButtons(this);
-
-      
+        grid = new GridButtons(this);
         
-        TileArea sideButtons = new SideButtons(this);
+        sideButtons = new SideButtons(this);
+        
         gbc.gridy = 1;
         gbc.gridx = 0;
         gbc.insets = new Insets(50, 25, 75, 0);
@@ -159,4 +164,5 @@ public class GameWindow extends JFrame implements ActionListener {
      * the gameBoard
      */
 
+    
 };

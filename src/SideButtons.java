@@ -41,6 +41,7 @@ public class SideButtons extends TileArea
             Insets inset = tiles[index].getInsets();
             this.addButtons(leftPanel, tiles[index], 1,
                     index, 1, 1, basic.CENTER, basic.BOTH, inset);
+            this.addActionListener(tiles[index]);
         }
         
         //Add the right SideButtons panel
@@ -50,6 +51,7 @@ public class SideButtons extends TileArea
             Insets inset = tiles[index].getInsets();
             this.addButtons(rightPanel, tiles[index], 1,
                     index, 1, 1, basic.CENTER, basic.BOTH, inset);
+            this.addActionListener(tiles[index]);
         }
     
     }

@@ -9,7 +9,10 @@
  */
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public abstract class TileArea extends JPanel{
@@ -47,6 +50,20 @@ public abstract class TileArea extends JPanel{
               gridheight, 0, 0, anchor, fill, in, 0, 0);
       container.add(component, gbc);
       return;
+  }
+  
+  /**
+   * Adds an actionListener to a tile
+   * 
+   * @param tile: the tile to add an actionListener to
+   */
+  public void addActionListener(Tile tile)
+  {
+	  tile.addActionListener(new ActionListener(){
+		  public void actionPerformed(ActionEvent evt) {
+			  System.out.println("click");
+		  }
+	  });
   }
 
   /**
