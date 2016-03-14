@@ -26,8 +26,8 @@ public class GameWindow extends JFrame implements ActionListener {
     TileArea grid;
     TileArea sideButtons;
     
-    Tile firstClicked;
-    Tile secondClicked;
+    Tile sideClicked;
+    Tile gridClicked;
 
     /*
      * Here I declare some buttons and declare an array to hold the grid

@@ -27,7 +27,7 @@ public class SideButtons extends TileArea
      *
      * @param framee
      */
-    SideButtons(JFrame frame) {
+    SideButtons(GameWindow window) {
         GridBagLayout gbl=new GridBagLayout();
         leftPanel.setLayout(gbl);
         rightPanel.setLayout(gbl);
@@ -41,7 +41,7 @@ public class SideButtons extends TileArea
             Insets inset = tiles[index].getInsets();
             this.addButtons(leftPanel, tiles[index], 1,
                     index, 1, 1, basic.CENTER, basic.BOTH, inset);
-            this.addActionListener(tiles[index]);
+            this.addActionListener(tiles[index], window, 1);
         }
         
         //Add the right SideButtons panel
@@ -51,7 +51,7 @@ public class SideButtons extends TileArea
             Insets inset = tiles[index].getInsets();
             this.addButtons(rightPanel, tiles[index], 1,
                     index, 1, 1, basic.CENTER, basic.BOTH, inset);
-            this.addActionListener(tiles[index]);
+            this.addActionListener(tiles[index], window, 1);
         }
     
     }

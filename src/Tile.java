@@ -30,6 +30,8 @@ public class Tile extends JButton implements ActionListener {
     public final JButton button = new JButton();
     public Insets inset;
     private int index;
+    
+    public boolean isClicked;
 
     private static final long serialVersionUID = 2L;
 

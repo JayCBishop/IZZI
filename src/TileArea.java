@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public abstract class TileArea extends JPanel{
@@ -56,12 +57,39 @@ public abstract class TileArea extends JPanel{
    * Adds an actionListener to a tile
    * 
    * @param tile: the tile to add an actionListener to
+   * @param window: the GameWindow object the tile is a piece of
+   * @param type: the type of button that is clicked
    */
-  public void addActionListener(Tile tile)
+  public void addActionListener(Tile tile, GameWindow window, int type)
   {
 	  tile.addActionListener(new ActionListener(){
 		  public void actionPerformed(ActionEvent evt) {
-			  System.out.println("click");
+			  if(type == 0)
+			  {
+				  if(window.gridClicked != null)
+				  {
+					  System.out.println("A Grid Tile is already selected");
+				  }
+				  else
+				  {
+					  window.gridClicked = tile;
+					  tile.isClicked = true;
+					  System.out.println("Grid Tile Clicked");
+				  }
+			  }
+			  else
+			  {
+				  if(window.sideClicked != null)
+				  {
+					  System.out.println("A Side Tile is already selected");
+				  }
+				  else
+				  {
+					  window.sideClicked = tile;
+					  tile.isClicked = true;
+					  System.out.println("Side Tile Clicked");
+				  }
+			  }
 		  }
 	  });
   }
@@ -77,6 +105,7 @@ public abstract class TileArea extends JPanel{
   public void getTile(){
     //stub
   }
+  
   public void placeTile(){
     //stub
   }

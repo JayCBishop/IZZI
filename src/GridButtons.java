@@ -22,7 +22,7 @@ public class GridButtons extends TileArea {
      *
      * @param framee
      */
-    GridButtons(JFrame frame) {
+    GridButtons(GameWindow window) {
         super();
         GridBagLayout gbl=new GridBagLayout();
         setLayout(gbl);
@@ -34,7 +34,7 @@ public class GridButtons extends TileArea {
             Insets inset = tiles[index].getInsets();
             this.addButtons(this, tiles[index], (index % 4),
                     (index / 4), 1, 1, basic.CENTER, basic.BOTH, inset);
-            this.addActionListener(tiles[index]);
+            this.addActionListener(tiles[index], window, 0);
         }
     }
 }
