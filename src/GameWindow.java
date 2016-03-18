@@ -63,7 +63,7 @@ public class GameWindow extends JFrame implements ActionListener {
      */
 
     public void actionPerformed(ActionEvent e) {
-        if ("exit".equals(e.getActionCommand()))
+        if ("quit".equals(e.getActionCommand()))
             System.exit(0);
         if ("reset".equals(e.getActionCommand()))
             System.out.println("reset pressed\n");
@@ -113,7 +113,7 @@ public class GameWindow extends JFrame implements ActionListener {
         Main.resetButton.addActionListener(this);
         Main.resetButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth/3));
 
-        Main.quitButton = new JButton("exit");
+        Main.quitButton = new JButton("quit");
         Main.quitButton.setMinimumSize(buttonDimen);
         Main.quitButton.setMaximumSize(buttonDimen);
         Main.quitButton.setPreferredSize(buttonDimen);        
