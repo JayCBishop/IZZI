@@ -33,7 +33,7 @@ public class Tile extends JButton implements ActionListener {
     
     public boolean isClicked;
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 1;
 
     // default constructor -- right now this just creates a button
     public Tile() {
@@ -64,7 +64,7 @@ public class Tile extends JButton implements ActionListener {
     }
 
     /**
-     * Sets the image ddisplayed on the tile
+     * Sets the image displayed on the tile
      * 
      * @param i 
      */

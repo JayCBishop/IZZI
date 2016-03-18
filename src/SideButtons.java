@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 
 public class SideButtons extends TileArea
 {
-    private static final long serialVersionUID = -2508093488142888043L;
+    private static final long serialVersionUID = 1;
     public JPanel leftPanel = new JPanel();
     public JPanel rightPanel = new JPanel();
     

@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class GridButtons extends TileArea {
 
-    private static final long serialVersionUID = -2508093488142888044L;
+    private static final long serialVersionUID = 1;
     Tile[] tiles = new Tile[16];
     GridBagConstraints basic = new GridBagConstraints();
 

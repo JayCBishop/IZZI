@@ -22,7 +22,7 @@ public abstract class TileArea extends JPanel{
   /**
    * Stupid serializable stuff
    */
-  private static final long serialVersionUID = 2L;
+  private static final long serialVersionUID = 1;
   
   protected TileArea(){
 	  super();
@@ -76,7 +76,6 @@ public abstract class TileArea extends JPanel{
 					  
 					  window.sideClicked.isClicked = false;
 					  tile.isClicked = false;
-					  
 					  window.sideClicked = null;
 					  window.gridClicked = null;
 				  }
@@ -99,7 +98,6 @@ public abstract class TileArea extends JPanel{
 					  
 					  window.gridClicked.isClicked = false;
 					  tile.isClicked = false;
-					  
 					  window.sideClicked = null;
 					  window.gridClicked = null;
 				  }
