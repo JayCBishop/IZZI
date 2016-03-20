@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 public abstract class TileArea extends JPanel{
   private Tile tile;
@@ -23,8 +25,8 @@ public abstract class TileArea extends JPanel{
    * Stupid serializable stuff
    */
   private static final long serialVersionUID = 1;
-  private static final Color DEFAULTBG = new JButton().getBackground();
-  private static final Color SELECTEDBG = Color.LIGHT_GRAY;
+  private static final Border DEFAULT_BORDER = new JButton().getBorder();
+  private static final Border SELECTED_BORDER = new LineBorder(Color.ORANGE, 4);
   
   protected TileArea(){
 	  super();
@@ -78,8 +80,7 @@ public abstract class TileArea extends JPanel{
 					  
 					  window.sideClicked.isClicked = false;
 					  tile.isClicked = false;
-					  // Set default background for selected tile
-					  window.sideClicked.setBackground(DEFAULTBG);
+					  window.sideClicked.setBorder(DEFAULT_BORDER);
 					  window.sideClicked = null;
 					  window.gridClicked = null;
 				  }
@@ -87,7 +88,7 @@ public abstract class TileArea extends JPanel{
 				  {
 					  window.gridClicked = tile;
 					  tile.isClicked = true;
-					  tile.setBackground(SELECTEDBG);
+					  tile.setBorder(SELECTED_BORDER);
 					  System.out.println("Grid Tile Clicked");
 				  }
 			  }
@@ -103,8 +104,7 @@ public abstract class TileArea extends JPanel{
 					  
 					  window.gridClicked.isClicked = false;
 					  tile.isClicked = false;
-					  // Set default background for selected tile
-					  window.gridClicked.setBackground(DEFAULTBG);
+					  window.gridClicked.setBorder(DEFAULT_BORDER);
 					  window.sideClicked = null;
 					  window.gridClicked = null;
 				  }
@@ -112,8 +112,7 @@ public abstract class TileArea extends JPanel{
 				  {
 					  window.sideClicked = tile;
 					  tile.isClicked = true;
-					  // Set selection color of button
-					  tile.setBackground(SELECTEDBG);
+					  tile.setBorder(SELECTED_BORDER);
 					  System.out.println("Side Tile Clicked");
 				  }
 			  }
