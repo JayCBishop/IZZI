@@ -26,12 +26,8 @@ public class GameWindow extends JFrame implements ActionListener {
     TileArea grid;
     TileArea sideButtons;
     
-    Tile firstClicked;
-    Tile secondClicked;
-    
-    // Used to determine if the first clicked tile was a side or grid tile
-    // true for gridTile, false for sideTile
-    boolean firstClickedId;
+    Tile sideClicked;
+    Tile gridClicked;
 
     /*
      * Here I declare some buttons and declare an array to hold the grid
