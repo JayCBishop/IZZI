@@ -23,6 +23,8 @@ public abstract class TileArea extends JPanel{
    * Stupid serializable stuff
    */
   private static final long serialVersionUID = 1;
+  private static final Color DEFAULTBG = new JButton().getBackground();
+  private static final Color SELECTEDBG = Color.LIGHT_GRAY;
   
   protected TileArea(){
 	  super();
@@ -76,6 +78,8 @@ public abstract class TileArea extends JPanel{
 					  
 					  window.sideClicked.isClicked = false;
 					  tile.isClicked = false;
+					  // Set default background for selected tile
+					  window.sideClicked.setBackground(DEFAULTBG);
 					  window.sideClicked = null;
 					  window.gridClicked = null;
 				  }
@@ -83,6 +87,7 @@ public abstract class TileArea extends JPanel{
 				  {
 					  window.gridClicked = tile;
 					  tile.isClicked = true;
+					  tile.setBackground(SELECTEDBG);
 					  System.out.println("Grid Tile Clicked");
 				  }
 			  }
@@ -98,6 +103,8 @@ public abstract class TileArea extends JPanel{
 					  
 					  window.gridClicked.isClicked = false;
 					  tile.isClicked = false;
+					  // Set default background for selected tile
+					  window.gridClicked.setBackground(DEFAULTBG);
 					  window.sideClicked = null;
 					  window.gridClicked = null;
 				  }
@@ -105,6 +112,8 @@ public abstract class TileArea extends JPanel{
 				  {
 					  window.sideClicked = tile;
 					  tile.isClicked = true;
+					  // Set selection color of button
+					  tile.setBackground(SELECTEDBG);
 					  System.out.println("Side Tile Clicked");
 				  }
 			  }
