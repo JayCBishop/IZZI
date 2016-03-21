@@ -31,7 +31,7 @@ public class GridButtons extends TileArea {
         
         for (int index = 0; index < 16; index++) {
             tiles[index] = new Tile(this, index);
-            Insets inset = tiles[index].getInsets();
+            Insets inset = tiles[index].getTileInsets();
             this.addButtons(this, tiles[index], (index % 4),
                     (index / 4), 1, 1, basic.CENTER, basic.BOTH, inset);
             this.addActionListener(tiles[index], window, 0);
