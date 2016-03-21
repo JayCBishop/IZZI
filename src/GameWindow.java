@@ -1,5 +1,8 @@
 
 /**
+ * Added Group G as additional authors on 3-21-2016  D.K.
+ * See Main for a list of Group G members
+ * @author- Group G
  * @author Kim Buckner
  * Date: Feb 19, 2016
  *
@@ -103,6 +106,8 @@ public class GameWindow extends JFrame implements ActionListener {
         Dimension buttonDimen = new Dimension(buttonWidth,buttonHeight);
         
         // Initialize buttons
+        //Font size is 1/3 of button width so it will be more consistent
+        //between different machines.  D.K. 
         Main.newGameButton = new JButton("new");
         Main.newGameButton.setMinimumSize(buttonDimen);
         Main.newGameButton.setMaximumSize(buttonDimen);

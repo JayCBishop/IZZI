@@ -1,10 +1,16 @@
 /**
+ *Additional authors for all files are Group G.  The members
+ *are listed below and here-in will be listed as Group G
+ * @author- Jay Bishop, Evan Turner, Anna Carrigan, Kyle Bobak,
+ *          Debbie Kretzschmar -- 3-21-2016  D.K. 
+ * 
  * @author Kim Buckner
  * Date: Feb 19, 2016
  *
  * A starting point for the COSC 3011 programming assignment
  * Probably need to fix a bunch of stuff, but this compiles and runs.
  *
+
  */
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +25,7 @@ public class Main
   public static void main(String[] args)
   {
     // This is the play area
+    // Named the GameWindow after our group  D.K.
     GameWindow game = new GameWindow("Group G aMaze");
     
     // have to override the default layout to reposition things!!!!!!!

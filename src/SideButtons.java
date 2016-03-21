@@ -1,7 +1,9 @@
 /**
+ * added authors as Group G on 3-21-2016  D.K.
+ * Members listed in Main.java
  * Tile.java
  * Software Design, Spring 2016
- * Group G
+ * @author- Group G
  * Created 2/23/2016
  * 
  * Two collections of tiles that form two side panels
@@ -38,7 +40,7 @@ public class SideButtons extends TileArea
         for (int index = 0; index < 8; index++) {
             tiles[index] = new Tile(this, index);
             tiles[index].setInGrid(false);
-            Insets inset = tiles[index].getInsets();
+            Insets inset = tiles[index].getTileInsets();
             this.addButtons(leftPanel, tiles[index], 1,
                     index, 1, 1, basic.CENTER, basic.BOTH, inset);
             this.addActionListener(tiles[index], window, 1);
@@ -48,7 +50,7 @@ public class SideButtons extends TileArea
         for (int index = 8; index < 16; index++) {
             tiles[index] = new Tile(this, index);
             tiles[index].setInGrid(false);
-            Insets inset = tiles[index].getInsets();
+            Insets inset = tiles[index].getTileInsets();
             this.addButtons(rightPanel, tiles[index], 1,
                     index, 1, 1, basic.CENTER, basic.BOTH, inset);
             this.addActionListener(tiles[index], window, 1);
@@ -56,4 +58,3 @@ public class SideButtons extends TileArea
     
     }
 }
-

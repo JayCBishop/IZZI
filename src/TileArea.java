@@ -1,7 +1,9 @@
 /**
+ * Added authors as Group G on 3-21-2016  D.K.
+ * Members are listed in Main.java
  * Tile.java
  * Software Design, Spring 2016
- * Group G
+ * @author- Group G
  * Created 2/23/2016
  * 
  * Contains functionality used by SideButtons and
@@ -22,14 +24,14 @@ public abstract class TileArea extends JPanel{
   private Tile tile;
   private boolean blank;
   /**
-   * Stupid serializable stuff
+   * Program needs serialVersion UID  D.K. 
    */
   private static final long serialVersionUID = 1;
   private static final Border DEFAULT_BORDER = new JButton().getBorder();
   private static final Border SELECTED_BORDER = new LineBorder(Color.ORANGE, 4);
   
   protected TileArea(){
-	  super();
+    super();
     //stub for constructor
   }
   
@@ -66,76 +68,76 @@ public abstract class TileArea extends JPanel{
    */
   public void addActionListener(Tile tile, GameWindow window, int type)
   {
-	  tile.addActionListener(new ActionListener(){
-		  public void actionPerformed(ActionEvent evt) {
-			  // gridTile Clicked
-			  if(type == 0)
-			  {		
-				  // Tile is already selected
-				  if(window.firstClicked != null && tile.isClicked)
-				  {
-					  System.out.println("The Tile is already selected");
-				  }
-				  // Second Tile Clicked
-				  else if(window.firstClicked != null)
-				  {
-					  System.out.println("Move images of the selected tiles");
-					  
-					  window.firstClicked.setBorder(DEFAULT_BORDER);
-					  window.firstClicked.isClicked = false;
-					  tile.isClicked = false;
-					  window.firstClicked = null;
-					  window.secondClicked = null;
-					  window.firstClickedId = true;
-				  }
-				  // First Tile Clicked
-				  else
-				  {
-					  window.firstClicked = tile;
-					  window.firstClickedId = true;
-					  tile.isClicked = true;
-					  System.out.println("Grid Tile Clicked");
-					  window.firstClickedId = true;
-					  tile.setBorder(SELECTED_BORDER);
-				  }
-			  }
-			  // sideTile Clicked
-			  else
-			  {
-				  // Tile is already Selected
-				  if(window.firstClicked != null && tile.isClicked)
-				  {
-					  System.out.println("The Tile is already selected");
-				  }
-				  // Two SideTiles Selected
-				  else if(window.firstClicked != null && window.firstClickedId == false)
-				  {
-					  System.out.println("A Side Tile is already selected");
-				  }
-				  // Second Tile Clicked
-				  else if(window.firstClicked != null)
-				  {
-					  System.out.println("Move images of the selected tiles");
-					  
-					  window.firstClicked.setBorder(DEFAULT_BORDER);
-					  window.firstClicked.isClicked = false;
-					  tile.isClicked = false;
-					  window.firstClicked = null;
-					  window.secondClicked = null;
-					  window.firstClickedId = true;
-				  }
-				  // First Tile Clicked
-				  else
-				  {
-					  window.firstClicked = tile;
-					  tile.isClicked = true;
-					  System.out.println("Side Tile Clicked");
-					  window.firstClickedId = false;
-					  tile.setBorder(SELECTED_BORDER);
-				  }
-			  }
-		  }
-	  });
+    tile.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent evt) {
+        // gridTile Clicked
+        if(type == 0)
+        {   
+          // Tile is already selected
+          if(window.firstClicked != null && tile.isClicked)
+          {
+            System.out.println("The Tile is already selected");
+          }
+          // Second Tile Clicked
+          else if(window.firstClicked != null)
+          {
+            System.out.println("Move images of the selected tiles");
+            
+            window.firstClicked.setBorder(DEFAULT_BORDER);
+            window.firstClicked.isClicked = false;
+            tile.isClicked = false;
+            window.firstClicked = null;
+            window.secondClicked = null;
+            window.firstClickedId = true;
+          }
+          // First Tile Clicked
+          else
+          {
+            window.firstClicked = tile;
+            window.firstClickedId = true;
+            tile.isClicked = true;
+            System.out.println("Grid Tile Clicked");
+            window.firstClickedId = true;
+            tile.setBorder(SELECTED_BORDER);
+          }
+        }
+        // sideTile Clicked
+        else
+        {
+          // Tile is already Selected
+          if(window.firstClicked != null && tile.isClicked)
+          {
+            System.out.println("The Tile is already selected");
+          }
+          // Two SideTiles Selected
+          else if(window.firstClicked != null && window.firstClickedId == false)
+          {
+            System.out.println("A Side Tile is already selected");
+          }
+          // Second Tile Clicked
+          else if(window.firstClicked != null)
+          {
+            System.out.println("Move images of the selected tiles");
+            
+            window.firstClicked.setBorder(DEFAULT_BORDER);
+            window.firstClicked.isClicked = false;
+            tile.isClicked = false;
+            window.firstClicked = null;
+            window.secondClicked = null;
+            window.firstClickedId = true;
+          }
+          // First Tile Clicked
+          else
+          {
+            window.firstClicked = tile;
+            tile.isClicked = true;
+            System.out.println("Side Tile Clicked");
+            window.firstClickedId = false;
+            tile.setBorder(SELECTED_BORDER);
+          }
+        }
+      }
+    });
   }
 
   /**

@@ -1,8 +1,9 @@
-
 /**
+ * Added authors as Group G on 3-21-2016  D.K.
+ * Members of group listed in Main.java
  * Tile.java
  * Software Design, Spring 2016
- * Group G
+ * @author-Group G
  * Created 2/23/2016
  * 
  * Is a collection of multiple tiles that form a grid

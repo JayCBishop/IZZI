@@ -1,8 +1,9 @@
-
 /**
+ * Added authors as Group G on 3-21-2016  D.K.
  * Tile.java
  * Software Design, Spring 2016
- * Group G
+ * @author - Group G -- see Main.Java for 
+ *           members of Group G
  * Created 2/23/2016
  * 
  * A Tile extends JButton but may also contain an
@@ -37,7 +38,7 @@ public class Tile extends JButton implements ActionListener {
 
     // default constructor -- right now this just creates a button
     public Tile() {
-    	super();
+      super();
     }
 
     /**
