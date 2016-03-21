@@ -26,8 +26,12 @@ public class GameWindow extends JFrame implements ActionListener {
     TileArea grid;
     TileArea sideButtons;
     
-    Tile sideClicked;
-    Tile gridClicked;
+    Tile firstClicked;
+    Tile secondClicked;
+    
+    // Used to determine if the first clicked tile was a side or grid tile
+    // true for gridTile, false for sideTile
+    boolean firstClickedId;
 
     /*
      * Here I declare some buttons and declare an array to hold the grid
@@ -146,6 +150,8 @@ public class GameWindow extends JFrame implements ActionListener {
         gbc.gridx = 0;
         gbc.insets = new Insets(50, 25, 75, 0);
         gbc.gridheight = 8;
+        gbc.ipadx = -32;
+        gbc.ipady = -12;
         add(((SideButtons) sideButtons).leftPanel, gbc);
         
         gbc.gridy = 2;
