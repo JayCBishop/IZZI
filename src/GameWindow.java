@@ -29,12 +29,11 @@ public class GameWindow extends JFrame implements ActionListener {
     TileArea grid;
     TileArea sideButtons;
     
-    Tile firstClicked;
-    Tile secondClicked;
+    private Tile firstClicked, secondClicked;
     
     // Used to determine if the first clicked tile was a side or grid tile
     // true for gridTile, false for sideTile
-    boolean firstClickedId;
+    private boolean firstClickedId;
 
     /*
      * Here I declare some buttons and declare an array to hold the grid
@@ -176,5 +175,64 @@ public class GameWindow extends JFrame implements ActionListener {
      * the gameBoard
      */
 
+    /**
+     * Getter for the first tile clicked on
+     * @return the first tile clicked on
+     * -Jay 3/21/2016
+     */
+    public Tile getFirstClicked()
+    {
+    	return firstClicked;
+    }
     
+    /**
+     * Setter for the first tile clicked on
+     * @param the value to set the tile as
+     * -Jay 3/21/2016
+     */
+    public void setFirstClicked(Tile firClick)
+    {
+    	firstClicked = firClick;
+    }
+    
+    /**
+     * Getter for the second tile clicked on
+     * @return the second tile clicked on
+     * -Jay 3/21/2016
+     */
+    public Tile getSecondClicked()
+    {
+    	return secondClicked;
+    }
+    
+    /**
+     * Setter for the second tile clicked on
+     * @param the value to set the tile as
+     * -Jay 3/21/2016
+     */
+    public void setSecondClicked(Tile secClick)
+    {
+    	secondClicked = secClick;
+    }
+    
+    
+    /**
+     * Getter for the firstClicked ID
+     * @return the id of the first clicked on tile
+     * -Jay 3/21/2016
+     */
+    public boolean getFirstClickedId()
+    {
+    	return firstClickedId;
+    }
+    
+    /**
+     * Setter for the first tile clicked on Id
+     * @param the value to set the tile Id as
+     * -Jay 3/21/2016
+     */
+    public void setFirstClickedId(boolean Id)
+    {
+    	firstClickedId = Id;
+    } 
 };

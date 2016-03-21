@@ -60,11 +60,14 @@ public abstract class TileArea extends JPanel{
   }
   
   /**
-   * Adds an actionListener to a tile
+   * Adds an actionListener to a tile that controls the clicking
+   * on each of the tiles. If two grid tiles are clicked, or a grid
+   * and a side tile is clicked, the images of the two tiles are swapped
    * 
    * @param tile: the tile to add an actionListener to
    * @param window: the GameWindow object the tile is a piece of
    * @param type: the type of button that is clicked
+   * -Jay 3/18/2016 (last updated: 3/21/2016)
    */
   public void addActionListener(Tile tile, GameWindow window, int type)
   {
@@ -74,30 +77,30 @@ public abstract class TileArea extends JPanel{
         if(type == 0)
         {   
           // Tile is already selected
-          if(window.firstClicked != null && tile.isClicked)
+          if(window.getFirstClicked() != null && tile.isClicked)
           {
             System.out.println("The Tile is already selected");
           }
           // Second Tile Clicked
-          else if(window.firstClicked != null)
+          else if(window.getFirstClicked() != null)
           {
             System.out.println("Move images of the selected tiles");
             
-            window.firstClicked.setBorder(DEFAULT_BORDER);
-            window.firstClicked.isClicked = false;
+            window.getFirstClicked().setBorder(DEFAULT_BORDER);
+            window.getFirstClicked().isClicked = false;
             tile.isClicked = false;
-            window.firstClicked = null;
-            window.secondClicked = null;
-            window.firstClickedId = true;
+            window.setFirstClicked(null);
+            window.setSecondClicked(null);
+            window.setFirstClickedId(true);
           }
           // First Tile Clicked
           else
           {
-            window.firstClicked = tile;
-            window.firstClickedId = true;
+            window.setFirstClicked(tile);
+            window.setFirstClickedId(true);
             tile.isClicked = true;
             System.out.println("Grid Tile Clicked");
-            window.firstClickedId = true;
+            window.setFirstClickedId(true);
             tile.setBorder(SELECTED_BORDER);
           }
         }
@@ -105,34 +108,34 @@ public abstract class TileArea extends JPanel{
         else
         {
           // Tile is already Selected
-          if(window.firstClicked != null && tile.isClicked)
+          if(window.getFirstClicked() != null && tile.isClicked)
           {
             System.out.println("The Tile is already selected");
           }
           // Two SideTiles Selected
-          else if(window.firstClicked != null && window.firstClickedId == false)
+          else if(window.getFirstClicked() != null && window.getFirstClickedId() == false)
           {
             System.out.println("A Side Tile is already selected");
           }
           // Second Tile Clicked
-          else if(window.firstClicked != null)
+          else if(window.getFirstClicked() != null)
           {
             System.out.println("Move images of the selected tiles");
             
-            window.firstClicked.setBorder(DEFAULT_BORDER);
-            window.firstClicked.isClicked = false;
+            window.getFirstClicked().setBorder(DEFAULT_BORDER);
+            window.getFirstClicked().isClicked = false;
             tile.isClicked = false;
-            window.firstClicked = null;
-            window.secondClicked = null;
-            window.firstClickedId = true;
+            window.setFirstClicked(null);
+            window.setSecondClicked(null);
+            window.setFirstClickedId(true);
           }
           // First Tile Clicked
           else
           {
-            window.firstClicked = tile;
+            window.setFirstClicked(tile);
             tile.isClicked = true;
             System.out.println("Side Tile Clicked");
-            window.firstClickedId = false;
+            window.setFirstClickedId(false);
             tile.setBorder(SELECTED_BORDER);
           }
         }
