@@ -21,7 +21,7 @@ public class GridButtons extends TileArea {
     /**
      * Constructor creates a grid from an array of 16 tiles
      *
-     * @param framee
+     * @param frame
      */
     GridButtons(GameWindow window) {
         super();

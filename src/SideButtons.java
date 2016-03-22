@@ -27,7 +27,7 @@ public class SideButtons extends TileArea
     /**
      * Constructor creates both the side panels from two arrays of 8 tiles
      *
-     * @param framee
+     * @param frame
      */
     SideButtons(GameWindow window) {
         GridBagLayout gbl=new GridBagLayout();

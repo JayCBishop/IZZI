@@ -82,6 +82,7 @@ public abstract class TileArea extends JPanel{
           {
             window.setFirstClicked(null);
             tile.setBorder(DEFAULT_BORDER);
+            tile.isClicked = false;
           }
           // Second Tile Clicked
           else if(window.getFirstClicked() != null)
@@ -114,6 +115,7 @@ public abstract class TileArea extends JPanel{
           {
         	  window.setFirstClicked(null);
               tile.setBorder(DEFAULT_BORDER);
+              tile.isClicked = false;
           }
           // Two SideTiles Selected
           else if(window.getFirstClicked() != null && window.getFirstClickedId() == false)
