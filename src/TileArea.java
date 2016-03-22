@@ -67,7 +67,8 @@ public abstract class TileArea extends JPanel{
    * @param tile: the tile to add an actionListener to
    * @param window: the GameWindow object the tile is a piece of
    * @param type: the type of button that is clicked
-   * -Jay 3/18/2016 (last updated: 3/21/2016)
+   * -Jay 3/18/2016 (last updated: 3/21/2016) 
+   * -Evan 3/21/2016
    */
   public void addActionListener(Tile tile, GameWindow window, int type)
   {
@@ -79,7 +80,8 @@ public abstract class TileArea extends JPanel{
           // Tile is already selected
           if(window.getFirstClicked() != null && tile.isClicked)
           {
-            System.out.println("The Tile is already selected");
+            window.setFirstClicked(null);
+            tile.setBorder(DEFAULT_BORDER);
           }
           // Second Tile Clicked
           else if(window.getFirstClicked() != null)
@@ -110,7 +112,8 @@ public abstract class TileArea extends JPanel{
           // Tile is already Selected
           if(window.getFirstClicked() != null && tile.isClicked)
           {
-            System.out.println("The Tile is already selected");
+        	  window.setFirstClicked(null);
+              tile.setBorder(DEFAULT_BORDER);
           }
           // Two SideTiles Selected
           else if(window.getFirstClicked() != null && window.getFirstClickedId() == false)
