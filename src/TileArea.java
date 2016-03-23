@@ -87,6 +87,8 @@ public abstract class TileArea extends JPanel{
           // Second Tile Clicked
           else if(window.getFirstClicked() != null)
           {
+        	window.setSecondClicked(tile);
+        	  
             System.out.println("Move images of the selected tiles");
             
             window.getFirstClicked().setBorder(DEFAULT_BORDER);
@@ -125,6 +127,8 @@ public abstract class TileArea extends JPanel{
           // Second Tile Clicked
           else if(window.getFirstClicked() != null)
           {
+        	window.setSecondClicked(tile);
+        	  
             System.out.println("Move images of the selected tiles");
             
             window.getFirstClicked().setBorder(DEFAULT_BORDER);
