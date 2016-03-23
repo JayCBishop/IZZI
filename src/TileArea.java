@@ -94,16 +94,16 @@ public abstract class TileArea extends JPanel{
             tile.isClicked = false;
             window.setFirstClicked(null);
             window.setSecondClicked(null);
-            window.setFirstClickedId(true);
+            window.setFirstClickedIsGrid(true);
           }
           // First Tile Clicked
           else
           {
             window.setFirstClicked(tile);
-            window.setFirstClickedId(true);
+            window.setFirstClickedIsGrid(true);
             tile.isClicked = true;
             System.out.println("Grid Tile Clicked");
-            window.setFirstClickedId(true);
+            window.setFirstClickedIsGrid(true);
             tile.setBorder(SELECTED_BORDER);
           }
         }
@@ -118,7 +118,7 @@ public abstract class TileArea extends JPanel{
               tile.isClicked = false;
           }
           // Two SideTiles Selected
-          else if(window.getFirstClicked() != null && window.getFirstClickedId() == false)
+          else if(window.getFirstClicked() != null && window.getFirstClickedIsGrid() == false)
           {
             System.out.println("A Side Tile is already selected");
           }
@@ -132,7 +132,7 @@ public abstract class TileArea extends JPanel{
             tile.isClicked = false;
             window.setFirstClicked(null);
             window.setSecondClicked(null);
-            window.setFirstClickedId(true);
+            window.setFirstClickedIsGrid(true);
           }
           // First Tile Clicked
           else
@@ -140,7 +140,7 @@ public abstract class TileArea extends JPanel{
             window.setFirstClicked(tile);
             tile.isClicked = true;
             System.out.println("Side Tile Clicked");
-            window.setFirstClickedId(false);
+            window.setFirstClickedIsGrid(false);
             tile.setBorder(SELECTED_BORDER);
           }
         }

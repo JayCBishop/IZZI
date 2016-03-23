@@ -33,7 +33,7 @@ public class GameWindow extends JFrame implements ActionListener {
     
     // Used to determine if the first clicked tile was a side or grid tile
     // true for gridTile, false for sideTile
-    private boolean firstClickedId;
+    private boolean firstClickedIsGrid;
 
     /*
      * Here I declare some buttons and declare an array to hold the grid
@@ -221,9 +221,9 @@ public class GameWindow extends JFrame implements ActionListener {
      * @return the id of the first clicked on tile
      * -Jay 3/21/2016
      */
-    public boolean getFirstClickedId()
+    public boolean getFirstClickedIsGrid()
     {
-    	return firstClickedId;
+    	return firstClickedIsGrid;
     }
     
     /**
@@ -231,8 +231,8 @@ public class GameWindow extends JFrame implements ActionListener {
      * @param the value to set the tile Id as
      * -Jay 3/21/2016
      */
-    public void setFirstClickedId(boolean Id)
+    public void setFirstClickedIsGrid(boolean isGrid)
     {
-    	firstClickedId = Id;
+    	firstClickedIsGrid = isGrid;
     } 
 };
