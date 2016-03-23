@@ -12,6 +12,7 @@
  */
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -39,12 +40,17 @@ public class Tile extends JButton implements ActionListener{
     /**
      * Establishes the initial board
      */
+    //Added font "styles" to constructor for all tiles instead of 
+    //  individually in SideButtons and GridButtons
+    //  This way when a change is needed, it can be done in 
+    //  one place instead of three different areas.  DK 3-23-2016
     public Tile(JPanel panel, int i) {
         super();
         Dimension d = new Dimension(75, 75);
         this.setPreferredSize(d);
         this.setMaximumSize(d);
         this.setMinimumSize(d);
+        this.setFont(new Font("Arial", Font.PLAIN, 20));
     }
 
     /**
