@@ -35,7 +35,7 @@ public class SideButtons extends TileArea
         rightPanel.setLayout(gbl);
         leftPanel.setBackground(Color.cyan);
         rightPanel.setBackground(Color.cyan);
-        sdfghjkjhgtrerfghjkl;loiuytrtyhuioppoiuythyuiopoiuhyghioiuhygf
+        
         //Add the left SideButtons panel
         for (int index = 0; index < 8; index++) {
             tiles[index] = new Tile(this, index);
