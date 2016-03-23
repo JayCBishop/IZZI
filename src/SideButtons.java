@@ -37,7 +37,7 @@ public class SideButtons extends TileArea
         rightPanel.setBackground(Color.cyan);
         
         //Add the left SideButton panel
-        //Add the numbers 0 thru 7 to the tiles
+        //Add the numbers 0 thru 7 to the tiles DK 3-22-2016
                
         for (int index = 0; index < 8; index++) {
           String name = Integer.toString(index);
@@ -52,7 +52,7 @@ public class SideButtons extends TileArea
         }
       
         //Add the right SideButtons panel
-        //Add the numbers 8 thru 15 to the tiles
+        //Add the numbers 8 thru 15 to the tiles DK 3-22-2016
         
         for (int index = 8; index < 16; index++) {
           String name = Integer.toString(index);
