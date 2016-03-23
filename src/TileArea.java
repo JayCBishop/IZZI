@@ -113,7 +113,11 @@ public abstract class TileArea extends JPanel{
           // Tile is already Selected
           if(window.getFirstClicked() != null && tile.isClicked)
           {
+<<<<<<< HEAD
             window.setFirstClicked(null);
+=======
+        	  window.setFirstClicked(null);
+>>>>>>> origin/master
               tile.setBorder(DEFAULT_BORDER);
               tile.isClicked = false;
           }
