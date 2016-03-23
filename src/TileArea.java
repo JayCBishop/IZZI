@@ -86,8 +86,7 @@ public abstract class TileArea extends JPanel{
           else if(window.getFirstClicked() != null)
           {
         	window.setSecondClicked(tile);
-        	  
-            System.out.println("Move images of the selected tiles");
+
             switchTiles(window.getFirstClicked(), window.getSecondClicked());
             
             deselectTile(window,window.getFirstClicked());
@@ -110,14 +109,14 @@ public abstract class TileArea extends JPanel{
           // Two SideTiles Selected
           else if(window.getFirstClicked() != null && window.getFirstClickedIsGrid() == false)
           {
-            System.out.println("A Side Tile is already selected");
+        	  deselectTile(window,window.getFirstClicked());
+        	  selectTile(window, tile, false);
           }
           // Second Tile Clicked
           else if(window.getFirstClicked() != null)
           {
         	window.setSecondClicked(tile);
-        	  
-            System.out.println("Move images of the selected tiles");
+
             switchTiles(window.getFirstClicked(), window.getSecondClicked());
             
             deselectTile(window,window.getFirstClicked());
@@ -144,7 +143,6 @@ public abstract class TileArea extends JPanel{
   {
 	  window.setFirstClicked(tile);
       tile.isClicked = true;
-      System.out.println("Side Tile Clicked");
       window.setFirstClickedIsGrid(type);
       tile.setBorder(SELECTED_BORDER);
   }
