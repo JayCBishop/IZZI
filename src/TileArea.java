@@ -80,14 +80,23 @@ public abstract class TileArea extends JPanel{
           // Tile is already selected
           if(window.getFirstClicked() != null && tile.isClicked)
           {
-        	  unselectTile(window, tile);
+            window.setFirstClicked(null);
+            tile.setBorder(DEFAULT_BORDER);
+            tile.isClicked = false;
           }
           // Second Tile Clicked
           else if(window.getFirstClicked() != null)
           {
-        	window.setSecondClicked(tile);  
+        	window.setSecondClicked(tile);
+        	  
             System.out.println("Move images of the selected tiles");
-            clearSelectedTiles(window, tile);
+            switchTiles(window.getFirstClicked(), window.getSecondClicked());
+            window.getFirstClicked().setBorder(DEFAULT_BORDER);
+            window.getFirstClicked().isClicked = false;
+            tile.isClicked = false;
+            window.setFirstClicked(null);
+            window.setSecondClicked(null);
+            window.setFirstClickedIsGrid(true);
           }
           // First Tile Clicked
           else
@@ -106,7 +115,9 @@ public abstract class TileArea extends JPanel{
           // Tile is already Selected
           if(window.getFirstClicked() != null && tile.isClicked)
           {
-        	  unselectTile(window, tile);
+        	  window.setFirstClicked(null);
+              tile.setBorder(DEFAULT_BORDER);
+              tile.isClicked = false;
           }
           // Two SideTiles Selected
           else if(window.getFirstClicked() != null && window.getFirstClickedIsGrid() == false)
@@ -117,8 +128,15 @@ public abstract class TileArea extends JPanel{
           else if(window.getFirstClicked() != null)
           {
         	window.setSecondClicked(tile);
+        	  
             System.out.println("Move images of the selected tiles");
-            clearSelectedTiles(window, tile);
+            switchTiles(window.getFirstClicked(), window.getSecondClicked());
+            window.getFirstClicked().setBorder(DEFAULT_BORDER);
+            window.getFirstClicked().isClicked = false;
+            tile.isClicked = false;
+            window.setFirstClicked(null);
+            window.setSecondClicked(null);
+            window.setFirstClickedIsGrid(true);
           }
           // First Tile Clicked
           else
@@ -132,35 +150,6 @@ public abstract class TileArea extends JPanel{
         }
       }
     });
-  }
-  
-  /**
-   *  Clears the currently selected tiles
-   * @param window
-   * @param tile
-   * -Jay 3/22/2016
-   */
-  public void clearSelectedTiles(GameWindow window, Tile tile)
-  {
-	  window.getFirstClicked().setBorder(DEFAULT_BORDER);
-      window.getFirstClicked().isClicked = false;
-      tile.isClicked = false;
-      window.setFirstClicked(null);
-      window.setSecondClicked(null);
-      window.setFirstClickedIsGrid(true);
-  }
-  
-  /**
-   *  De-selects a Tile
-   * @param window
-   * @param tile
-   * -Jay 3/22/2016
-   */
-  public void unselectTile(GameWindow window, Tile tile)
-  {
-	  window.setFirstClicked(null);
-      tile.setBorder(DEFAULT_BORDER);
-      tile.isClicked = false;
   }
 
   /**
@@ -177,5 +166,14 @@ public abstract class TileArea extends JPanel{
   
   public void placeTile(){
     //stub
+	  
+		  
+  }
+  
+  private void switchTiles(Tile firstClicked, Tile secondClicked){
+  
+	  String temp = firstClicked.getText();
+	  firstClicked.setText(secondClicked.getText());
+	  secondClicked.setText(temp);
   }
 }
