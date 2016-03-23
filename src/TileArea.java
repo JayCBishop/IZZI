@@ -64,70 +64,54 @@ public abstract class TileArea extends JPanel{
    * 
    * @param tile: the tile to add an actionListener to
    * @param window: the GameWindow object the tile is a piece of
-   * @param type: the type of button that is clicked
-   * -Jay 3/18/2016 (last updated: 3/21/2016) 
+   * @param type: the type of button that is clicked true is grid, false is side
+   * -Jay 3/18/2016 (last updated: 3/23/2016) 
    * -Evan 3/21/2016
    */
-  public void addActionListener(Tile tile, GameWindow window, int type)
+  public void addActionListener(Tile tile, GameWindow window, boolean type)
   {
-    tile.addActionListener(new ActionListener(){
-      public void actionPerformed(ActionEvent evt) {
-        // gridTile Clicked
-        if(type == 0)
-        {   
-          // Tile is already selected
-          if(window.getFirstClicked() != null && tile.isClicked)
-          {
-            deselectTile(window,tile);
-          }
-          // Second Tile Clicked
-          else if(window.getFirstClicked() != null)
-          {
-        	window.setSecondClicked(tile);
-
-            switchTiles(window.getFirstClicked(), window.getSecondClicked());
-            
-            deselectTile(window,window.getFirstClicked());
-            deselectTile(window,tile);
-          }
-          // First Tile Clicked
-          else
-          {
-        	  selectTile(window, tile, true);
-          }
-        }
-        // sideTile Clicked
-        else
-        {
-          // Tile is already Selected
-          if(window.getFirstClicked() != null && tile.isClicked)
-          {
-        	  deselectTile(window,tile);
-          }
-          // Two SideTiles Selected
-          else if(window.getFirstClicked() != null && window.getFirstClickedIsGrid() == false)
-          {
-        	  deselectTile(window,window.getFirstClicked());
-        	  selectTile(window, tile, false);
-          }
-          // Second Tile Clicked
-          else if(window.getFirstClicked() != null)
-          {
-        	window.setSecondClicked(tile);
-
-            switchTiles(window.getFirstClicked(), window.getSecondClicked());
-            
-            deselectTile(window,window.getFirstClicked());
-            deselectTile(window,tile);
-          }
-          // First Tile Clicked
-          else
-          {
-            selectTile(window, tile, false);
-          }
-        }
-      }
-    });
+	  tile.addActionListener(new ActionListener(){
+		  public void actionPerformed(ActionEvent evt) {
+	          // Tile is already selected
+	          if(window.getFirstClicked() != null && tile.isClicked)
+	          {
+	            deselectTile(window,tile);
+	          }
+	          // Second Tile Clicked
+	          else if(window.getFirstClicked() != null)
+	          {
+	        	  // Two sideTile selected
+	        	  if(!window.getFirstClickedIsGrid() && type == false)
+	        	  {
+	        		  deselectTile(window,window.getFirstClicked());
+	            	  selectTile(window, tile, false);
+	        	  }
+	        	  // Both tiles have text
+	        	  else if(window.getFirstClicked().getText() != "" &&
+	        			  tile.getText() != "")
+	        	  {
+	        		  deselectTile(window,window.getFirstClicked());
+	        	  }
+	        	  // Swap tiles
+	        	  else
+	        	  {
+	        		  window.setSecondClicked(tile);
+	        		  switchTiles(window.getFirstClicked(), window.getSecondClicked());
+	        		  deselectTile(window,window.getFirstClicked());
+	        		  deselectTile(window,tile);
+	        	  }
+	          }
+	          // First Tile Clicked
+	          else
+	          {
+	        	  if(tile.getText() != "")
+	        	  {
+	        		  selectTile(window, tile, true);
+	        		  window.setFirstClickedIsGrid(type);
+	        	  }
+	          }
+	        }
+	  });
   }
   
   /**
