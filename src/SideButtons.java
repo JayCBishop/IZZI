@@ -38,8 +38,13 @@ public class SideButtons extends TileArea
         
         //Add the left SideButtons panel
         for (int index = 0; index < 8; index++) {
+            String name = Integer.toString(index);
             tiles[index] = new Tile(this, index);
             tiles[index].setInGrid(false);
+            tiles[index].setText(name);
+            tiles[index].setFont(new Font("Arial", Font.PLAIN, 20));
+            tiles[index].setName(name);
+
             Insets inset = tiles[index].getTileInsets();
             this.addButtons(leftPanel, tiles[index], 1,
                     index, 1, 1, basic.CENTER, basic.BOTH, inset);
@@ -48,8 +53,13 @@ public class SideButtons extends TileArea
         
         //Add the right SideButtons panel
         for (int index = 8; index < 16; index++) {
+            String name = Integer.toString(index);
             tiles[index] = new Tile(this, index);
             tiles[index].setInGrid(false);
+            tiles[index].setText(name);
+            tiles[index].setFont(new Font("Arial", Font.PLAIN, 20));
+            tiles[index].setName(name);
+
             Insets inset = tiles[index].getTileInsets();
             this.addButtons(rightPanel, tiles[index], 1,
                     index, 1, 1, basic.CENTER, basic.BOTH, inset);
