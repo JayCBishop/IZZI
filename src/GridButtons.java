@@ -30,9 +30,12 @@ public class GridButtons extends TileArea {
         
         this.setBackground(Color.PINK);
         
+        //Create Gridbuttons in play area
+        //Made sure font same size as sideButtons  DK 3-23-2016
         for (int index = 0; index < 16; index++) {
             tiles[index] = new Tile(this, index);
             Insets inset = tiles[index].getTileInsets();
+            tiles[index].setFont(new Font("Arial", Font.PLAIN, 20));
             this.addButtons(this, tiles[index], (index % 4),
                     (index / 4), 1, 1, basic.CENTER, basic.BOTH, inset);
             this.addActionListener(tiles[index], window, 0);

@@ -181,7 +181,7 @@ public abstract class TileArea extends JPanel{
   }
   
   /**
-   * Swaps attributs of tiles
+   * Swaps attributes of tiles
    * @param firstClicked
    * @param secondClicked
    * -Kyle 3/22/2016
