@@ -11,9 +11,6 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 
 public class SideButtons extends TileArea
 {
@@ -45,9 +42,9 @@ public class SideButtons extends TileArea
           tiles[index].setInGrid(false);
           tiles[index].setText(name);
           tiles[index].setFont(new Font("Arial", Font.PLAIN, 20));
-          Insets inset = tiles[index].getTileInsets();
+          Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed method call AC 3-23-2016
           this.addButtons(leftPanel, tiles[index], 1,
-                  index, 1, 1, basic.CENTER, basic.BOTH, inset);
+                  index, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset); 
           this.addActionListener(tiles[index], window, 1);
         }
       
@@ -60,9 +57,9 @@ public class SideButtons extends TileArea
           tiles[index].setInGrid(false);
           tiles[index].setText(name);
           tiles[index].setFont(new Font("Arial", Font.PLAIN, 20));
-          Insets inset = tiles[index].getTileInsets();
+          Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed method call AC 3-23-2016
           this.addButtons(rightPanel, tiles[index], 1,
-                  index, 1, 1, basic.CENTER, basic.BOTH, inset);
+                  index, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
           this.addActionListener(tiles[index], window, 1);
         }
 

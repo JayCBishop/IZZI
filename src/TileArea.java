@@ -17,11 +17,9 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public abstract class TileArea extends JPanel{
-  private Tile tile;
   private boolean blank;
   /**
    * Program needs serialVersion UID  D.K. 
@@ -168,15 +166,6 @@ public abstract class TileArea extends JPanel{
     
   }
   
-  public void getTile(){
-    //stub
-  }
-  
-  public void placeTile(){
-    //stub
-	  
-		  
-  }
   
   /**
    * Swaps attributes of tiles

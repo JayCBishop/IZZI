@@ -18,20 +18,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Tile extends JButton implements ActionListener {
+public class Tile extends JButton implements ActionListener{
 
     private boolean drawn;
     private boolean inGrid;
     private Image image;
-    private JPanel panel;
-
     public final JButton button = new JButton();
     public Insets inset;
-    private int index;
-    
     public boolean isClicked;
 
     private static final long serialVersionUID = 1;
@@ -46,8 +41,6 @@ public class Tile extends JButton implements ActionListener {
      */
     public Tile(JPanel panel, int i) {
         super();
-        this.panel = panel;
-        index = i;
         Dimension d = new Dimension(75, 75);
         this.setPreferredSize(d);
         this.setMaximumSize(d);
@@ -107,15 +100,6 @@ public class Tile extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent arg0) {
         // Do whatever needs to be done when the tile is clicked
-    }
-
-    /**
-     * Gets the inset of the tile
-     */
-    public Insets getTileInsets() {
-        int width = panel.getWidth();
-        int height = panel.getHeight();     
-        inset = new Insets(0, 0, 0, 0);
-        return inset;
+        // Will likely be used for rotation events
     }
 }

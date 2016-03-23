@@ -35,13 +35,6 @@ public class GameWindow extends JFrame implements ActionListener {
     // true for gridTile, false for sideTile
     private boolean firstClickedIsGrid;
 
-    /*
-     * Here I declare some buttons and declare an array to hold the grid
-     * elements. But, you can do what you want.
-     */
-
-    private int startAt = 1;
-
     /**
      * Constructor sets the window name using super(), changes the layout, which
      * you really need to read up on, and maybe you can see why I chose this
@@ -217,8 +210,8 @@ public class GameWindow extends JFrame implements ActionListener {
     
     
     /**
-     * Getter for the firstClicked ID
-     * @return the id of the first clicked on tile
+     * Setter for whether the first tile is in the grid
+     * @return is the first tile in the grid?
      * -Jay 3/21/2016
      */
     public boolean getFirstClickedIsGrid()
@@ -227,8 +220,8 @@ public class GameWindow extends JFrame implements ActionListener {
     }
     
     /**
-     * Setter for the first tile clicked on Id
-     * @param the value to set the tile Id as
+     * Setter for whether the first tile is in the grid
+     * @param is the first tile in the grid?
      * -Jay 3/21/2016
      */
     public void setFirstClickedIsGrid(boolean isGrid)
