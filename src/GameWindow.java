@@ -1,5 +1,7 @@
-
 /**
+ * Added Group G as additional authors on 3-21-2016  D.K.
+ * See Main for a list of Group G members
+ * @author- Group G
  * @author Kim Buckner
  * Date: Feb 19, 2016
  *
@@ -26,8 +28,11 @@ public class GameWindow extends JFrame implements ActionListener {
     TileArea grid;
     TileArea sideButtons;
     
-    Tile sideClicked;
-    Tile gridClicked;
+    private Tile firstClicked, secondClicked;
+    
+    // Used to determine if the first clicked tile was a side or grid tile
+    // true for gridTile, false for sideTile
+    private boolean firstClickedId;
 
     /*
      * Here I declare some buttons and declare an array to hold the grid
@@ -99,6 +104,8 @@ public class GameWindow extends JFrame implements ActionListener {
         Dimension buttonDimen = new Dimension(buttonWidth,buttonHeight);
         
         // Initialize buttons
+        //Font size is 1/3 of button width so it will be more consistent
+        //between different machines.  D.K. 
         Main.newGameButton = new JButton("new");
         Main.newGameButton.setMinimumSize(buttonDimen);
         Main.newGameButton.setMaximumSize(buttonDimen);
@@ -146,8 +153,6 @@ public class GameWindow extends JFrame implements ActionListener {
         gbc.gridx = 0;
         gbc.insets = new Insets(50, 25, 75, 0);
         gbc.gridheight = 8;
-        gbc.ipadx = -32;
-        gbc.ipady = -12;
         add(((SideButtons) sideButtons).leftPanel, gbc);
         
         gbc.gridy = 2;
@@ -169,5 +174,64 @@ public class GameWindow extends JFrame implements ActionListener {
      * the gameBoard
      */
 
+    /**
+     * Getter for the first tile clicked on
+     * @return the first tile clicked on
+     * -Jay 3/21/2016
+     */
+    public Tile getFirstClicked()
+    {
+      return firstClicked;
+    }
     
+    /**
+     * Setter for the first tile clicked on
+     * @param the value to set the tile as
+     * -Jay 3/21/2016
+     */
+    public void setFirstClicked(Tile firClick)
+    {
+      firstClicked = firClick;
+    }
+    
+    /**
+     * Getter for the second tile clicked on
+     * @return the second tile clicked on
+     * -Jay 3/21/2016
+     */
+    public Tile getSecondClicked()
+    {
+      return secondClicked;
+    }
+    
+    /**
+     * Setter for the second tile clicked on
+     * @param the value to set the tile as
+     * -Jay 3/21/2016
+     */
+    public void setSecondClicked(Tile secClick)
+    {
+      secondClicked = secClick;
+    }
+    
+    
+    /**
+     * Getter for the firstClicked ID
+     * @return the id of the first clicked on tile
+     * -Jay 3/21/2016
+     */
+    public boolean getFirstClickedId()
+    {
+      return firstClickedId;
+    }
+    
+    /**
+     * Setter for the first tile clicked on Id
+     * @param the value to set the tile Id as
+     * -Jay 3/21/2016
+     */
+    public void setFirstClickedId(boolean Id)
+    {
+      firstClickedId = Id;
+    } 
 };

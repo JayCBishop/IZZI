@@ -1,8 +1,9 @@
-
 /**
+ * Added authors as Group G on 3-21-2016  D.K.
+ * Members of group listed in Main.java
  * Tile.java
  * Software Design, Spring 2016
- * Group G
+ * @author-Group G
  * Created 2/23/2016
  * 
  * Is a collection of multiple tiles that form a grid
@@ -20,7 +21,7 @@ public class GridButtons extends TileArea {
     /**
      * Constructor creates a grid from an array of 16 tiles
      *
-     * @param framee
+     * @param frame
      */
     GridButtons(GameWindow window) {
         super();
@@ -31,7 +32,7 @@ public class GridButtons extends TileArea {
         
         for (int index = 0; index < 16; index++) {
             tiles[index] = new Tile(this, index);
-            Insets inset = tiles[index].getInsets();
+            Insets inset = tiles[index].getTileInsets();
             this.addButtons(this, tiles[index], (index % 4),
                     (index / 4), 1, 1, basic.CENTER, basic.BOTH, inset);
             this.addActionListener(tiles[index], window, 0);
