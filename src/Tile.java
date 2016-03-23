@@ -53,7 +53,6 @@ public class Tile extends JButton implements ActionListener {
         this.setMaximumSize(d);
         this.setMinimumSize(d);
     }
-  
 
     /**
      * Rotates the tile 90 degrees clockwise
@@ -64,7 +63,7 @@ public class Tile extends JButton implements ActionListener {
     public void rotate(int numberOfRotations) {
         // stub
     }
- 
+
     /**
      * Sets the image displayed on the tile
      * 

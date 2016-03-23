@@ -1,3 +1,4 @@
+
 /**
  * Added Group G as additional authors on 3-21-2016  D.K.
  * See Main for a list of Group G members
@@ -181,11 +182,7 @@ public class GameWindow extends JFrame implements ActionListener {
      */
     public Tile getFirstClicked()
     {
-<<<<<<< HEAD
-      return firstClicked;
-=======
     	return firstClicked;
->>>>>>> origin/master
     }
     
     /**
@@ -195,11 +192,7 @@ public class GameWindow extends JFrame implements ActionListener {
      */
     public void setFirstClicked(Tile firClick)
     {
-<<<<<<< HEAD
-      firstClicked = firClick;
-=======
     	firstClicked = firClick;
->>>>>>> origin/master
     }
     
     /**
@@ -209,23 +202,6 @@ public class GameWindow extends JFrame implements ActionListener {
      */
     public Tile getSecondClicked()
     {
-<<<<<<< HEAD
-      return secondClicked;
-    }
-    
-    /**
-     * Setter for the second tile clicked on
-     * @param the value to set the tile as
-     * -Jay 3/21/2016
-     */
-    public void setSecondClicked(Tile secClick)
-    {
-      secondClicked = secClick;
-    }
-    
-    
-    /**
-=======
     	return secondClicked;
     }
     
@@ -241,18 +217,13 @@ public class GameWindow extends JFrame implements ActionListener {
     
     
     /**
->>>>>>> origin/master
      * Getter for the firstClicked ID
      * @return the id of the first clicked on tile
      * -Jay 3/21/2016
      */
     public boolean getFirstClickedId()
     {
-<<<<<<< HEAD
-      return firstClickedId;
-=======
     	return firstClickedId;
->>>>>>> origin/master
     }
     
     /**
@@ -262,10 +233,6 @@ public class GameWindow extends JFrame implements ActionListener {
      */
     public void setFirstClickedId(boolean Id)
     {
-<<<<<<< HEAD
-      firstClickedId = Id;
-=======
     	firstClickedId = Id;
->>>>>>> origin/master
     } 
 };
