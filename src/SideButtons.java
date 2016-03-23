@@ -56,6 +56,7 @@ public class SideButtons extends TileArea
           tiles[index].setInGrid(false);
           tiles[index].setText(name);
           tiles[index].setFont(new Font("Arial", Font.PLAIN, 20));
+          tiles[index].setName(name);;
           Insets inset = tiles[index].getTileInsets();
           this.addButtons(rightPanel, tiles[index], 1,
                   index, 1, 1, basic.CENTER, basic.BOTH, inset);
