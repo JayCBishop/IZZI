@@ -1,3 +1,4 @@
+
 /**
  * Added authors as Group G on 3-21-2016  D.K.
  * Tile.java
@@ -14,7 +15,6 @@
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,9 +26,7 @@ public class Tile extends JButton implements ActionListener{
     private boolean drawn;
     private boolean inGrid;
     private Image image;
-    public final JButton button = new JButton();
-    public Insets inset;
-    public boolean isClicked;
+    private boolean isClicked;
     private int type;
 
     private static final long serialVersionUID = 1;
@@ -96,14 +94,25 @@ public class Tile extends JButton implements ActionListener{
         return drawn;
     }
 
+    /** 
+     * Sets whether or not the tile is in the grid
+     * @param isInGrid
+     */
     public void setInGrid(boolean isInGrid) {
         inGrid = isInGrid;
     }
 
+    /** 
+     * Returns whether or not the tile is in the grid
+     * @return boolean 
+     */
     public boolean isInGrid() {
         return inGrid;
     }
 
+    /**
+     * For later use for rotation, etc.
+     */
     @Override
     public void actionPerformed(ActionEvent arg0) {
         // Do whatever needs to be done when the tile is clicked
@@ -129,5 +138,25 @@ public class Tile extends JButton implements ActionListener{
      */
     public void setType(int myType){
     	type = myType;
+    }
+    
+    /**
+     * Set whether the tile is clicked or not
+     * @param clicked
+     * 
+     *  - Anna 3/24/2016
+     */
+    public void setIsClicked(boolean clicked){
+        isClicked = clicked;
+    }
+    
+    /**
+     * Return whether or not the tile is clicked
+     * @return boolean isClicked
+     * 
+     * - Anna 3/24/2016
+     */
+    public boolean getIsClicked(){
+        return isClicked;
     }
 }

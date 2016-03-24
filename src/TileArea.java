@@ -20,7 +20,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public abstract class TileArea extends JPanel{
-  private boolean blank;
   /**
    * Program needs serialVersion UID  D.K. 
    */
@@ -72,7 +71,7 @@ public abstract class TileArea extends JPanel{
 	  tile.addActionListener(new ActionListener(){
 		  public void actionPerformed(ActionEvent evt) {
 	          // Tile is already selected
-	          if(window.getFirstClicked() != null && tile.isClicked)
+	          if(window.getFirstClicked() != null && tile.getIsClicked())
 	          {
 	            deselectTile(window,tile);
 	          }
@@ -125,7 +124,7 @@ public abstract class TileArea extends JPanel{
    */
   public void selectTile(GameWindow window, Tile tile){
 	  window.setFirstClicked(tile);
-      tile.isClicked = true;
+      tile.setIsClicked(true);
       tile.setBorder(SELECTED_BORDER);
   }
   
@@ -138,15 +137,7 @@ public abstract class TileArea extends JPanel{
   public void deselectTile(GameWindow window, Tile tile){
 	  window.setFirstClicked(null);
       tile.setBorder(DEFAULT_BORDER);
-      tile.isClicked = false;
-  }
-
-  /**
-   * returns blank if the tile has no image
-   */
-  public boolean isSpaceBlank(){
-    return blank;
-    
+      tile.setIsClicked(false);
   }
   
   
