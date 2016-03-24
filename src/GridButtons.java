@@ -14,8 +14,7 @@ import java.awt.*;
 public class GridButtons extends TileArea {
 
     private static final long serialVersionUID = 1;
-    Tile[] tiles = new Tile[16];
-    GridBagConstraints basic = new GridBagConstraints();
+    private Tile[] tiles = new Tile[16];
 
     /**
      * Constructor creates a grid from an array of 16 tiles
@@ -39,5 +38,17 @@ public class GridButtons extends TileArea {
                     (index / 4), 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
             this.addActionListener(tiles[index], window);
         }
+    }
+    
+    /**
+     * Stub for method that will eventually check if we have solved the puzzle
+     * 
+     * @return whether this is a solution or not
+     * - Anna 3/24/2016
+     */
+    public boolean isSolution()
+    {
+        // stub
+        return false;
     }
 }

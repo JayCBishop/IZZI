@@ -17,9 +17,7 @@ public class SideButtons extends TileArea
     private static final long serialVersionUID = 1;
     public JPanel leftPanel = new JPanel();
     public JPanel rightPanel = new JPanel();
-    
-    Tile[] tiles = new Tile[16];
-    GridBagConstraints basic = new GridBagConstraints();
+    private Tile[] tiles = new Tile[16];
     
     /**
      * Constructor creates both the side panels from two arrays of 8 tiles
@@ -64,5 +62,16 @@ public class SideButtons extends TileArea
         }
 
     
+    }
+    
+    
+    /**
+     * stub method for eventual shuffling of side tiles
+     * 
+     *  - Anna 3/24/2016
+     */
+    public void shuffle()
+    {
+        //stub
     }
 }
