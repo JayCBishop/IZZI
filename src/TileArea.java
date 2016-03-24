@@ -68,8 +68,7 @@ public abstract class TileArea extends JPanel{
    * -Jay 3/18/2016 (last updated: 3/23/2016) 
    * -Evan 3/21/2016
    */
-  public void addActionListener(Tile tile, GameWindow window, boolean type)
-  {
+  public void addActionListener(Tile tile, GameWindow window, boolean type){
 	  tile.addActionListener(new ActionListener(){
 		  public void actionPerformed(ActionEvent evt) {
 	          // Tile is already selected
@@ -81,10 +80,13 @@ public abstract class TileArea extends JPanel{
 	          else if(window.getFirstClicked() != null)
 	          {
 	        	  // Two sideTile selected
-	        	  if(!window.getFirstClickedIsGrid() && type == false)
+	        	  if(tile.getType() == 1 && type == false)
 	        	  {
 	        		  deselectTile(window,window.getFirstClicked());
-	            	  selectTile(window, tile, false);
+	        		  if(tile.getText() != "")
+	        		  {
+	        			  selectTile(window, tile, 0);
+	        		  }
 	        	  }
 	        	  // Both tiles have text
 	        	  else if(window.getFirstClicked().getText() != "" &&
@@ -106,8 +108,7 @@ public abstract class TileArea extends JPanel{
 	          {
 	        	  if(tile.getText() != "")
 	        	  {
-	        		  selectTile(window, tile, true);
-	        		  window.setFirstClickedIsGrid(type);
+	        		  selectTile(window, tile, 0);
 	        	  }
 	          }
 	        }
@@ -121,11 +122,9 @@ public abstract class TileArea extends JPanel{
    * @param type
    * -Jay 3/22/2016
    */
-  public void selectTile(GameWindow window, Tile tile, boolean type)
-  {
+  public void selectTile(GameWindow window, Tile tile, int type){
 	  window.setFirstClicked(tile);
       tile.isClicked = true;
-      window.setFirstClickedIsGrid(type);
       tile.setBorder(SELECTED_BORDER);
   }
   
@@ -135,8 +134,7 @@ public abstract class TileArea extends JPanel{
    * @param tile
    * -Jay 3/22/2016
    */
-  public void deselectTile(GameWindow window, Tile tile)
-  {
+  public void deselectTile(GameWindow window, Tile tile){
 	  window.setFirstClicked(null);
       tile.setBorder(DEFAULT_BORDER);
       tile.isClicked = false;
@@ -158,7 +156,6 @@ public abstract class TileArea extends JPanel{
    * -Kyle 3/22/2016
    */
   private void switchTiles(Tile firstClicked, Tile secondClicked){
-  
 	  String temp = firstClicked.getText();
 	  firstClicked.setText(secondClicked.getText());
 	  secondClicked.setText(temp);

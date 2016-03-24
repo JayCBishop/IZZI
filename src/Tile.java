@@ -29,6 +29,7 @@ public class Tile extends JButton implements ActionListener{
     public final JButton button = new JButton();
     public Insets inset;
     public boolean isClicked;
+    private int type;
 
     private static final long serialVersionUID = 1;
 
@@ -107,5 +108,26 @@ public class Tile extends JButton implements ActionListener{
     public void actionPerformed(ActionEvent arg0) {
         // Do whatever needs to be done when the tile is clicked
         // Will likely be used for rotation events
+    }
+    
+    /**
+     * Getter that returns the type of tile
+     * @return the type of tile
+     * -Jay 3/24/2016
+     */
+    public int getType(){
+    	return type;
+    }
+    
+    /**
+     * Setter for the type of tile
+     * @param myType: a type that is used to identify the tile
+     * Currently the types include:
+     * 					0 for a gridTile
+     * 					1 for a sideTile
+     * -Jay 3/24/2016
+     */
+    public void setType(int myType){
+    	type = myType;
     }
 }

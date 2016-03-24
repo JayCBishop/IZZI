@@ -33,6 +33,7 @@ public class GridButtons extends TileArea {
         //Placed font size in Tile class since all Tiles have uniform font size  DK 3-23-2016
         for (int index = 0; index < 16; index++) {
             tiles[index] = new Tile(this, index);
+            tiles[index].setType(0);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed method call AC 3-23-2016
             this.addButtons(this, tiles[index], (index % 4),
                     (index / 4), 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);

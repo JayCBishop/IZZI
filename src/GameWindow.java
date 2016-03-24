@@ -30,10 +30,6 @@ public class GameWindow extends JFrame implements ActionListener {
     TileArea sideButtons;
     
     private Tile firstClicked, secondClicked;
-    
-    // Used to determine if the first clicked tile was a side or grid tile
-    // true for gridTile, false for sideTile
-    private boolean firstClickedIsGrid;
 
     /**
      * Constructor sets the window name using super(), changes the layout, which
@@ -173,8 +169,7 @@ public class GameWindow extends JFrame implements ActionListener {
      * @return the first tile clicked on
      * -Jay 3/21/2016
      */
-    public Tile getFirstClicked()
-    {
+    public Tile getFirstClicked(){
     	return firstClicked;
     }
     
@@ -183,8 +178,7 @@ public class GameWindow extends JFrame implements ActionListener {
      * @param the value to set the tile as
      * -Jay 3/21/2016
      */
-    public void setFirstClicked(Tile firClick)
-    {
+    public void setFirstClicked(Tile firClick){
     	firstClicked = firClick;
     }
     
@@ -193,8 +187,7 @@ public class GameWindow extends JFrame implements ActionListener {
      * @return the second tile clicked on
      * -Jay 3/21/2016
      */
-    public Tile getSecondClicked()
-    {
+    public Tile getSecondClicked(){
     	return secondClicked;
     }
     
@@ -203,29 +196,7 @@ public class GameWindow extends JFrame implements ActionListener {
      * @param the value to set the tile as
      * -Jay 3/21/2016
      */
-    public void setSecondClicked(Tile secClick)
-    {
+    public void setSecondClicked(Tile secClick){
     	secondClicked = secClick;
     }
-    
-    
-    /**
-     * Setter for whether the first tile is in the grid
-     * @return is the first tile in the grid?
-     * -Jay 3/21/2016
-     */
-    public boolean getFirstClickedIsGrid()
-    {
-    	return firstClickedIsGrid;
-    }
-    
-    /**
-     * Setter for whether the first tile is in the grid
-     * @param is the first tile in the grid?
-     * -Jay 3/21/2016
-     */
-    public void setFirstClickedIsGrid(boolean isGrid)
-    {
-    	firstClickedIsGrid = isGrid;
-    } 
 };
