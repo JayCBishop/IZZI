@@ -68,7 +68,7 @@ public abstract class TileArea extends JPanel{
    * -Jay 3/18/2016 (last updated: 3/23/2016) 
    * -Evan 3/21/2016
    */
-  public void addActionListener(Tile tile, GameWindow window, boolean type){
+  public void addActionListener(Tile tile, GameWindow window){
 	  tile.addActionListener(new ActionListener(){
 		  public void actionPerformed(ActionEvent evt) {
 	          // Tile is already selected
@@ -80,12 +80,13 @@ public abstract class TileArea extends JPanel{
 	          else if(window.getFirstClicked() != null)
 	          {
 	        	  // Two sideTile selected
-	        	  if(tile.getType() == 1 && type == false)
+	        	  if(tile.getType() == 1 && 
+	        			  window.getFirstClicked().getType() == 1)
 	        	  {
 	        		  deselectTile(window,window.getFirstClicked());
 	        		  if(tile.getText() != "")
 	        		  {
-	        			  selectTile(window, tile, 0);
+	        			  selectTile(window, tile);
 	        		  }
 	        	  }
 	        	  // Both tiles have text
@@ -108,7 +109,7 @@ public abstract class TileArea extends JPanel{
 	          {
 	        	  if(tile.getText() != "")
 	        	  {
-	        		  selectTile(window, tile, 0);
+	        		  selectTile(window, tile);
 	        	  }
 	          }
 	        }
@@ -122,7 +123,7 @@ public abstract class TileArea extends JPanel{
    * @param type
    * -Jay 3/22/2016
    */
-  public void selectTile(GameWindow window, Tile tile, int type){
+  public void selectTile(GameWindow window, Tile tile){
 	  window.setFirstClicked(tile);
       tile.isClicked = true;
       tile.setBorder(SELECTED_BORDER);

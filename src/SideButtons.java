@@ -45,7 +45,7 @@ public class SideButtons extends TileArea
           Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed method call AC 3-23-2016
           this.addButtons(leftPanel, tiles[index], 1,
                   index, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset); 
-          this.addActionListener(tiles[index], window, false);
+          this.addActionListener(tiles[index], window);
         }
       
         //Add the right SideButtons panel
@@ -60,7 +60,7 @@ public class SideButtons extends TileArea
           Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed method call AC 3-23-2016
           this.addButtons(rightPanel, tiles[index], 1,
                   index, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
-          this.addActionListener(tiles[index], window, false);
+          this.addActionListener(tiles[index], window);
         }
 
     
