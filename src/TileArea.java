@@ -143,12 +143,14 @@ public abstract class TileArea extends JPanel
     public void tileInfractionOccured(Tile tile)
     {
         tile.setBackground(Color.RED);
+        tile.setForeground(Color.WHITE);
         new java.util.Timer().schedule(new java.util.TimerTask()
         {
             @Override
             public void run()
             {
                 tile.setBackground(new JButton().getBackground());
+                tile.setForeground(Color.BLACK);
             }
         }, 1000);
     }
