@@ -18,7 +18,9 @@ public class SideButtons extends TileArea
     private static final long serialVersionUID = 1;
     public JPanel leftPanel = new JPanel();
     public JPanel rightPanel = new JPanel();
-    private Tile[] tiles = new Tile[16];
+
+    Tile[] tiles = new Tile[16];
+    GridBagConstraints basic = new GridBagConstraints();
 
     /**
      * Constructor creates both the side panels from two arrays of 8 tiles
@@ -42,7 +44,7 @@ public class SideButtons extends TileArea
             tiles[index] = new Tile(this, index);
             tiles[index].setInGrid(false);
             tiles[index].setText(name);
-            tiles[index].setInGrid(false);
+            tiles[index].setType(1);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                    // method call AC 3-23-2016
             this.addButtons(leftPanel, tiles[index], 1, index, 1, 1,
@@ -59,7 +61,7 @@ public class SideButtons extends TileArea
             tiles[index] = new Tile(this, index);
             tiles[index].setInGrid(false);
             tiles[index].setText(name);
-            tiles[index].setInGrid(false);
+            tiles[index].setType(1);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                    // method call AC 3-23-2016
             this.addButtons(rightPanel, tiles[index], 1, index, 1, 1,
@@ -67,15 +69,5 @@ public class SideButtons extends TileArea
             this.addActionListener(tiles[index], window);
         }
 
-    }
-
-    /**
-     * stub method for eventual shuffling of side tiles
-     * 
-     * - Anna 3/24/2016
-     */
-    public void shuffle()
-    {
-        // stub
     }
 }

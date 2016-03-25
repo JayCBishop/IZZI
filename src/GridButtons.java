@@ -16,7 +16,8 @@ public class GridButtons extends TileArea
 {
 
     private static final long serialVersionUID = 1;
-    private Tile[] tiles = new Tile[16];
+    Tile[] tiles = new Tile[16];
+    GridBagConstraints basic = new GridBagConstraints();
 
     /**
      * Constructor creates a grid from an array of 16 tiles
@@ -37,23 +38,12 @@ public class GridButtons extends TileArea
         for (int index = 0; index < 16; index++)
         {
             tiles[index] = new Tile(this, index);
-            tiles[index].setInGrid(true);
+            tiles[index].setType(0);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                    // method call AC 3-23-2016
             this.addButtons(this, tiles[index], (index % 4), (index / 4), 1, 1,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
             this.addActionListener(tiles[index], window);
         }
-    }
-
-    /**
-     * Stub for method that will eventually check if we have solved the puzzle
-     * 
-     * @return whether this is a solution or not - Anna 3/24/2016
-     */
-    public boolean isSolution()
-    {
-        // stub
-        return false;
     }
 }

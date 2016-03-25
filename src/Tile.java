@@ -15,6 +15,7 @@
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,7 +28,10 @@ public class Tile extends JButton implements ActionListener
     private boolean drawn;
     private boolean inGrid;
     private Image image;
-    private boolean isClicked;
+    public final JButton button = new JButton();
+    public Insets inset;
+    public boolean isClicked;
+    private int type;
 
     private static final long serialVersionUID = 1;
 
@@ -101,29 +105,16 @@ public class Tile extends JButton implements ActionListener
         return drawn;
     }
 
-    /**
-     * Sets whether or not the tile is in the grid
-     * 
-     * @param isInGrid
-     */
     public void setInGrid(boolean isInGrid)
     {
         inGrid = isInGrid;
     }
 
-    /**
-     * Returns whether or not the tile is in the grid
-     * 
-     * @return boolean
-     */
     public boolean isInGrid()
     {
         return inGrid;
     }
 
-    /**
-     * For later use for rotation, etc.
-     */
     @Override
     public void actionPerformed(ActionEvent arg0)
     {
@@ -132,26 +123,24 @@ public class Tile extends JButton implements ActionListener
     }
 
     /**
-     * Set whether the tile is clicked or not
+     * Getter that returns the type of tile
      * 
-     * @param clicked
-     * 
-     *            - Anna 3/24/2016
+     * @return the type of tile -Jay 3/24/2016
      */
-    public void setIsClicked(boolean clicked)
+    public int getType()
     {
-        isClicked = clicked;
+        return type;
     }
 
     /**
-     * Return whether or not the tile is clicked
+     * Setter for the type of tile
      * 
-     * @return boolean isClicked
-     * 
-     *         - Anna 3/24/2016
+     * @param myType:
+     *            a type that is used to identify the tile Currently the types
+     *            include: 0 for a gridTile 1 for a sideTile -Jay 3/24/2016
      */
-    public boolean getIsClicked()
+    public void setType(int myType)
     {
-        return isClicked;
+        type = myType;
     }
 }

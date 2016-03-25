@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 
 public abstract class TileArea extends JPanel
 {
+    private boolean blank;
     /**
      * Program needs serialVersion UID D.K.
      */
@@ -86,7 +87,7 @@ public abstract class TileArea extends JPanel
             public void actionPerformed(ActionEvent evt)
             {
                 // Tile is already selected
-                if (window.getFirstClicked() != null && tile.getIsClicked())
+                if (window.getFirstClicked() != null && tile.isClicked)
                 {
                     deselectTile(window, tile);
                 }
@@ -94,20 +95,22 @@ public abstract class TileArea extends JPanel
                 else if (window.getFirstClicked() != null)
                 {
                     // Two sideTile selected
-                    if (!tile.isInGrid()
-                            && !window.getFirstClicked().isInGrid())
+                    if (tile.getType() == 1
+                            && window.getFirstClicked().getType() == 1)
                     {
                         deselectTile(window, window.getFirstClicked());
                         if (tile.getText() != "")
                         {
                             selectTile(window, tile);
                         }
+                        tileInfractionOccured(tile);
                     }
                     // Both tiles have text
                     else if (window.getFirstClicked().getText() != ""
                             && tile.getText() != "")
                     {
                         deselectTile(window, window.getFirstClicked());
+                        tileInfractionOccured(tile);
                     }
                     // Swap tiles
                     else
@@ -132,6 +135,25 @@ public abstract class TileArea extends JPanel
     }
 
     /**
+     * Lights a tile up red for 2 seconds if an illegal move happens
+     * 
+     * @param tile:
+     *            the tile an infraction occured upon -Jay 3/24/2016
+     */
+    public void tileInfractionOccured(Tile tile)
+    {
+        tile.setBackground(Color.RED);
+        new java.util.Timer().schedule(new java.util.TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                tile.setBackground(new JButton().getBackground());
+            }
+        }, 1000);
+    }
+
+    /**
      * Selects a tile
      * 
      * @param window
@@ -142,7 +164,7 @@ public abstract class TileArea extends JPanel
     public void selectTile(GameWindow window, Tile tile)
     {
         window.setFirstClicked(tile);
-        tile.setIsClicked(true);
+        tile.isClicked = true;
         tile.setBorder(SELECTED_BORDER);
     }
 
@@ -157,7 +179,15 @@ public abstract class TileArea extends JPanel
     {
         window.setFirstClicked(null);
         tile.setBorder(DEFAULT_BORDER);
-        tile.setIsClicked(false);
+        tile.isClicked = false;
+    }
+
+    /**
+     * returns blank if the tile has no image
+     */
+    public boolean isSpaceBlank()
+    {
+        return blank;
     }
 
     /**
