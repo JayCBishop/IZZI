@@ -125,6 +125,10 @@ public abstract class TileArea extends JPanel
                     {
                         selectTile(window, tile);
                     }
+                    else
+                    {
+                        tileInfractionOccured(tile);
+                    }
                 }
             }
         });
