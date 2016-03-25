@@ -1,3 +1,4 @@
+
 /**
  * Added authors as Group G on 3-21-2016  D.K.
  * Members of group listed in Main.java
@@ -11,7 +12,8 @@
 
 import java.awt.*;
 
-public class GridButtons extends TileArea {
+public class GridButtons extends TileArea
+{
 
     private static final long serialVersionUID = 1;
     private Tile[] tiles = new Tile[16];
@@ -21,30 +23,33 @@ public class GridButtons extends TileArea {
      *
      * @param frame
      */
-    GridButtons(GameWindow window) {
+    GridButtons(GameWindow window)
+    {
         super();
-        GridBagLayout gbl=new GridBagLayout();
+        GridBagLayout gbl = new GridBagLayout();
         setLayout(gbl);
-        
+
         this.setBackground(Color.PINK);
-        
-        //Create Gridbuttons in play area
-        //Placed font size in Tile class since all Tiles have uniform font size  DK 3-23-2016
-        for (int index = 0; index < 16; index++) {
+
+        // Create Gridbuttons in play area
+        // Placed font size in Tile class since all Tiles have uniform font size
+        // DK 3-23-2016
+        for (int index = 0; index < 16; index++)
+        {
             tiles[index] = new Tile(this, index);
-            tiles[index].setType(0);
-            Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed method call AC 3-23-2016
-            this.addButtons(this, tiles[index], (index % 4),
-                    (index / 4), 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
+            tiles[index].setInGrid(true);
+            Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
+                                                   // method call AC 3-23-2016
+            this.addButtons(this, tiles[index], (index % 4), (index / 4), 1, 1,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
             this.addActionListener(tiles[index], window);
         }
     }
-    
+
     /**
      * Stub for method that will eventually check if we have solved the puzzle
      * 
-     * @return whether this is a solution or not
-     * - Anna 3/24/2016
+     * @return whether this is a solution or not - Anna 3/24/2016
      */
     public boolean isSolution()
     {

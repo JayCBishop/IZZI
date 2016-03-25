@@ -20,15 +20,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameWindow extends JFrame implements ActionListener {
+public class GameWindow extends JFrame implements ActionListener
+{
     /**
      * because it is a serializable object, need this or javac complains a lot
      */
     public static final long serialVersionUID = 1;
-    
+
     TileArea grid;
     TileArea sideButtons;
-    
+
     private Tile firstClicked, secondClicked;
 
     /**
@@ -39,7 +40,8 @@ public class GameWindow extends JFrame implements ActionListener {
      * @param s
      */
 
-    public GameWindow(String s) {
+    public GameWindow(String s)
+    {
         super(s);
         GridBagLayout gbl = new GridBagLayout();
         setLayout(gbl);
@@ -57,7 +59,8 @@ public class GameWindow extends JFrame implements ActionListener {
      *            equals() method is called.
      */
 
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
         if ("quit".equals(e.getActionCommand()))
             System.exit(0);
         if ("reset".equals(e.getActionCommand()))
@@ -70,7 +73,8 @@ public class GameWindow extends JFrame implements ActionListener {
      * Establishes the initial board
      */
 
-    public void setUp() {
+    public void setUp()
+    {
         // actually create the array for elements, make sure it is big enough
         // Need to play around with the dimensions and the gridx/y values
         // These constraints are going to be added to the pieces/parts I
@@ -91,31 +95,33 @@ public class GameWindow extends JFrame implements ActionListener {
         // Set up the button dimensions for the menu bar
         int buttonWidth = 100;
         int buttonHeight = 75;
-        Dimension buttonDimen = new Dimension(buttonWidth,buttonHeight);
-        
+        Dimension buttonDimen = new Dimension(buttonWidth, buttonHeight);
+
         // Initialize buttons
-        //Font size is 1/3 of button width so it will be more consistent
-        //between different machines.  D.K. 
+        // Font size is 1/3 of button width so it will be more consistent
+        // between different machines. D.K.
         Main.newGameButton = new JButton("new");
         Main.newGameButton.setMinimumSize(buttonDimen);
         Main.newGameButton.setMaximumSize(buttonDimen);
         Main.newGameButton.setPreferredSize(buttonDimen);
         Main.newGameButton.addActionListener(this);
-        Main.newGameButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth/3));
+        Main.newGameButton
+                .setFont(new Font("Arial", Font.PLAIN, buttonWidth / 3));
 
         Main.resetButton = new JButton("reset");
         Main.resetButton.setMinimumSize(buttonDimen);
         Main.resetButton.setMaximumSize(buttonDimen);
         Main.resetButton.setPreferredSize(buttonDimen);
         Main.resetButton.addActionListener(this);
-        Main.resetButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth/3));
+        Main.resetButton
+                .setFont(new Font("Arial", Font.PLAIN, buttonWidth / 3));
 
         Main.quitButton = new JButton("quit");
         Main.quitButton.setMinimumSize(buttonDimen);
         Main.quitButton.setMaximumSize(buttonDimen);
-        Main.quitButton.setPreferredSize(buttonDimen);        
+        Main.quitButton.setPreferredSize(buttonDimen);
         Main.quitButton.addActionListener(this);
-        Main.quitButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth/3));
+        Main.quitButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth / 3));
 
         toolbar.add(Main.newGameButton);
         toolbar.add(Main.resetButton);
@@ -126,8 +132,7 @@ public class GameWindow extends JFrame implements ActionListener {
         // Add toolbar to JFrame at index 0 (in the top left)
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
-        
-        
+
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 1;
@@ -136,27 +141,25 @@ public class GameWindow extends JFrame implements ActionListener {
         add(toolbar, gbc);
 
         grid = new GridButtons(this);
-        
+
         sideButtons = new SideButtons(this);
-        
+
         gbc.gridy = 1;
         gbc.gridx = 0;
         gbc.insets = new Insets(50, 25, 75, 0);
         gbc.gridheight = 8;
         add(((SideButtons) sideButtons).leftPanel, gbc);
-        
+
         gbc.gridy = 2;
         gbc.gridx = 1;
         gbc.insets = new Insets(250, 75, 225, 75);
         add(grid, gbc);
-        
-        
+
         gbc.gridy = 1;
         gbc.gridx = 2;
         gbc.insets = new Insets(50, 0, 75, 25);
         add(((SideButtons) sideButtons).rightPanel, gbc);
-        
-        
+
         return;
     }
     /**
@@ -166,37 +169,43 @@ public class GameWindow extends JFrame implements ActionListener {
 
     /**
      * Getter for the first tile clicked on
-     * @return the first tile clicked on
-     * -Jay 3/21/2016
+     * 
+     * @return the first tile clicked on -Jay 3/21/2016
      */
-    public Tile getFirstClicked(){
-    	return firstClicked;
+    public Tile getFirstClicked()
+    {
+        return firstClicked;
     }
-    
+
     /**
      * Setter for the first tile clicked on
-     * @param the value to set the tile as
-     * -Jay 3/21/2016
+     * 
+     * @param the
+     *            value to set the tile as -Jay 3/21/2016
      */
-    public void setFirstClicked(Tile firClick){
-    	firstClicked = firClick;
+    public void setFirstClicked(Tile firClick)
+    {
+        firstClicked = firClick;
     }
-    
+
     /**
      * Getter for the second tile clicked on
-     * @return the second tile clicked on
-     * -Jay 3/21/2016
+     * 
+     * @return the second tile clicked on -Jay 3/21/2016
      */
-    public Tile getSecondClicked(){
-    	return secondClicked;
+    public Tile getSecondClicked()
+    {
+        return secondClicked;
     }
-    
+
     /**
      * Setter for the second tile clicked on
-     * @param the value to set the tile as
-     * -Jay 3/21/2016
+     * 
+     * @param the
+     *            value to set the tile as -Jay 3/21/2016
      */
-    public void setSecondClicked(Tile secClick){
-    	secondClicked = secClick;
+    public void setSecondClicked(Tile secClick)
+    {
+        secondClicked = secClick;
     }
 };

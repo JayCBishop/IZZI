@@ -21,29 +21,31 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Tile extends JButton implements ActionListener{
+public class Tile extends JButton implements ActionListener
+{
 
     private boolean drawn;
     private boolean inGrid;
     private Image image;
     private boolean isClicked;
-    private int type;
 
     private static final long serialVersionUID = 1;
 
     // default constructor -- right now this just creates a button
-    public Tile() {
-      super();
+    public Tile()
+    {
+        super();
     }
 
     /**
      * Establishes the initial board
      */
-    //Added font "styles" to constructor for all tiles instead of 
-    //  individually in SideButtons and GridButtons
-    //  This way when a change is needed, it can be done in 
-    //  one place instead of three different areas.  DK 3-23-2016
-    public Tile(JPanel panel, int i) {
+    // Added font "styles" to constructor for all tiles instead of
+    // individually in SideButtons and GridButtons
+    // This way when a change is needed, it can be done in
+    // one place instead of three different areas. DK 3-23-2016
+    public Tile(JPanel panel, int i)
+    {
         super();
         Dimension d = new Dimension(75, 75);
         this.setPreferredSize(d);
@@ -55,26 +57,29 @@ public class Tile extends JButton implements ActionListener{
     /**
      * Rotates the tile 90 degrees clockwise
      * 
-     * @param numberOfRotations controls
-     * how many times the tile is rotated
+     * @param numberOfRotations
+     *            controls how many times the tile is rotated
      */
-    public void rotate(int numberOfRotations) {
+    public void rotate(int numberOfRotations)
+    {
         // stub
     }
 
     /**
      * Sets the image displayed on the tile
      * 
-     * @param i 
+     * @param i
      */
-    public void setImage(Image i) {
+    public void setImage(Image i)
+    {
         image = i;
     }
 
     /**
      * Returns the image on the tile
      */
-    public Image getImage() {
+    public Image getImage()
+    {
         return image;
     }
 
@@ -83,30 +88,36 @@ public class Tile extends JButton implements ActionListener{
      * 
      * @param isDrawn
      */
-    public void setIsDrawn(boolean isDrawn) {
+    public void setIsDrawn(boolean isDrawn)
+    {
         drawn = isDrawn;
     }
 
     /**
      * returns the boolean value drawn
      */
-    public boolean isDrawn() {
+    public boolean isDrawn()
+    {
         return drawn;
     }
 
-    /** 
+    /**
      * Sets whether or not the tile is in the grid
+     * 
      * @param isInGrid
      */
-    public void setInGrid(boolean isInGrid) {
+    public void setInGrid(boolean isInGrid)
+    {
         inGrid = isInGrid;
     }
 
-    /** 
+    /**
      * Returns whether or not the tile is in the grid
-     * @return boolean 
+     * 
+     * @return boolean
      */
-    public boolean isInGrid() {
+    public boolean isInGrid()
+    {
         return inGrid;
     }
 
@@ -114,49 +125,33 @@ public class Tile extends JButton implements ActionListener{
      * For later use for rotation, etc.
      */
     @Override
-    public void actionPerformed(ActionEvent arg0) {
+    public void actionPerformed(ActionEvent arg0)
+    {
         // Do whatever needs to be done when the tile is clicked
         // Will likely be used for rotation events
     }
-    
-    /**
-     * Getter that returns the type of tile
-     * @return the type of tile
-     * -Jay 3/24/2016
-     */
-    public int getType(){
-    	return type;
-    }
-    
-    /**
-     * Setter for the type of tile
-     * @param myType: a type that is used to identify the tile
-     * Currently the types include:
-     * 					0 for a gridTile
-     * 					1 for a sideTile
-     * -Jay 3/24/2016
-     */
-    public void setType(int myType){
-    	type = myType;
-    }
-    
+
     /**
      * Set whether the tile is clicked or not
+     * 
      * @param clicked
      * 
-     *  - Anna 3/24/2016
+     *            - Anna 3/24/2016
      */
-    public void setIsClicked(boolean clicked){
+    public void setIsClicked(boolean clicked)
+    {
         isClicked = clicked;
     }
-    
+
     /**
      * Return whether or not the tile is clicked
+     * 
      * @return boolean isClicked
      * 
-     * - Anna 3/24/2016
+     *         - Anna 3/24/2016
      */
-    public boolean getIsClicked(){
+    public boolean getIsClicked()
+    {
         return isClicked;
     }
 }
