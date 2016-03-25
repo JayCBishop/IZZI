@@ -99,10 +99,6 @@ public abstract class TileArea extends JPanel
                             && window.getFirstClicked().getType() == 1)
                     {
                         deselectTile(window, window.getFirstClicked());
-                        if (tile.getText() != "")
-                        {
-                            selectTile(window, tile);
-                        }
                         tileInfractionOccured(tile);
                     }
                     // Both tiles have text
