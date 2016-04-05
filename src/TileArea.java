@@ -178,4 +178,8 @@ public abstract class TileArea extends JPanel {
 		firstClicked.setText(secondClicked.getText());
 		secondClicked.setText(temp);
 	}
+
+    
+	
+	
 }
