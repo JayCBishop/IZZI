@@ -1,3 +1,4 @@
+
 /**
  * Added Group G as additional authors on 3-21-2016  D.K.
  * See Main for a list of Group G members
@@ -19,19 +20,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameWindow extends JFrame implements ActionListener {
+public class GameWindow extends JFrame implements ActionListener
+{
     /**
      * because it is a serializable object, need this or javac complains a lot
      */
     public static final long serialVersionUID = 1;
 
-    
-
     private TileArea grid;
     private SideButtons sideButtons;
 
     private Tile firstClicked, secondClicked;
-    
 
     /**
      * Constructor sets the window name using super(), changes the layout, which
@@ -41,7 +40,8 @@ public class GameWindow extends JFrame implements ActionListener {
      * @param s
      */
 
-    public GameWindow(String s) {
+    public GameWindow(String s)
+    {
         super(s);
         GridBagLayout gbl = new GridBagLayout();
         setLayout(gbl);
@@ -59,34 +59,41 @@ public class GameWindow extends JFrame implements ActionListener {
      *            equals() method is called.
      */
 
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
         if ("quit".equals(e.getActionCommand()))
             System.exit(0);
-        if ("reset".equals(e.getActionCommand())){
+        if ("reset".equals(e.getActionCommand()))
+        {
             reset();
         }
         if ("new".equals(e.getActionCommand()))
             System.out.println("new pressed\n");
     }
-    public void removeSideButtons(){
-        
+
+    public void removeSideButtons()
+    {
+
     }
 
+    // method to reset the side panels and grid area to original state
+    // DK 4/5/2016
     private void reset()
     {
         this.remove(sideButtons.leftPanel);
         this.remove(sideButtons.rightPanel);
         createSidePanels();
         this.remove(grid);
-        createGrid();    
-        this.revalidate();    
+        createGrid();
+        this.revalidate();
     }
 
     /**
-     * Establishes the initial board
+     * Setup Establishes the initial board
      */
 
-    public void setUp() {
+    public void setUp()
+    {
         // actually create the array for elements, make sure it is big enough
         // Need to play around with the dimensions and the gridx/y values
         // These constraints are going to be added to the pieces/parts I
@@ -117,14 +124,16 @@ public class GameWindow extends JFrame implements ActionListener {
         Main.newGameButton.setMaximumSize(buttonDimen);
         Main.newGameButton.setPreferredSize(buttonDimen);
         Main.newGameButton.addActionListener(this);
-        Main.newGameButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth / 3));
+        Main.newGameButton
+                .setFont(new Font("Arial", Font.PLAIN, buttonWidth / 3));
 
         Main.resetButton = new JButton("reset");
         Main.resetButton.setMinimumSize(buttonDimen);
         Main.resetButton.setMaximumSize(buttonDimen);
         Main.resetButton.setPreferredSize(buttonDimen);
         Main.resetButton.addActionListener(this);
-        Main.resetButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth / 3));
+        Main.resetButton
+                .setFont(new Font("Arial", Font.PLAIN, buttonWidth / 3));
 
         Main.quitButton = new JButton("quit");
         Main.quitButton.setMinimumSize(buttonDimen);
@@ -151,12 +160,13 @@ public class GameWindow extends JFrame implements ActionListener {
         add(toolbar, gbc);
 
         createGrid();
-        
+
         createSidePanels();
 
         return;
     }
 
+    // create both the left and right side panels
     private void createSidePanels()
     {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -174,10 +184,10 @@ public class GameWindow extends JFrame implements ActionListener {
         gbc.gridx = 2;
         gbc.insets = new Insets(50, 0, 75, 25);
         add(((SideButtons) sideButtons).rightPanel, gbc);
-        
+
     }
 
-    
+    // create the grid playing area
     private void createGrid()
     {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -198,7 +208,8 @@ public class GameWindow extends JFrame implements ActionListener {
      * 
      * @return the first tile clicked on -Jay 3/21/2016
      */
-    public Tile getFirstClicked() {
+    public Tile getFirstClicked()
+    {
         return firstClicked;
     }
 
@@ -208,7 +219,8 @@ public class GameWindow extends JFrame implements ActionListener {
      * @param the
      *            value to set the tile as -Jay 3/21/2016
      */
-    public void setFirstClicked(Tile firClick) {
+    public void setFirstClicked(Tile firClick)
+    {
         firstClicked = firClick;
     }
 
@@ -217,7 +229,8 @@ public class GameWindow extends JFrame implements ActionListener {
      * 
      * @return the second tile clicked on -Jay 3/21/2016
      */
-    public Tile getSecondClicked() {
+    public Tile getSecondClicked()
+    {
         return secondClicked;
     }
 
@@ -227,7 +240,8 @@ public class GameWindow extends JFrame implements ActionListener {
      * @param the
      *            value to set the tile as -Jay 3/21/2016
      */
-    public void setSecondClicked(Tile secClick) {
+    public void setSecondClicked(Tile secClick)
+    {
         secondClicked = secClick;
     }
 };
