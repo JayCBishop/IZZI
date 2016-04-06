@@ -112,8 +112,8 @@ public class GameWindow extends JFrame implements ActionListener
         toolbar.setBackground(Color.YELLOW);
 
         // Set up the button dimensions for the menu bar
-        int buttonWidth = 100;
-        int buttonHeight = 75;
+        int buttonWidth = 150;
+        int buttonHeight = 100;
         Dimension buttonDimen = new Dimension(buttonWidth, buttonHeight);
 
         // Initialize buttons
@@ -145,8 +145,8 @@ public class GameWindow extends JFrame implements ActionListener
         toolbar.add(Main.newGameButton);
         toolbar.add(Main.resetButton);
         toolbar.add(Main.quitButton);
-        toolbar.setSize(200, 50);
-        toolbar.setMinimumSize(new Dimension(200, 50));
+        toolbar.setSize(buttonWidth * 3, buttonHeight);
+        toolbar.setMinimumSize(new Dimension(buttonWidth * 3, buttonHeight));
 
         // Add toolbar to JFrame at index 0 (in the top left)
         gbc.gridheight = 1;
@@ -176,13 +176,13 @@ public class GameWindow extends JFrame implements ActionListener
         gbc.weighty = 1;
         gbc.gridy = 1;
         gbc.gridx = 0;
-        gbc.insets = new Insets(50, 25, 75, 0);
+        gbc.insets = new Insets(0, 0, 0, 0);
         gbc.gridheight = 8;
         add(((SideButtons) sideButtons).leftPanel, gbc);
 
         gbc.gridy = 1;
         gbc.gridx = 2;
-        gbc.insets = new Insets(50, 0, 75, 25);
+        gbc.insets = new Insets(0, 0, 0, 0);
         add(((SideButtons) sideButtons).rightPanel, gbc);
 
     }
@@ -199,7 +199,7 @@ public class GameWindow extends JFrame implements ActionListener
         grid = new GridButtons(this);
         gbc.gridy = 2;
         gbc.gridx = 1;
-        gbc.insets = new Insets(250, 75, 225, 75);
+        gbc.insets = new Insets(0, 0, 0, 0);
         add(grid, gbc);
     }
 

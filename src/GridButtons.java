@@ -17,6 +17,7 @@ public class GridButtons extends TileArea
 
     private static final long serialVersionUID = 1;
     private Tile[] tiles = new Tile[16];
+    private Dimension tileDimen = new Dimension(100,100);
 
     /**
      * Constructor creates a grid from an array of 16 tiles
@@ -38,8 +39,11 @@ public class GridButtons extends TileArea
         {
             tiles[index] = new Tile();
             tiles[index].setIsInGrid(true);
+            tiles[index].setMaximumSize(tileDimen);
+            tiles[index].setMinimumSize(tileDimen);
+            tiles[index].setPreferredSize(tileDimen);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
-                                                   // method call AC 3-23-2016
+            // method call AC 3-23-2016
             this.addButtons(this, tiles[index], (index % 4), (index / 4), 1, 1,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
             this.addActionListener(tiles[index], window);

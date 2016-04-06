@@ -18,6 +18,7 @@ public class SideButtons extends TileArea implements AutoCloseable
     private static final long serialVersionUID = 1;
     public JPanel leftPanel = new JPanel();
     public JPanel rightPanel = new JPanel();
+    private Dimension tileDimen = new Dimension(100,100);
 
     private Tile[] tiles = new Tile[16];
 
@@ -37,35 +38,29 @@ public class SideButtons extends TileArea implements AutoCloseable
         // Add the left SideButton panel
         // Add the numbers 0 thru 7 to the tiles DK 3-22-2016
 
-        for (int index = 0; index < 8; index++)
+        for (int index = 0; index < 16; index++)
         {
             String name = Integer.toString(index);
             tiles[index] = new Tile();
             tiles[index].setIsInGrid(false);
             tiles[index].setText(name);
+            tiles[index].setMaximumSize(tileDimen);
+            tiles[index].setMinimumSize(tileDimen);
+            tiles[index].setPreferredSize(tileDimen);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                    // method call AC 3-23-2016
-            this.addButtons(leftPanel, tiles[index], 1, index, 1, 1,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
             this.addActionListener(tiles[index], window);
+            if(index < 8)
+            {
+                this.addButtons(leftPanel, tiles[index], 1, index, 1, 1,
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
+            }
+            else
+            {
+                this.addButtons(rightPanel, tiles[index], 1, index, 1, 1,
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
+            }
         }
-
-        // Add the right SideButtons panel
-        // Add the numbers 8 thru 15 to the tiles DK 3-22-2016
-
-        for (int index = 8; index < 16; index++)
-        {
-            String name = Integer.toString(index);
-            tiles[index] = new Tile();
-            tiles[index].setIsInGrid(false);
-            tiles[index].setText(name);
-            Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
-                                                   // method call AC 3-23-2016
-            this.addButtons(rightPanel, tiles[index], 1, index, 1, 1,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
-            this.addActionListener(tiles[index], window);
-        }
-
     }
 
     /**
