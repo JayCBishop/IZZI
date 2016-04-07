@@ -13,7 +13,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class SideButtons extends TileArea implements AutoCloseable
+public class SideButtons extends TileArea
 {
     private static final long serialVersionUID = 1;
     public JPanel leftPanel = new JPanel();
@@ -72,10 +72,8 @@ public class SideButtons extends TileArea implements AutoCloseable
         // stub
     }
 
-    @Override
-    public void close() throws Exception
-    {
-        // TODO Auto-generated method stub
+    
 
-    }
+   
+    
 }

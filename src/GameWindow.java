@@ -71,10 +71,6 @@ public class GameWindow extends JFrame implements ActionListener
             System.out.println("new pressed\n");
     }
 
-    public void removeSideButtons()
-    {
-
-    }
 
     // method to reset the side panels and grid area to original state
     // DK 4/5/2016
