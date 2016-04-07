@@ -13,6 +13,8 @@
  *
 
  */
+import java.io.File;
+import java.io.FileNotFoundException;
 import javax.swing.*;
 import java.awt.*;
 
@@ -38,6 +40,28 @@ public class Main
         // Answer is, have the "game" do it.
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.getContentPane().setBackground(Color.cyan);
+
+
+		int[] array = new int[100];
+		File file = new File("default.mze");
+		ByteFileStreamReader reader;
+		try {
+			reader = new ByteFileStreamReader(file);
+			int nextInt = reader.readInt();
+			int index = 0;
+			while(nextInt != -1 && index < 100)
+			{
+				array[index] = nextInt;
+				index++;
+				nextInt = reader.readInt();
+			}
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.exit(0);
+			
+		}
+		
         game.setUp();
 
         game.setVisible(true);
