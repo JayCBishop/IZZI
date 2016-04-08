@@ -79,5 +79,30 @@ public class ByteFileStreamReader extends FileInputStream {
 			return convertByteToInt(bytesRead);
 		
 	}
+	
+	/**
+	 * Takes in bytes 4 at a time as long as they are valid
+	 * If bytes are not valid, error is given out
+	 * If correct data type, convert the read in bytes to float
+	 * convertByteToFloat takes valid bytes in
+	 * 		and then converts them into useable floats
+	 * @return
+	 */
+	public float readFloat()
+	{
+		byte[] bytesRead = new byte[4];
+		int checkIfValid = 0;
+		try {
+			checkIfValid = read(bytesRead);
+		} catch (IOException e) {
+			System.out.println("File not read.");
+			e.printStackTrace();
+		}
+				
+		if(checkIfValid == -1)
+			return checkIfValid;
+		else
+			return convertByteToFloat(bytesRead);
+	}
 
 }
