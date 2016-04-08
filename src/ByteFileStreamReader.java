@@ -4,7 +4,7 @@
  * Members are listed in Main.java
  * Software Design, Spring 2016
  * @author- Group G
- * Created 2/23/2016
+ * Created 4/7/2016
  * 
  * Contains functionality used by Main
  * Reads in a file and converts bytes to be interpreted
