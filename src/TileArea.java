@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -101,9 +101,9 @@ public abstract class TileArea extends JPanel
                         deselectTile(window, window.getFirstClicked());
                         tileInfractionOccured(tile);
                     }
-                    // Both tiles have text
-                    else if (window.getFirstClicked().getText() != ""
-                            && tile.getText() != "")
+                    // Both tiles have images
+                    else if (window.getFirstClicked().getIcon() != null
+                            && tile.getIcon() != null)
                     {
                         deselectTile(window, window.getFirstClicked());
                         tileInfractionOccured(tile);
@@ -121,7 +121,7 @@ public abstract class TileArea extends JPanel
                 // First Tile Clicked
                 else
                 {
-                    if (tile.getText() != "")
+                    if (tile.getIcon()!=null)
                     {
                         selectTile(window, tile);
                     } else
@@ -153,6 +153,7 @@ public abstract class TileArea extends JPanel
             }
         }, 1000);
     }
+    
 
     /**
      * Selects a tile
@@ -197,12 +198,13 @@ public abstract class TileArea extends JPanel
      * @param firstClicked
      * @param secondClicked
      *            -Kyle 3/22/2016
+     *            -Jay 4/7/2016
      */
     private void switchTiles(Tile firstClicked, Tile secondClicked)
     {
-        String temp = firstClicked.getText();
-        firstClicked.setText(secondClicked.getText());
-        secondClicked.setText(temp);
+        Icon temp = firstClicked.getIcon();
+        firstClicked.setIcon(secondClicked.getIcon());
+        secondClicked.setIcon(temp);
     }
 
 }
