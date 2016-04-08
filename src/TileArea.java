@@ -30,6 +30,7 @@ public abstract class TileArea extends JPanel
     private static final Border DEFAULT_BORDER = new JButton().getBorder();
     private static final Border SELECTED_BORDER = new LineBorder(Color.ORANGE,
             4);
+    private static final Border ERROR_BORDER = new LineBorder(Color.RED, 4);
 
     protected TileArea()
     {
@@ -143,6 +144,7 @@ public abstract class TileArea extends JPanel
     {
         tile.setBackground(Color.RED);
         tile.setForeground(Color.WHITE);
+        tile.setBorder(ERROR_BORDER);
         new java.util.Timer().schedule(new java.util.TimerTask()
         {
             @Override
@@ -150,6 +152,7 @@ public abstract class TileArea extends JPanel
             {
                 tile.setBackground(new JButton().getBackground());
                 tile.setForeground(Color.BLACK);
+                tile.setBorder(DEFAULT_BORDER);
             }
         }, 1000);
     }
