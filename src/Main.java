@@ -15,8 +15,13 @@
  */
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Vector;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Main
 {
@@ -24,7 +29,7 @@ public class Main
     // Probably should declare any buttons here
     public static JButton newGameButton, resetButton, quitButton;
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws FileNotFoundException
     {
         // This is the play area
         // Named the GameWindow after our group D.K.
@@ -41,25 +46,56 @@ public class Main
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.getContentPane().setBackground(Color.cyan);
 
-
-		int[] array = new int[100];
 		File file = new File("default.mze");
 		ByteFileStreamReader reader;
-		try {
-			reader = new ByteFileStreamReader(file);
-			int nextInt = reader.readInt();
-			int index = 0;
-			while(nextInt != -1 && index < 100)
+		
+		reader = new ByteFileStreamReader(file);
+		int numberOfTiles = reader.readInt();
+		BufferedImage [] allImages = new BufferedImage[numberOfTiles];
+		Vector<float[]> debug = new Vector<float[]>();
+				
+		
+		for(int i = 0; i < numberOfTiles; i++)
+		{
+			BufferedImage buffImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+			Graphics2D graphic = buffImage.createGraphics();
+			graphic.setColor(Color.WHITE);
+			graphic.fillRect(0, 0, 100, 100);
+			graphic.setColor(Color.BLACK);
+			int tileNumber = reader.readInt();
+			int numLines = reader.readInt();
+			for(int j = 0; j < numLines; j++)
 			{
-				array[index] = nextInt;
-				index++;
-				nextInt = reader.readInt();
+				float[] coords = new float[4];
+				for(int k = 0; k < 4; k++)
+				{
+					coords[k] = reader.readFloat();
+				}
+				graphic.setStroke(new BasicStroke(1));
+				graphic.drawLine((int)coords[0], (int)coords[1], (int)coords[2], (int)coords[3]);
 			}
-		} catch (FileNotFoundException e1) {
+		
+			allImages[tileNumber] = buffImage;
+
+
+			try {
+				ImageIO.write(buffImage, "JPEG", new File("foo.jpg"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+
+		}
+
+		
+		game.images = allImages;
+		
+		try {
+			reader.close();
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-			System.exit(0);
-			
 		}
 		
         game.setUp();

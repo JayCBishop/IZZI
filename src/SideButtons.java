@@ -24,10 +24,11 @@ public class SideButtons extends TileArea
 
     /**
      * Constructor creates both the side panels from two arrays of 8 tiles
+     * @param images 
      *
      * @param frame
      */
-    SideButtons(GameWindow window)
+    SideButtons(GameWindow window, Image[] images)
     {
         GridBagLayout gbl = new GridBagLayout();
         leftPanel.setLayout(gbl);
@@ -43,7 +44,6 @@ public class SideButtons extends TileArea
             String name = Integer.toString(index);
             tiles[index] = new Tile();
             tiles[index].setIsInGrid(false);
-            tiles[index].setText(name);
             tiles[index].setMaximumSize(tileDimen);
             tiles[index].setMinimumSize(tileDimen);
             tiles[index].setPreferredSize(tileDimen);
@@ -60,6 +60,8 @@ public class SideButtons extends TileArea
                 this.addButtons(rightPanel, tiles[index], 1, index, 1, 1,
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
             }
+            tiles[index].setIcon(new ImageIcon(images[index]));
+
         }
     }
 

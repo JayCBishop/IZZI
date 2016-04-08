@@ -39,5 +39,22 @@ public class ByteFileStreamReader extends FileInputStream {
 			return convertByteToInt(bytesRead);
 		
 	}
+	
+	public float readFloat()
+	{
+		byte[] bytesRead = new byte[4];
+		int checkIfValid = 0;
+		try {
+			checkIfValid = read(bytesRead);
+		} catch (IOException e) {
+			System.out.println("File not read.");
+			e.printStackTrace();
+		}
+				
+		if(checkIfValid == -1)
+			return checkIfValid;
+		else
+			return convertByteToFloat(bytesRead);
+	}
 
 }

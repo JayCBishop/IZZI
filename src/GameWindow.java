@@ -31,6 +31,8 @@ public class GameWindow extends JFrame implements ActionListener
     private SideButtons sideButtons;
 
     private Tile firstClicked, secondClicked;
+    
+    public Image[] images;
 
     /**
      * Constructor sets the window name using super(), changes the layout, which
@@ -166,7 +168,7 @@ public class GameWindow extends JFrame implements ActionListener
     private void createSidePanels()
     {
         GridBagConstraints gbc = new GridBagConstraints();
-        sideButtons = new SideButtons(this);
+        sideButtons = new SideButtons(this, images);
         gbc.gridwidth = 1;
         gbc.weightx = 1;
         gbc.weighty = 1;
