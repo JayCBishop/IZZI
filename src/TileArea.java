@@ -152,7 +152,14 @@ public abstract class TileArea extends JPanel
             {
                 tile.setBackground(new JButton().getBackground());
                 tile.setForeground(Color.BLACK);
-                tile.setBorder(DEFAULT_BORDER);
+                if(tile.isInGrid())
+                {
+                    tile.setBorder(null);
+                }
+                else
+                {
+                    tile.setBorder(DEFAULT_BORDER);
+                }
             }
         }, 1000);
     }
@@ -182,8 +189,15 @@ public abstract class TileArea extends JPanel
     public void deselectTile(GameWindow window, Tile tile)
     {
         window.setFirstClicked(null);
-        tile.setBorder(DEFAULT_BORDER);
         tile.setIsClicked(false);
+        if(tile.isInGrid())
+        {
+            tile.setBorder(null);
+        }
+        else
+        {
+            tile.setBorder(DEFAULT_BORDER);
+        }
     }
 
     /**
