@@ -138,7 +138,7 @@ public abstract class TileArea extends JPanel
      * Lights a tile momentarily if an illegal move happens
      * 
      * @param tile:
-     *            the tile an infraction occured upon -Jay 3/24/2016
+     *            the tile an in-fraction occurred upon -Jay 3/24/2016
      */
     public void tileInfractionOccured(Tile tile)
     {
@@ -152,14 +152,7 @@ public abstract class TileArea extends JPanel
             {
                 tile.setBackground(new JButton().getBackground());
                 tile.setForeground(Color.BLACK);
-                if(tile.isInGrid())
-                {
-                    tile.setBorder(null);
-                }
-                else
-                {
-                    tile.setBorder(DEFAULT_BORDER);
-                }
+                tile.setBorder(DEFAULT_BORDER);
             }
         }, 1000);
     }
@@ -190,7 +183,7 @@ public abstract class TileArea extends JPanel
     {
         window.setFirstClicked(null);
         tile.setIsClicked(false);
-        if(tile.isInGrid())
+        if(tile.isInGrid() && tile.getIcon() != null)
         {
             tile.setBorder(null);
         }
