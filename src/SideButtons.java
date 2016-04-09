@@ -18,13 +18,14 @@ public class SideButtons extends TileArea
     private static final long serialVersionUID = 1;
     public JPanel leftPanel = new JPanel();
     public JPanel rightPanel = new JPanel();
-    private Dimension tileDimen = new Dimension(100,100);
+    private Dimension tileDimen = new Dimension(100, 100);
 
     private Tile[] tiles = new Tile[16];
 
     /**
      * Constructor creates both the side panels from two arrays of 8 tiles
-     * @param images 
+     * 
+     * @param images
      *
      * @param frame
      */
@@ -41,7 +42,6 @@ public class SideButtons extends TileArea
 
         for (int index = 0; index < 16; index++)
         {
-            String name = Integer.toString(index);
             tiles[index] = new Tile();
             tiles[index].setIsInGrid(false);
             tiles[index].setMaximumSize(tileDimen);
@@ -50,15 +50,16 @@ public class SideButtons extends TileArea
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                    // method call AC 3-23-2016
             this.addActionListener(tiles[index], window);
-            if(index < 8)
+            if (index < 8)
             {
                 this.addButtons(leftPanel, tiles[index], 1, index, 1, 1,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
-            }
-            else
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        inset);
+            } else
             {
                 this.addButtons(rightPanel, tiles[index], 1, index, 1, 1,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        inset);
             }
             tiles[index].setIcon(new ImageIcon(images[index]));
 
@@ -74,8 +75,4 @@ public class SideButtons extends TileArea
         // stub
     }
 
-    
-
-   
-    
 }

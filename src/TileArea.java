@@ -122,7 +122,7 @@ public abstract class TileArea extends JPanel
                 // First Tile Clicked
                 else
                 {
-                    if (tile.getIcon()!=null)
+                    if (tile.getIcon() != null)
                     {
                         selectTile(window, tile);
                     } else
@@ -156,7 +156,6 @@ public abstract class TileArea extends JPanel
             }
         }, 1000);
     }
-    
 
     /**
      * Selects a tile
@@ -200,8 +199,7 @@ public abstract class TileArea extends JPanel
      * 
      * @param firstClicked
      * @param secondClicked
-     *            -Kyle 3/22/2016
-     *            -Jay 4/7/2016
+     *            -Kyle 3/22/2016 -Jay 4/7/2016
      */
     private void switchTiles(Tile firstClicked, Tile secondClicked)
     {
