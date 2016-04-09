@@ -152,7 +152,14 @@ public abstract class TileArea extends JPanel
             {
                 tile.setBackground(new JButton().getBackground());
                 tile.setForeground(Color.BLACK);
-                tile.setBorder(DEFAULT_BORDER);
+                if(tile.isInGrid() && tile.getIcon() != null)
+                {
+                    tile.setBorder(null);
+                }
+                else
+                {
+                    tile.setBorder(DEFAULT_BORDER);
+                }
             }
         }, 1000);
     }
