@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -217,9 +216,9 @@ public abstract class TileArea extends JPanel
      */
     private void switchTiles(Tile firstClicked, Tile secondClicked)
     {
-        Icon temp = firstClicked.getIcon();
-        firstClicked.setIcon(secondClicked.getIcon());
-        secondClicked.setIcon(temp);
+        MazeIcon temp = firstClicked.getMazeIcon();
+        firstClicked.setMazeIcon(secondClicked.getMazeIcon());
+        secondClicked.setMazeIcon(temp);
     }
 
 }

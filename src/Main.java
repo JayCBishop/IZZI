@@ -16,10 +16,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Main
 {
@@ -49,7 +49,6 @@ public class Main
 
         File file = new File("default.mze");
         ByteFileStreamReader reader;
-
         try
         {
             reader = new ByteFileStreamReader(file);
@@ -60,16 +59,11 @@ public class Main
             return;
         }
         int numberOfTiles = reader.readInt();
-        BufferedImage[] allImages = new BufferedImage[numberOfTiles];
+        Vector<Vector<float[]>> allTilesLineCoords = new Vector<Vector<float[]>>(numberOfTiles);
 
         for (int i = 0; i < numberOfTiles; i++)
         {
-            BufferedImage buffImage = new BufferedImage(100, 100,
-                    BufferedImage.TYPE_INT_RGB);
-            Graphics2D graphic = buffImage.createGraphics();
-            graphic.setColor(Color.WHITE);
-            graphic.fillRect(0, 0, 100, 100);
-            graphic.setColor(Color.BLACK);
+            Vector<float[]> lineCoords = new Vector<float[]>();
             int tileNumber = reader.readInt();
             int numLines = reader.readInt();
             for (int j = 0; j < numLines; j++)
@@ -79,16 +73,12 @@ public class Main
                 {
                     coords[k] = reader.readFloat();
                 }
-                graphic.setStroke(new BasicStroke(1));
-                graphic.drawLine((int) coords[0], (int) coords[1],
-                        (int) coords[2], (int) coords[3]); // coords for lines
-                                                           // being drawn
+                lineCoords.add(coords);
             }
-            allImages[tileNumber] = buffImage;
+            allTilesLineCoords.add(tileNumber, lineCoords);
         }
 
-        game.images = allImages;
-
+        game.allTilesLineCoords = allTilesLineCoords;
         try
         {
             reader.close();

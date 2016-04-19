@@ -19,6 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class GameWindow extends JFrame implements ActionListener
 {
@@ -32,7 +33,7 @@ public class GameWindow extends JFrame implements ActionListener
 
     private Tile firstClicked, secondClicked;
     
-    public Image[] images;
+    public Vector<Vector<float[]>> allTilesLineCoords;
 
     /**
      * Constructor sets the window name using super(), changes the layout, which
@@ -168,7 +169,7 @@ public class GameWindow extends JFrame implements ActionListener
     private void createSidePanels()
     {
         GridBagConstraints gbc = new GridBagConstraints();
-        sideButtons = new SideButtons(this, images);
+        sideButtons = new SideButtons(this, allTilesLineCoords);
         gbc.gridwidth = 1;
         gbc.weightx = 1;
         gbc.weighty = 1;

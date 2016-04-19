@@ -12,6 +12,7 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Vector;
 
 public class SideButtons extends TileArea
 {
@@ -29,8 +30,8 @@ public class SideButtons extends TileArea
      *
      * @param frame
      */
-    SideButtons(GameWindow window, Image[] images)
-    {
+    SideButtons(GameWindow window, Vector<Vector<float[]>> allTilesLineCoords)
+   {
         GridBagLayout gbl = new GridBagLayout();
         leftPanel.setLayout(gbl);
         rightPanel.setLayout(gbl);
@@ -61,7 +62,7 @@ public class SideButtons extends TileArea
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                         inset);
             }
-            tiles[index].setIcon(new ImageIcon(images[index]));
+            tiles[index].setMazeIcon(new MazeIcon(allTilesLineCoords.get(index)));
 
         }
     }

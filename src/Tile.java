@@ -14,12 +14,10 @@
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.Icon;
 import javax.swing.JButton;
 
 public class Tile extends JButton implements ActionListener
@@ -27,7 +25,7 @@ public class Tile extends JButton implements ActionListener
 
     private boolean drawn;
     private boolean inGrid;
-    private Image image;
+    private MazeIcon icon;
     private boolean isClicked;
 
     private static final long serialVersionUID = 1;
@@ -47,54 +45,36 @@ public class Tile extends JButton implements ActionListener
         this.setMaximumSize(d);
         this.setMinimumSize(d);
         this.setFont(new Font("Arial", Font.PLAIN, 20));
-        
+
         // Right click listener that rotates each tile
         // -Jay 4/19/2016
-        this.addMouseListener(new MouseAdapter() {
+        this.addMouseListener(new MouseAdapter()
+        {
             @Override
-            public void mousePressed(MouseEvent e) {
-               if (e.getButton() == MouseEvent.BUTTON3) {
-                  rotate(1);
-               }
+            public void mousePressed(MouseEvent e)
+            {
+                if (e.getButton() == MouseEvent.BUTTON3)
+                {
+                    rotate(90);
+                }
             }
-         });
+        });
     }
 
     /**
      * Rotates the tile 90 degrees clockwise
      * 
-     * @param numberOfRotations
-     *            controls how many times the tile is rotated
-     * -Evan 4/17/2016
-     * -Jay 4/19/2016
+     * @param degreesRotated
+     *            -Evan 4/17/2016 -Jay 4/19/2016
      */
-    public void rotate(int numberOfRotations)
-    {   
-        Icon icon = getIcon();
-        if(icon != null)
+    public void rotate(int degrees)
+    {
+        if (icon != null)
         {
-            setIcon(null);
-            RotatedIcon ri = new RotatedIcon(icon, 90);
-            setIcon(ri);
+            icon = new MazeIcon(icon.getLineCoords(), degrees + icon.getDegreesRotated());
+            setIcon(icon.getImageIcon());
         }
-    }
-
-    /**
-     * Sets the image displayed on the tile
-     * 
-     * @param i
-     */
-    public void setImage(Image i)
-    {
-        image = i;
-    }
-
-    /**
-     * Returns the image on the tile
-     */
-    public Image getImage()
-    {
-        return image;
+        invalidate();
     }
 
     /**
@@ -172,6 +152,21 @@ public class Tile extends JButton implements ActionListener
     {
         return isClicked;
     }
+
+    public void setMazeIcon(MazeIcon icon)
+    {
+        this.icon = icon;
+        if (icon != null)
+        {
+            setIcon(icon.getImageIcon());
+        } else
+        {
+            setIcon(null);
+        }
+    }
+
+    public MazeIcon getMazeIcon()
+    {
+        return icon;
+    }
 }
-
-
