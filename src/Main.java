@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Main
@@ -80,13 +79,10 @@ public class Main
                 {
                     coords[k] = reader.readFloat();
                 }
-                graphic.rotate(Math.toRadians(90), 50, 50);
-                graphic.transform(new AffineTransform(1.0, 0, 0, 1.0, 0, 0));
                 graphic.setStroke(new BasicStroke(1));
                 graphic.drawLine((int) coords[0], (int) coords[1],
                         (int) coords[2], (int) coords[3]); // coords for lines
                                                            // being drawn
-                //graphic.rotate(Math.toRadians(90));
             }
             allImages[tileNumber] = buffImage;
         }
