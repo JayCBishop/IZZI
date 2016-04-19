@@ -12,12 +12,22 @@
  * index, and button.
  */
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class Tile extends JButton implements ActionListener
@@ -45,6 +55,15 @@ public class Tile extends JButton implements ActionListener
         this.setMaximumSize(d);
         this.setMinimumSize(d);
         this.setFont(new Font("Arial", Font.PLAIN, 20));
+        
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+               if (e.getButton() == MouseEvent.BUTTON3) {
+                  rotate(1);
+               }
+            }
+         });
     }
 
     /**
@@ -55,7 +74,23 @@ public class Tile extends JButton implements ActionListener
      */
     public void rotate(int numberOfRotations)
     {
-        // stub
+        System.out.println("Rotated");
+        BufferedImage bi = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = bi.createGraphics();
+        g2d.setColor(Color.BLACK);
+        this.getIcon().paintIcon(this, g2d, 0, 0);
+        g2d.drawLine(1, 1, 99, 99);
+        //    g2d.rotate(Math.toRadians(90)); // Broken
+
+        g2d.transform(AffineTransform.getQuadrantRotateInstance(1));
+        g2d.drawImage(bi, null, null);
+        g2d.dispose();
+        try {
+            ImageIO.write(bi, "png", new File("test.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setIcon(new ImageIcon(bi));
     }
 
     /**
@@ -152,3 +187,5 @@ public class Tile extends JButton implements ActionListener
         return isClicked;
     }
 }
+
+
