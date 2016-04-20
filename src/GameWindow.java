@@ -64,13 +64,13 @@ public class GameWindow extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent e)
     {
-        if ("quit".equals(e.getActionCommand()))
+        if ("Quit".equals(e.getActionCommand()))
             System.exit(0);
-        if ("reset".equals(e.getActionCommand()))
+        if ("Reset".equals(e.getActionCommand()))
         {
             reset();
         }
-        if ("new".equals(e.getActionCommand()))
+        if ("New Game".equals(e.getActionCommand()))
             System.out.println("new pressed\n");
     }
 
@@ -118,28 +118,28 @@ public class GameWindow extends JFrame implements ActionListener
         // Initialize buttons
         // Font size is 1/3 of button width so it will be more consistent
         // between different machines. D.K.
-        Main.newGameButton = new JButton("new");
+        Main.newGameButton = new JButton("New Game");
         Main.newGameButton.setMinimumSize(buttonDimen);
         Main.newGameButton.setMaximumSize(buttonDimen);
         Main.newGameButton.setPreferredSize(buttonDimen);
         Main.newGameButton.addActionListener(this);
         Main.newGameButton
-                .setFont(new Font("Arial", Font.PLAIN, buttonWidth / 3));
+                .setFont(new Font("Arial", Font.PLAIN, buttonWidth / 6));
 
-        Main.resetButton = new JButton("reset");
+        Main.resetButton = new JButton("Reset");
         Main.resetButton.setMinimumSize(buttonDimen);
         Main.resetButton.setMaximumSize(buttonDimen);
         Main.resetButton.setPreferredSize(buttonDimen);
         Main.resetButton.addActionListener(this);
         Main.resetButton
-                .setFont(new Font("Arial", Font.PLAIN, buttonWidth / 3));
+                .setFont(new Font("Arial", Font.PLAIN, buttonWidth / 6));
 
-        Main.quitButton = new JButton("quit");
+        Main.quitButton = new JButton("Quit");
         Main.quitButton.setMinimumSize(buttonDimen);
         Main.quitButton.setMaximumSize(buttonDimen);
         Main.quitButton.setPreferredSize(buttonDimen);
         Main.quitButton.addActionListener(this);
-        Main.quitButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth / 3));
+        Main.quitButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth / 6));
 
         toolbar.add(Main.newGameButton);
         toolbar.add(Main.resetButton);
