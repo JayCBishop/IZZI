@@ -79,7 +79,7 @@ public class SideButtons extends TileArea
         for(int i = 0; i < tiles.length; i++)
         {
             icons.add(i,tiles[i].getMazeIcon());
-            rotations.add(i,90*(i%4));
+            rotations.add(i,90*((i%4)+1));
             tiles[i].setMazeIcon(null);
         }
         for(int i = 15; i >= 0; i--)
