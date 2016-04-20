@@ -12,6 +12,8 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Vector;
 
 public class SideButtons extends TileArea
@@ -63,17 +65,31 @@ public class SideButtons extends TileArea
                         inset);
             }
             tiles[index].setMazeIcon(new MazeIcon(allTilesLineCoords.get(index)));
-
         }
+        shuffle();
     }
 
     /**
      * stub for shuffle method to rearrange tiles
      */
-
     public void shuffle()
     {
-        // stub
+        ArrayList<MazeIcon> icons = new ArrayList<MazeIcon>();
+        ArrayList<Integer> rotations = new ArrayList<Integer>();
+        for(int i = 0; i < tiles.length; i++)
+        {
+            icons.add(i,tiles[i].getMazeIcon());
+            rotations.add(i,90*(i%4));
+            tiles[i].setMazeIcon(null);
+        }
+        for(int i = 15; i >= 0; i--)
+        {
+            Random r = new Random();
+            int Result = r.nextInt(i+1);
+            tiles[i].setMazeIcon(icons.get(Result));
+            icons.remove(Result);
+            tiles[i].rotate(rotations.get(Result));
+            rotations.remove(Result);
+        }
     }
-
 }
