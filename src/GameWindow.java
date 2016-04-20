@@ -112,7 +112,7 @@ public class GameWindow extends JFrame implements ActionListener
 
         // Set up the button dimensions for the menu bar
         int buttonWidth = 150;
-        int buttonHeight = 100;
+        int buttonHeight = 75;
         Dimension buttonDimen = new Dimension(buttonWidth, buttonHeight);
 
         // Initialize buttons
