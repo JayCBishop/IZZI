@@ -19,7 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class GameWindow extends JFrame implements ActionListener
 {
@@ -33,7 +33,7 @@ public class GameWindow extends JFrame implements ActionListener
 
     private Tile firstClicked, secondClicked;
     
-    public Vector<Vector<float[]>> allTilesLineCoords;
+    public ArrayList<ArrayList<float[]>> allTilesLineCoords;
 
     /**
      * Constructor sets the window name using super(), changes the layout, which

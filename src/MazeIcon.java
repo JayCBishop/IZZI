@@ -1,8 +1,9 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -15,14 +16,14 @@ public class MazeIcon
    
     private ImageIcon icon;
     private double degreesRotated;
-    private Vector<float[]> lineCoords;
+    private ArrayList<float[]> lineCoords;
 
     /**
      *  Convenience constructor to create a RotatedIcon that is rotated DOWN.
      *
      *  @param icon  the Icon to rotate
      */
-    public MazeIcon(Vector<float[]> lineCoords)
+    public MazeIcon(ArrayList<float[]> lineCoords)
     {
         this(lineCoords, 0);
     }
@@ -33,7 +34,7 @@ public class MazeIcon
      *  @param icon the Icon to rotate
      *  @param rotate  the direction of rotation
      */
-    public MazeIcon(Vector<float[]> lineCoords, double degreesRotated)
+    public MazeIcon(ArrayList<float[]> lineCoords, double degreesRotated)
     {
         this.degreesRotated = degreesRotated;
         this.lineCoords = lineCoords;
@@ -64,12 +65,12 @@ public class MazeIcon
         drawIcon();
     }
     
-    public void setLineCoords(Vector<float[]> lineCoords)
+    public void setLineCoords(ArrayList<float[]> lineCoords)
     {
         this.lineCoords = lineCoords;
     }
     
-    public Vector<float[]> getLineCoords()
+    public ArrayList<float[]> getLineCoords()
     {
         return lineCoords;
     }
@@ -100,9 +101,9 @@ public class MazeIcon
         {
             float[] coords = lineCoords.get(j);
             graphic.setStroke(new BasicStroke(1));
-            graphic.drawLine((int) coords[0], (int) coords[1],
-                    (int) coords[2], (int) coords[3]); // coords for lines
-                                                       // being drawn
+            Line2D line = new Line2D.Float(coords[0], coords[1], coords[2], coords[3]);
+            graphic.draw(line); 
+                                                       
         }
         
         icon = new ImageIcon(buffImage);

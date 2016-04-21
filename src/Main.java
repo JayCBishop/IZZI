@@ -16,7 +16,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,11 +59,11 @@ public class Main
             return;
         }
         int numberOfTiles = reader.readInt();
-        Vector<Vector<float[]>> allTilesLineCoords = new Vector<Vector<float[]>>(numberOfTiles);
+        ArrayList<ArrayList<float[]>> allTilesLineCoords = new ArrayList<ArrayList<float[]>>(numberOfTiles);
 
         for (int i = 0; i < numberOfTiles; i++)
         {
-            Vector<float[]> lineCoords = new Vector<float[]>();
+            ArrayList<float[]> lineCoords = new ArrayList<float[]>();
             int tileNumber = reader.readInt();
             int numLines = reader.readInt();
             for (int j = 0; j < numLines; j++)

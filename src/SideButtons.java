@@ -12,9 +12,8 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class SideButtons extends TileArea
 {
@@ -32,7 +31,7 @@ public class SideButtons extends TileArea
      *
      * @param frame
      */
-    SideButtons(GameWindow window, Vector<Vector<float[]>> allTilesLineCoords)
+    SideButtons(GameWindow window, ArrayList<ArrayList<float[]>> allTilesLineCoords)
    {
         GridBagLayout gbl = new GridBagLayout();
         leftPanel.setLayout(gbl);
