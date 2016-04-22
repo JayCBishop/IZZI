@@ -130,7 +130,7 @@ public class Tile extends JButton
     }
 
     /**
-     * Gets the click state of tiel
+     * Gets the click state of tile
      * 
      *
      * @return isClicked
@@ -153,6 +153,7 @@ public class Tile extends JButton
         {
             setIcon(null);
         }
+        
         invalidate();
         revalidate();
         repaint();

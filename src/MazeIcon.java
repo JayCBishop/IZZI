@@ -1,3 +1,11 @@
+/**
+ * Members are listed in Main.java
+ * Software Design, Spring 2016
+ * @author- Group G
+ * Created 4/7/2016
+ * 
+ * A class to organize rotation of ImageIcons for our tiles
+ */
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -21,7 +29,7 @@ public class MazeIcon
     /**
      *  Convenience constructor to create a RotatedIcon that is rotated DOWN.
      *
-     *  @param icon  the Icon to rotate
+     *  @param icon the icon to rotate
      */
     public MazeIcon(ArrayList<float[]> lineCoords)
     {
@@ -42,7 +50,7 @@ public class MazeIcon
     }
 
     /**
-     *  Gets the degrees of rotation. Only used for Rotate.ABOUT_CENTER.
+     *  Gets the degrees of rotation
      *
      *  @return the degrees of rotation
      */
@@ -52,10 +60,7 @@ public class MazeIcon
     }
 
     /**
-     *  Set the degrees of rotation. Only used for Rotate.ABOUT_CENTER.
-     *  This method only sets the degrees of rotation, it will not cause
-     *  the Icon to be repainted. You must invoke repaint() on any
-     *  component using this icon for it to be repainted.
+     *  Set the degrees of rotation. 
      *
      *  @param degrees the degrees of rotation
      */
@@ -65,16 +70,28 @@ public class MazeIcon
         drawIcon();
     }
     
+    /**
+     * sets the line coordinates
+     * @param lineCoords
+     */
     public void setLineCoords(ArrayList<float[]> lineCoords)
     {
         this.lineCoords = lineCoords;
     }
     
+    /**
+     * returns the line coordinates
+     * @return an array list of line coordinates
+     */
     public ArrayList<float[]> getLineCoords()
     {
         return lineCoords;
     }
     
+    /**
+     * returns the actual icon
+     * @return the tile's icon
+     */
     public ImageIcon getImageIcon()
     {
         drawIcon();

@@ -1,6 +1,4 @@
-
 /**
- * Added authors as Group G on 3-21-2016 
  * Members are listed in Main.java
  * Software Design, Spring 2016
  * @author- Group G

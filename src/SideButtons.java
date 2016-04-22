@@ -25,6 +25,8 @@ public class SideButtons extends TileArea
     private Tile[] tiles = new Tile[16];
     private Tile[] startTiles = new Tile[16];
     private GameWindow window;
+    private ArrayList<ArrayList<float[]>> allTilesLineCoords;
+
     /**
      * Constructor creates both the side panels from two arrays of 8 tiles
      * 
@@ -35,40 +37,16 @@ public class SideButtons extends TileArea
     SideButtons(GameWindow window,
             ArrayList<ArrayList<float[]>> allTilesLineCoords)
     {
+        this.allTilesLineCoords = allTilesLineCoords;
+        this.window = window;
         GridBagLayout gbl = new GridBagLayout();
         leftPanel.setLayout(gbl);
         rightPanel.setLayout(gbl);
         leftPanel.setBackground(Color.cyan);
         rightPanel.setBackground(Color.cyan);
 
-        // Add the left SideButton panel
-        // Add the numbers 0 thru 7 to the tiles DK 3-22-2016
+        setUp(true);
 
-        for (int index = 0; index < 16; index++)
-        {
-            tiles[index] = new Tile();
-            tiles[index].setIsInGrid(false);
-            tiles[index].setMaximumSize(tileDimen);
-            tiles[index].setMinimumSize(tileDimen);
-            tiles[index].setPreferredSize(tileDimen);
-            Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
-                                                   // method call AC 3-23-2016
-            this.addActionListener(tiles[index], window);
-            this.window = window;
-            if (index < 8)
-            {
-                this.addButtons(leftPanel, tiles[index], 1, index, 1, 1,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                        inset);
-            } else
-            {
-                this.addButtons(rightPanel, tiles[index], 1, index, 1, 1,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                        inset);
-            }
-            tiles[index]
-                    .setMazeIcon(new MazeIcon(allTilesLineCoords.get(index)));
-        }
         shuffle();
 
         for (int i = 0; i < 16; i++)
@@ -79,8 +57,7 @@ public class SideButtons extends TileArea
     }
 
     /**
-     * Shuffle method rotates and rearranges tiles
-     * -Jay 4/21/2016
+     * Shuffle method rotates and rearranges tiles -Jay 4/21/2016
      */
     public void shuffle()
     {
@@ -103,10 +80,17 @@ public class SideButtons extends TileArea
         }
     }
 
-    public void reset()
+    /**
+     * Sets up a new tile board depending on whether it's new or reset
+     * 
+     * @param isNewGame
+     * 
+     *            - Anna 4/21/2016
+     */
+    public void setUp(boolean isNewGame)
     {
-        leftPanel.removeAll();
-        rightPanel.removeAll();
+        // Add the side button panels
+
         for (int index = 0; index < 16; index++)
         {
             tiles[index] = new Tile();
@@ -116,6 +100,7 @@ public class SideButtons extends TileArea
             tiles[index].setPreferredSize(tileDimen);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                    // method call AC 3-23-2016
+
             this.addActionListener(tiles[index], window);
             if (index < 8)
             {
@@ -128,10 +113,22 @@ public class SideButtons extends TileArea
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                         inset);
             }
-            tiles[index]
-                    .setMazeIcon(startTiles[index].getMazeIcon());
-
+            if (isNewGame)
+            {
+                tiles[index].setMazeIcon(
+                        new MazeIcon(allTilesLineCoords.get(index)));
+            } else
+            {
+                tiles[index].setMazeIcon(startTiles[index].getMazeIcon());
+            }
         }
     }
-    
+
+    public void reset()
+    {
+        leftPanel.removeAll();
+        rightPanel.removeAll();
+        setUp(false);
+    }
+
 }
