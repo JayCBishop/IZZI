@@ -71,7 +71,7 @@ public class GameWindow extends JFrame implements ActionListener
             reset();
         }
         if ("New Game".equals(e.getActionCommand()))
-            System.out.println("new pressed\n");
+            sideButtons.shuffle();
     }
 
     // method to reset the side panels and grid area to original state

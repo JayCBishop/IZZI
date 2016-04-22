@@ -80,6 +80,7 @@ public class SideButtons extends TileArea
 
     /**
      * Shuffle method rotates and rearranges tiles
+     * -Jay 4/21/2016
      */
     public void shuffle()
     {
