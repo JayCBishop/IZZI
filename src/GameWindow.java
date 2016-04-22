@@ -186,11 +186,7 @@ public class GameWindow extends JFrame implements ActionListener
         gbc.gridx = 2;
         gbc.insets = new Insets(0, 0, 0, 0);
         add(((SideButtons) sideButtons).rightPanel, gbc);
-        sideButtons.repaint();
-        sideButtons.setVisible(true);
         invalidate();
-        
-        sideButtons.shuffle();
     }
 
     // create the grid playing area

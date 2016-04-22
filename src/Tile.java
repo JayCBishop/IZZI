@@ -130,7 +130,7 @@ public class Tile extends JButton
     }
 
     /**
-     * Gets the click state of tile
+     * Gets the click state of tiel
      * 
      *
      * @return isClicked

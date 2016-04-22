@@ -24,7 +24,7 @@ public class SideButtons extends TileArea
 
     private Tile[] tiles = new Tile[16];
     private Tile[] startTiles = new Tile[16];
-
+    private GameWindow window;
     /**
      * Constructor creates both the side panels from two arrays of 8 tiles
      * 
@@ -54,6 +54,7 @@ public class SideButtons extends TileArea
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                    // method call AC 3-23-2016
             this.addActionListener(tiles[index], window);
+            this.window = window;
             if (index < 8)
             {
                 this.addButtons(leftPanel, tiles[index], 1, index, 1, 1,
@@ -103,32 +104,32 @@ public class SideButtons extends TileArea
 
     public void reset()
     {
-        removeAll();
-        for (int i = 0; i < 16; i++)
+        leftPanel.removeAll();
+        rightPanel.removeAll();
+        for (int index = 0; index < 16; index++)
         {
-            tiles[i].setMaximumSize(tileDimen);
-            tiles[i].setMinimumSize(tileDimen);
-            tiles[i].setPreferredSize(tileDimen);
+            tiles[index] = new Tile();
+            tiles[index].setIsInGrid(false);
+            tiles[index].setMaximumSize(tileDimen);
+            tiles[index].setMinimumSize(tileDimen);
+            tiles[index].setPreferredSize(tileDimen);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                    // method call AC 3-23-2016
-            
-            if (i < 8)
+            this.addActionListener(tiles[index], window);
+            if (index < 8)
             {
-                this.addButtons(leftPanel, tiles[i], 1, i, 1, 1,
+                this.addButtons(leftPanel, tiles[index], 1, index, 1, 1,
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                         inset);
             } else
             {
-                this.addButtons(rightPanel, tiles[i], 1, i, 1, 1,
+                this.addButtons(rightPanel, tiles[index], 1, index, 1, 1,
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                         inset);
             }
-            tiles[i].setMazeIcon(null);
-            tiles[i].setMazeIcon(startTiles[i].getMazeIcon());
-            super.repaint();
-            tiles[i].repaint();
-            tiles[i].setVisible(true);
-            tiles[i].revalidate();
+            tiles[index]
+                    .setMazeIcon(startTiles[index].getMazeIcon());
+
         }
     }
     
