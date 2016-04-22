@@ -67,7 +67,7 @@ public class Tile extends JButton
      *  degreesRotated used in MazeIcon.
      *            - DK 4/22/2016
      *     
-     * @param degreesRotated
+     * @param degrees
      *            -Evan 4/17/2016 -Jay 4/19/2016
      */
     public void rotate(int degrees)
