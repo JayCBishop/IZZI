@@ -71,7 +71,7 @@ public class GameWindow extends JFrame implements ActionListener
             reset();
         }
         if ("New Game".equals(e.getActionCommand()))
-            sideButtons.shuffle();
+            newGame();
     }
 
     // method to reset the side panels and grid area to original state
@@ -85,6 +85,17 @@ public class GameWindow extends JFrame implements ActionListener
         this.remove(grid);
         createGrid();
         this.revalidate();
+    }
+    
+    private void newGame()
+    { 
+        this.getContentPane().removeAll();
+        sideButtons = null;
+        this.getContentPane().invalidate();
+        this.getContentPane().validate();
+        this.getContentPane().repaint();
+        this.setUp();
+        this.setVisible(true);
     }
 
     /**
