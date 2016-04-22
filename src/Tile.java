@@ -14,13 +14,11 @@
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 
-public class Tile extends JButton implements ActionListener
+public class Tile extends JButton
 {
 
     private boolean drawn;
@@ -120,15 +118,6 @@ public class Tile extends JButton implements ActionListener
     }
 
     /**
-     * Stub for double click and other events that happen just to single tile
-     */
-    @Override
-    public void actionPerformed(ActionEvent arg0)
-    {
-        // stub
-    }
-
-    /**
      * Sets the click state of tile
      * 
      * @param clicked
@@ -159,10 +148,14 @@ public class Tile extends JButton implements ActionListener
         if (icon != null)
         {
             setIcon(icon.getImageIcon());
-        } else
+        } 
+        else
         {
             setIcon(null);
         }
+        invalidate();
+        revalidate();
+        repaint();
     }
 
     public MazeIcon getMazeIcon()

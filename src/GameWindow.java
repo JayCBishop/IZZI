@@ -32,7 +32,7 @@ public class GameWindow extends JFrame implements ActionListener
     private SideButtons sideButtons;
 
     private Tile firstClicked, secondClicked;
-    
+
     public ArrayList<ArrayList<float[]>> allTilesLineCoords;
 
     /**
@@ -74,13 +74,13 @@ public class GameWindow extends JFrame implements ActionListener
             System.out.println("new pressed\n");
     }
 
-
     // method to reset the side panels and grid area to original state
     // DK 4/5/2016
     private void reset()
     {
         this.remove(sideButtons.leftPanel);
         this.remove(sideButtons.rightPanel);
+        ((SideButtons) sideButtons).reset();
         createSidePanels();
         this.remove(grid);
         createGrid();
@@ -169,7 +169,10 @@ public class GameWindow extends JFrame implements ActionListener
     private void createSidePanels()
     {
         GridBagConstraints gbc = new GridBagConstraints();
-        sideButtons = new SideButtons(this, allTilesLineCoords);
+        if (sideButtons == null)
+        {
+            sideButtons = new SideButtons(this, allTilesLineCoords);
+        }
         gbc.gridwidth = 1;
         gbc.weightx = 1;
         gbc.weighty = 1;
@@ -183,7 +186,9 @@ public class GameWindow extends JFrame implements ActionListener
         gbc.gridx = 2;
         gbc.insets = new Insets(0, 0, 0, 0);
         add(((SideButtons) sideButtons).rightPanel, gbc);
-
+        sideButtons.repaint();
+        sideButtons.setVisible(true);
+        invalidate();
     }
 
     // create the grid playing area

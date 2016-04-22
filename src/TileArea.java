@@ -214,11 +214,14 @@ public abstract class TileArea extends JPanel
      * @param secondClicked
      *            -Kyle 3/22/2016 -Jay 4/7/2016
      */
-    private void switchTiles(Tile firstClicked, Tile secondClicked)
+    protected void switchTiles(Tile firstClicked, Tile secondClicked)
     {
         MazeIcon temp = firstClicked.getMazeIcon();
         firstClicked.setMazeIcon(secondClicked.getMazeIcon());
         secondClicked.setMazeIcon(temp);
+        boolean tempGrid  = firstClicked.isInGrid();
+        firstClicked.setIsInGrid(secondClicked.isInGrid());
+        secondClicked.setIsInGrid(tempGrid);
     }
 
 }
