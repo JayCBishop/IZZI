@@ -87,6 +87,10 @@ public class GameWindow extends JFrame implements ActionListener
         this.revalidate();
     }
     
+    /**
+     * Method that begins an entirely new game with new tile locations and rotations
+     * -Jay 4/22/2016
+     */
     private void newGame()
     { 
         this.getContentPane().removeAll();
