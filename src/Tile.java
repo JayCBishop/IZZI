@@ -61,7 +61,12 @@ public class Tile extends JButton
 
     /**
      * Rotates the tile 90 degrees clockwise
-     * 
+     *  when the user right clicks.
+     *  parameter changed from degreesRotated
+     *  to degrees to avoid confusing with
+     *  degreesRotated used in MazeIcon.
+     *            - DK 4/22/2016
+     *     
      * @param degreesRotated
      *            -Evan 4/17/2016 -Jay 4/19/2016
      */
