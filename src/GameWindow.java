@@ -189,6 +189,8 @@ public class GameWindow extends JFrame implements ActionListener
         sideButtons.repaint();
         sideButtons.setVisible(true);
         invalidate();
+        
+        sideButtons.shuffle();
     }
 
     // create the grid playing area
