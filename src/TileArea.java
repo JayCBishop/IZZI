@@ -113,7 +113,7 @@ public abstract class TileArea extends JPanel
                     {
                         window.setSecondClicked(tile);
                         switchTiles(window.getFirstClicked(),
-                                window.getSecondClicked());
+                                window.getSecondClicked(), window);
                         deselectTile(window, window.getFirstClicked());
                         deselectTile(window, tile);
                     }
@@ -214,11 +214,13 @@ public abstract class TileArea extends JPanel
      * @param secondClicked
      *            -Kyle 3/22/2016 -Jay 4/7/2016
      */
-    protected void switchTiles(Tile firstClicked, Tile secondClicked)
+    protected void switchTiles(Tile firstClicked, Tile secondClicked, GameWindow window)
     {
         MazeIcon temp = firstClicked.getMazeIcon();
         firstClicked.setMazeIcon(secondClicked.getMazeIcon());
         secondClicked.setMazeIcon(temp);
+        
+        window.setChangesMade();
     }
 
 }

@@ -51,7 +51,7 @@ public class SideButtons extends TileArea
 
         for (int i = 0; i < 16; i++)
         {
-            startTiles[i] = new Tile();
+            startTiles[i] = new Tile(window);
             startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
         }
     }
@@ -93,7 +93,7 @@ public class SideButtons extends TileArea
 
         for (int index = 0; index < 16; index++)
         {
-            tiles[index] = new Tile();
+            tiles[index] = new Tile(window);
             tiles[index].setIsInGrid(false);
             tiles[index].setMaximumSize(tileDimen);
             tiles[index].setMinimumSize(tileDimen);

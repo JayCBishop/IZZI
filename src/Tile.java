@@ -28,14 +28,11 @@ public class Tile extends JButton
 
     private static final long serialVersionUID = 1;
 
-    /**
-     * Establishes the initial board
-     */
     // Added font "styles" to constructor for all tiles instead of
     // individually in SideButtons and GridButtons
     // This way when a change is needed, it can be done in
     // one place instead of three different areas. DK 3-23-2016
-    public Tile()
+    public Tile(GameWindow window)
     {
         super();
         Dimension d = new Dimension(75, 75);
@@ -54,6 +51,7 @@ public class Tile extends JButton
                 if (e.getButton() == MouseEvent.BUTTON3)
                 {
                     rotate(90);
+                    window.setChangesMade();
                 }
             }
         });

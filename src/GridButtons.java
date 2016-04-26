@@ -37,7 +37,7 @@ public class GridButtons extends TileArea
         // DK 3-23-2016
         for (int index = 0; index < 16; index++)
         {
-            tiles[index] = new Tile();
+            tiles[index] = new Tile(window);
             tiles[index].setIsInGrid(true);
             tiles[index].setMaximumSize(tileDimen);
             tiles[index].setMinimumSize(tileDimen);

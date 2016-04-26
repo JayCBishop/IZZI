@@ -27,6 +27,9 @@ public class GameWindow extends JFrame implements ActionListener
      * because it is a serializable object, need this or javac complains a lot
      */
     public static final long serialVersionUID = 1;
+    
+    // Boolean that is set true if any changes have been made to the board
+    private boolean changesMade = false;
 
     private TileArea grid;
     private SideButtons sideButtons;
@@ -65,13 +68,53 @@ public class GameWindow extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         if ("Quit".equals(e.getActionCommand()))
-            System.exit(0);
+        {
+            if(changesMade)
+            {
+                popUpAlert();
+            }
+            else
+            {
+                System.exit(0);;
+            }
+        }
         if ("Reset".equals(e.getActionCommand()))
         {
             reset();
         }
-        if ("New Game".equals(e.getActionCommand()))
-            newGame();
+        if ("File".equals(e.getActionCommand()))
+        {
+            
+        }
+    }
+    
+    /**
+     * Handles the pop-up window that runs when the user decides to quit
+     * -Jay 4/26/2016
+     */
+    private void popUpAlert()
+    {
+        Object[] options = {"Yes", "No"};
+        
+        int n = JOptionPane.showOptionDialog(this,
+        "Changes have been made to the game board, would"
+        + "you like to save those changes?",
+        "Warning",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.WARNING_MESSAGE,
+        null,     //do not use a custom Icon
+        options,  //the titles of buttons
+        options[0]); //default button title
+        
+        // Yes option was selected
+        if(n == 0)
+        {
+            // Save
+        }
+        else
+        {
+            System.exit(0);
+        }
     }
 
     // method to reset the side panels and grid area to original state
@@ -85,21 +128,6 @@ public class GameWindow extends JFrame implements ActionListener
         this.remove(grid);
         createGrid();
         this.revalidate();
-    }
-    
-    /**
-     * Method that begins an entirely new game with new tile locations and rotations
-     * -Jay 4/22/2016
-     */
-    private void newGame()
-    { 
-        this.getContentPane().removeAll();
-        sideButtons = null;
-        this.getContentPane().invalidate();
-        this.getContentPane().validate();
-        this.getContentPane().repaint();
-        this.setUp();
-        this.setVisible(true);
     }
 
     /**
@@ -133,7 +161,7 @@ public class GameWindow extends JFrame implements ActionListener
         // Initialize buttons
         // Font size is 1/3 of button width so it will be more consistent
         // between different machines. D.K.
-        Main.newGameButton = new JButton("New Game");
+        Main.newGameButton = new JButton("File");
         Main.newGameButton.setMinimumSize(buttonDimen);
         Main.newGameButton.setMaximumSize(buttonDimen);
         Main.newGameButton.setPreferredSize(buttonDimen);
@@ -260,5 +288,16 @@ public class GameWindow extends JFrame implements ActionListener
     public void setSecondClicked(Tile secClick)
     {
         secondClicked = secClick;
+    }
+    
+    /**
+     * When invoked, simply sets changesMade to true so we know
+     * a change has occurred to the board for saving purposes
+     * 
+     * -Jay 4/26/2016
+     */
+    public void setChangesMade()
+    {
+        changesMade = true;
     }
 };
