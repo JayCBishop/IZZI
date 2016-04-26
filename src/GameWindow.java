@@ -29,6 +29,7 @@ public class GameWindow extends JFrame implements ActionListener
     public static final long serialVersionUID = 1;
     
     // Boolean that is set true if any changes have been made to the board
+    // Will need to be set back to false if a save method is invoked
     private boolean changesMade = false;
 
     private TileArea grid;
@@ -98,7 +99,7 @@ public class GameWindow extends JFrame implements ActionListener
         
         int n = JOptionPane.showOptionDialog(this,
         "Changes have been made to the game board, would"
-        + "you like to save those changes?",
+        + " you like to save those changes?",
         "Warning",
         JOptionPane.YES_NO_OPTION,
         JOptionPane.WARNING_MESSAGE,
