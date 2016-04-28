@@ -321,16 +321,18 @@ public class GameWindow extends JFrame implements ActionListener
         final JPopupMenu popup = new JPopupMenu();
         
         // Load MenuItem
-        JMenuItem load = new JMenuItem(new AbstractAction("     Load") {
+        JMenuItem load = new JMenuItem("     Load");
+        load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //EVAN CALL YOUR LOAD METHOD FROM HERE
+              //EVAN CALL YOUR LOAD METHOD FROM HERE
             }
         });
         
         // Save MenuItem
-        JMenuItem save = new JMenuItem(new AbstractAction("     Save") {
+        JMenuItem save = new JMenuItem("     Save");
+        save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //EVAN CALL YOUR SAVE METHOD FROM HERE
+              //EVAN CALL YOUR SAVE METHOD FROM HERE
             }
         });
         
