@@ -1,4 +1,3 @@
-
 /**
  * added authors as Group G on 3-21-2016  D.K.
  * Members listed in Main.java
@@ -26,6 +25,7 @@ public class SideButtons extends TileArea
     private Tile[] startTiles = new Tile[16];
     private GameWindow window;
     private ArrayList<ArrayList<float[]>> allTilesLineCoords;
+    private ArrayList<Integer> rotations;
 
     /**
      * Constructor creates both the side panels from two arrays of 8 tiles
@@ -35,24 +35,42 @@ public class SideButtons extends TileArea
      * @param frame
      */
     SideButtons(GameWindow window,
-            ArrayList<ArrayList<float[]>> allTilesLineCoords)
+            ArrayList<ArrayList<float[]>> allTilesLineCoords, ArrayList<Integer> rotations)
     {
         this.allTilesLineCoords = allTilesLineCoords;
         this.window = window;
+        this.rotations = rotations;
         GridBagLayout gbl = new GridBagLayout();
         leftPanel.setLayout(gbl);
         rightPanel.setLayout(gbl);
         leftPanel.setBackground(Color.cyan);
         rightPanel.setBackground(Color.cyan);
 
-        setUp(true);
-
-        shuffle();
-
-        for (int i = 0; i < 16; i++)
+        //setUp(true);
+        if(rotations.isEmpty())
         {
-            startTiles[i] = new Tile(window);
-            startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
+            setUp(true);
+            shuffle();
+            for (int i = 0; i < 16; i++)
+            {
+                startTiles[i] = new Tile(window);
+                startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
+            }
+        }
+        else
+        {
+            setUp(false);
+            //this branch does not have the shuffle method
+            for (int i = 0; i < 16; i++)
+            {
+                startTiles[i] = new Tile(window);
+                startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
+                //rotate the tile we created by 90 * whatever the integer number is 
+                //stored in the rotations array we passed in. 
+                startTiles[i].rotate(rotations.get(i) * 90);
+            }
+            
+            
         }
     }
 
@@ -118,7 +136,7 @@ public class SideButtons extends TileArea
                 tiles[index].setMazeIcon(
                         new MazeIcon(allTilesLineCoords.get(index)));
             } else
-            {
+            {   
                 tiles[index].setMazeIcon(startTiles[index].getMazeIcon());
             }
         }

@@ -1,6 +1,5 @@
-
 /**
- *Additional authors for all files are Group G.  The members
+  *Additional authors for all files are Group G.  The members
  *are listed below and here-in will be listed as Group G
  * @author- Jay Bishop, Evan Turner, Anna Carrigan, Kyle Bobak,
  *          Debbie Kretzschmar -- 3-21-2016  D.K. 
@@ -11,7 +10,6 @@
  * A starting point for the COSC 3011 programming assignment
  * Probably need to fix a bunch of stuff, but this compiles and runs.
  *
-
  */
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -58,27 +56,75 @@ public class Main
             e2.printStackTrace();
             return;
         }
-        int numberOfTiles = reader.readInt();
-        ArrayList<ArrayList<float[]>> allTilesLineCoords = new ArrayList<ArrayList<float[]>>(numberOfTiles);
+        
+        //read the first four bytes and determine
+        //if it is a played game or not
+        //cafebeef means that it is original
+        //cafedeed means that it is a saved or played game DK 4/28/16
+        
 
-        for (int i = 0; i < numberOfTiles; i++)
+        int val = reader.readInt();
+        boolean original = false;
+        
+        if(val == 0xcafebeef)
         {
-            ArrayList<float[]> lineCoords = new ArrayList<float[]>();
-            int tileNumber = reader.readInt();
-            int numLines = reader.readInt();
-            for (int j = 0; j < numLines; j++)
-            {
-                float[] coords = new float[4];
-                for (int k = 0; k < 4; k++)
-                {
-                    coords[k] = reader.readFloat();
-                }
-                lineCoords.add(coords);
-            }
-            allTilesLineCoords.add(tileNumber, lineCoords);
+            System.out.println("val == cafebeef");
+            original = true;
         }
+        else if (val == 0xcafedeed){
+            System.out.println("val == cafedeed");
+        }
+        else
+        {
+            System.out.println("bad file");
+            //need popup window that tells user invalid file format
+            //load a game window with no maze loaded
+            game.alert();
+        }
+        
+        //Now that we know if the file is original or not, we check
+        //the number of tiles.
+        int numberOfTiles = reader.readInt();
+        //we create an arraylist to store the tile line coordinates for either version
+        ArrayList<ArrayList<float[]>> allTilesLineCoords = new ArrayList<ArrayList<float[]>>(numberOfTiles);
+        
+        // we also create an arraylist to store the rotation for tiles.
+        ArrayList<Integer> rotations = new ArrayList<Integer>();
+        
+        //next 4 bytes: an integer tile number, range 0-31....ignored if original
+        //next 4 bytes: an integer tile rotation, range 0-3...ignore if original
+        //next four bytes: an integer number of lines, M...same for original
+        //next 16 bytes, the float coordinate endpoints for the lines...same for original
+        
+            for (int i = 0; i < numberOfTiles; i++)
+            {
+                ArrayList<float[]> lineCoords = new ArrayList<float[]>();
+                int tileNumber = reader.readInt();
+                int tileRotation = reader.readInt();
+                //if not original, then we add to ArrayList rotations
+                //otherwise rotations will stay null
+                if(!original)
+                {
+                    rotations.add(tileRotation);
+                }
+                System.out.println(rotations);
+                int numLines = reader.readInt();
+                for (int j = 0; j < numLines; j++)
+                {
+                    float[] coords = new float[4];
+                    for (int k = 0; k < 4; k++)
+                    {
+                        coords[k] = reader.readFloat();
+                    }
+                    lineCoords.add(coords);
+                }
+                allTilesLineCoords.add(tileNumber, lineCoords);
+                
+            }
+           
 
         game.allTilesLineCoords = allTilesLineCoords;
+        game.rotations = rotations;
         try
         {
             reader.close();
@@ -116,5 +162,6 @@ public class Main
             // handle possible exception
         }
     }
+    
 
 };

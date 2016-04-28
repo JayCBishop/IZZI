@@ -1,4 +1,3 @@
-
 /**
  * Added Group G as additional authors on 3-21-2016  D.K.
  * See Main for a list of Group G members
@@ -38,6 +37,8 @@ public class GameWindow extends JFrame implements ActionListener
     private Tile firstClicked, secondClicked;
 
     public ArrayList<ArrayList<float[]>> allTilesLineCoords;
+    //added rotations array in for the stored rotations of the played games  DK 4/28/2016
+    public ArrayList<Integer> rotations;
 
     /**
      * Constructor sets the window name using super(), changes the layout, which
@@ -100,6 +101,30 @@ public class GameWindow extends JFrame implements ActionListener
         int n = JOptionPane.showOptionDialog(this,
         "Changes have been made to the game board, would"
         + " you like to save those changes?",
+        "Warning",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.WARNING_MESSAGE,
+        null,     //do not use a custom Icon
+        options,  //the titles of buttons
+        options[0]); //default button title
+        
+        // Yes option was selected
+        if(n == 0)
+        {
+            // Save
+        }
+        else
+        {
+            System.exit(0);
+        }
+    }
+    public void alert()
+    {
+        Object[] options = {"OK"};
+        
+        int n = JOptionPane.showOptionDialog(this,
+        "The first four bytes of the file have an error,"
+        + " the game will start with no maze loaded.",
         "Warning",
         JOptionPane.YES_NO_OPTION,
         JOptionPane.WARNING_MESSAGE,
@@ -216,7 +241,7 @@ public class GameWindow extends JFrame implements ActionListener
         GridBagConstraints gbc = new GridBagConstraints();
         if (sideButtons == null)
         {
-            sideButtons = new SideButtons(this, allTilesLineCoords);
+            sideButtons = new SideButtons(this, allTilesLineCoords, rotations);
         }
         gbc.gridwidth = 1;
         gbc.weightx = 1;
@@ -243,7 +268,7 @@ public class GameWindow extends JFrame implements ActionListener
 
         gbc.weightx = 1;
         gbc.weighty = 1;
-        grid = new GridButtons(this);
+        grid = new GridButtons(this, allTilesLineCoords, rotations);
         gbc.gridy = 2;
         gbc.gridx = 1;
         gbc.insets = new Insets(0, 0, 0, 0);
