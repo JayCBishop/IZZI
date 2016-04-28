@@ -25,6 +25,7 @@ public class Tile extends JButton
     private boolean inGrid;
     private MazeIcon icon;
     private boolean isClicked;
+    private int timesRotated;
 
     private static final long serialVersionUID = 1;
 
@@ -51,7 +52,12 @@ public class Tile extends JButton
                 if (e.getButton() == MouseEvent.BUTTON3)
                 {
                     rotate(90);
-                    window.setChangesMade();
+                    window.setChangesMade(true);
+                    timesRotated++;
+                    if(timesRotated % 4 == 0)
+                    {
+                        window.setChangesMade(false);
+                    }
                 }
             }
         });

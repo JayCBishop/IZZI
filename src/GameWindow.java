@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GameWindow extends JFrame implements ActionListener
-{
+{   
     /**
      * because it is a serializable object, need this or javac complains a lot
      */
@@ -85,7 +85,7 @@ public class GameWindow extends JFrame implements ActionListener
         }
         if ("File".equals(e.getActionCommand()))
         {
-            
+            menu();
         }
     }
     
@@ -129,6 +129,7 @@ public class GameWindow extends JFrame implements ActionListener
         this.remove(grid);
         createGrid();
         this.revalidate();
+        changesMade = false;
     }
 
     /**
@@ -162,12 +163,12 @@ public class GameWindow extends JFrame implements ActionListener
         // Initialize buttons
         // Font size is 1/3 of button width so it will be more consistent
         // between different machines. D.K.
-        Main.newGameButton = new JButton("File");
-        Main.newGameButton.setMinimumSize(buttonDimen);
-        Main.newGameButton.setMaximumSize(buttonDimen);
-        Main.newGameButton.setPreferredSize(buttonDimen);
-        Main.newGameButton.addActionListener(this);
-        Main.newGameButton
+        Main.fileButton = new JButton("File");
+        Main.fileButton.setMinimumSize(buttonDimen);
+        Main.fileButton.setMaximumSize(buttonDimen);
+        Main.fileButton.setPreferredSize(buttonDimen);
+        Main.fileButton.addActionListener(this);
+        Main.fileButton
                 .setFont(new Font("Arial", Font.PLAIN, buttonWidth / 6));
 
         Main.resetButton = new JButton("Reset");
@@ -185,7 +186,7 @@ public class GameWindow extends JFrame implements ActionListener
         Main.quitButton.addActionListener(this);
         Main.quitButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth / 6));
 
-        toolbar.add(Main.newGameButton);
+        toolbar.add(Main.fileButton);
         toolbar.add(Main.resetButton);
         toolbar.add(Main.quitButton);
         toolbar.setSize(buttonWidth * 3, buttonHeight);
@@ -292,13 +293,56 @@ public class GameWindow extends JFrame implements ActionListener
     }
     
     /**
-     * When invoked, simply sets changesMade to true so we know
+     * When invoked, simply sets changesMade so we know
      * a change has occurred to the board for saving purposes
+     * -Is set back to false when save is invoked
+     * 
+     * @param change: the boolean that sets changesMade
      * 
      * -Jay 4/26/2016
      */
-    public void setChangesMade()
+    public void setChangesMade(boolean change)
     {
-        changesMade = true;
+        changesMade = change;
+    }
+    
+    /**
+     * When invoked, brings up a menu with a load and save item
+     * that allows the user to load and save the current state of the maze
+     * 
+     * -Jay 4/27/2016
+     */
+    public void menu()
+    {
+        // The Font for the MenuItems 
+        Font f = new Font("sans-serif", Font.PLAIN, 24);
+        
+        // The PopupMenu
+        final JPopupMenu popup = new JPopupMenu();
+        
+        // Load MenuItem
+        JMenuItem load = new JMenuItem(new AbstractAction("     Load") {
+            public void actionPerformed(ActionEvent e) {
+                //EVAN CALL YOUR LOAD METHOD FROM HERE
+            }
+        });
+        
+        // Save MenuItem
+        JMenuItem save = new JMenuItem(new AbstractAction("     Save") {
+            public void actionPerformed(ActionEvent e) {
+                //EVAN CALL YOUR SAVE METHOD FROM HERE
+            }
+        });
+        
+        // Set the MenuItem fonts
+        load.setFont(f);
+        save.setFont(f);
+        
+        // Add the MenuItems
+        popup.add(load);
+        popup.add(save);
+        
+        popup.setPopupSize(Main.fileButton.getWidth(), Main.fileButton.getHeight()*2);
+        popup.show(Main.fileButton,0,Main.fileButton.getHeight());
     }
 };

@@ -25,7 +25,7 @@ public class Main
 {
 
     // Probably should declare any buttons here
-    public static JButton newGameButton, resetButton, quitButton;
+    public static JButton fileButton, resetButton, quitButton;
 
     public static void main(String[] args)
     {
