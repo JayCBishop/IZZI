@@ -30,7 +30,7 @@ public class Main
         // This is the play area
         // Named the GameWindow after our group D.K.
         GameWindow game = new GameWindow("Group G aMaze");
-
+        Boolean blank = false;
         // have to override the default layout to reposition things!!!!!!!
 
         game.setSize(new Dimension(900, 1000));
@@ -57,10 +57,13 @@ public class Main
             return;
         }
         
-        //read the first four bytes and determine
-        //if it is a played game or not
-        //cafebeef means that it is original
-        //cafedeed means that it is a saved or played game DK 4/28/16
+       /**
+        * read the first four bytes and determine
+        *if it is a played game or not
+        *cafebeef means that it is original
+        *cafedeed means that it is a saved or played game
+        * DK 4/28/16
+        */
         
 
         int val = reader.readInt();
@@ -77,24 +80,31 @@ public class Main
         else
         {
             System.out.println("bad file");
-            //need popup window that tells user invalid file format
-            //load a game window with no maze loaded
-            game.alert();
+            //this notifies the user that the first 4 bytes are bad
+            game.alertInvalFileFormat();
+            //changing the boolean to true means a blank game
+            //will be setup.  DK 4/29/16
+            blank = true;
         }
         
-        //Now that we know if the file is original or not, we check
-        //the number of tiles.
+        //Now that we know if the file is original or a played game, we check
+        //the number of tiles.  DK 4/29/16
+        
         int numberOfTiles = reader.readInt();
+        
         //we create an arraylist to store the tile line coordinates for either version
         ArrayList<ArrayList<float[]>> allTilesLineCoords = new ArrayList<ArrayList<float[]>>(numberOfTiles);
         
         // we also create an arraylist to store the rotation for tiles.
         ArrayList<Integer> rotations = new ArrayList<Integer>();
         
-        //next 4 bytes: an integer tile number, range 0-31....ignored if original
-        //next 4 bytes: an integer tile rotation, range 0-3...ignore if original
-        //next four bytes: an integer number of lines, M...same for original
-        //next 16 bytes, the float coordinate endpoints for the lines...same for original
+        /**
+         * next 4 bytes: an integer tile number, range 0-31....ignored if original
+         * next 4 bytes: an integer tile rotation, range 0-3...ignore if original
+         *next four bytes: an integer number of lines, M...same for original
+         *next 16 bytes, the float coordinate endpoints for the lines...same for original
+         *DK 4/29/16
+         */
         
             for (int i = 0; i < numberOfTiles; i++)
             {
@@ -107,7 +117,6 @@ public class Main
                 {
                     rotations.add(tileRotation);
                 }
-                System.out.println(rotations);
                 int numLines = reader.readInt();
                 for (int j = 0; j < numLines; j++)
                 {
@@ -133,9 +142,8 @@ public class Main
             System.out.println("File not closed.");
             e1.printStackTrace();
         }
-
-        game.setUp();
-
+       
+        game.setUp(blank);
         game.setVisible(true);
 
         try

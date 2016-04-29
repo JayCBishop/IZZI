@@ -27,6 +27,20 @@ public class Tile extends JButton
     private int timesRotated;
 
     private static final long serialVersionUID = 1;
+    
+    //we now have two constructors for Tile.
+    //This first one is used if we need to set up
+    //a blank game when there is an error in the first
+    //four bytes of the file.
+    public Tile()
+    {
+        super();
+        Dimension d = new Dimension(75, 75);
+        this.setPreferredSize(d);
+        this.setMaximumSize(d);
+        this.setMinimumSize(d);
+        this.setFont(new Font("Arial", Font.PLAIN, 20));
+    }
 
     // Added font "styles" to constructor for all tiles instead of
     // individually in SideButtons and GridButtons

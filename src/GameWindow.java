@@ -30,12 +30,12 @@ public class GameWindow extends JFrame implements ActionListener
     // Boolean that is set true if any changes have been made to the board
     // Will need to be set back to false if a save method is invoked
     private boolean changesMade = false;
-
+    private boolean blank = false;
     private TileArea grid;
     private SideButtons sideButtons;
 
     private Tile firstClicked, secondClicked;
-
+    private JPanel panel;
     public ArrayList<ArrayList<float[]>> allTilesLineCoords;
     //added rotations array in for the stored rotations of the played games  DK 4/28/2016
     public ArrayList<Integer> rotations;
@@ -118,29 +118,17 @@ public class GameWindow extends JFrame implements ActionListener
             System.exit(0);
         }
     }
-    public void alert()
+    
+    //This method alerts the player that the file
+    //they used has an invalid file format  DK 4/29/16
+    public void alertInvalFileFormat()
     {
-        Object[] options = {"OK"};
         
-        int n = JOptionPane.showOptionDialog(this,
-        "The first four bytes of the file have an error,"
-        + " the game will start with no maze loaded.",
-        "Warning",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.WARNING_MESSAGE,
-        null,     //do not use a custom Icon
-        options,  //the titles of buttons
-        options[0]); //default button title
+        JOptionPane.showMessageDialog(panel,
+        "The first four bytes of the file have an error."
+        + " The game will start with no maze loaded.",
+        "Invalid File Format", JOptionPane.ERROR_MESSAGE);
         
-        // Yes option was selected
-        if(n == 0)
-        {
-            // Save
-        }
-        else
-        {
-            System.exit(0);
-        }
     }
 
     // method to reset the side panels and grid area to original state
@@ -158,10 +146,14 @@ public class GameWindow extends JFrame implements ActionListener
     }
 
     /**
-     * Setup Establishes the initial board
+     * Setup establishes the initial board
+     * The boolean decides whether or not
+     * the game board will be blank i.e.
+     * not contain a maze or a maze will 
+     * be presented. DK 4/29/16
      */
-
-    public void setUp()
+   
+    public void setUp(boolean blank)
     {
         // actually create the array for elements, make sure it is big enough
         // Need to play around with the dimensions and the gridx/y values
@@ -227,12 +219,48 @@ public class GameWindow extends JFrame implements ActionListener
         gbc.gridy = 0;
 
         add(toolbar, gbc);
+        
+        if(blank)
+        {
+            grid = new GridButtons(this);
+            createBlankGame(gbc);
+        }
 
-        createGrid();
-
-        createSidePanels();
+        
+        
+        else
+        {
+            createGrid();
+            createSidePanels();
+        }
+        
 
         return;
+    }
+    /**
+     * This method sets up a blank game if the user had
+     * a file where the first four bytes had an error
+     * DK 4/29/16
+     * @param gbc
+     */
+    private void createBlankGame(GridBagConstraints gbc)
+    {
+        sideButtons = new SideButtons(this);
+        gbc.gridy = 1;
+        gbc.gridx = 0;
+        gbc.insets = new Insets(50, 25, 75, 0);
+        gbc.gridheight = 8;
+        add(((SideButtons) sideButtons).leftPanel, gbc);
+
+        gbc.gridy = 2;
+        gbc.gridx = 1;
+        gbc.insets = new Insets(250, 75, 225, 75);
+        add(grid, gbc);
+
+        gbc.gridy = 1;
+        gbc.gridx = 2;
+        gbc.insets = new Insets(50, 0, 75, 25);
+        add(((SideButtons) sideButtons).rightPanel, gbc);
     }
 
     // create both the left and right side panels

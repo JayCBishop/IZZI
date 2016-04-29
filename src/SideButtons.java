@@ -1,4 +1,4 @@
-/**
+ /**
  * added authors as Group G on 3-21-2016  D.K.
  * Members listed in Main.java
  * Tile.java
@@ -34,6 +34,42 @@ public class SideButtons extends TileArea
      *
      * @param frame
      */
+    //This constructor is used for a blank game  DK 4/29/16
+    SideButtons(GameWindow window) 
+    {
+        GridBagLayout gbl = new GridBagLayout();
+        leftPanel.setLayout(gbl);
+        rightPanel.setLayout(gbl);
+        leftPanel.setBackground(Color.cyan);
+        rightPanel.setBackground(Color.cyan);
+
+        // Add the left SideButton panel
+        // Add the numbers 0 thru 7 to the tiles DK 3-22-2016
+
+        for (int index = 0; index < 8; index++) {
+            tiles[index] = new Tile();
+            tiles[index].setIsInGrid(false);
+            Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
+                                                    // method call AC 3-23-2016
+            this.addButtons(leftPanel, tiles[index], 1, index, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    inset);
+            this.addActionListener(tiles[index], window);
+        }
+
+        // Add the right SideButtons panel
+        // Add the numbers 8 thru 15 to the tiles DK 3-22-2016
+
+        for (int index = 8; index < 16; index++) {
+            tiles[index] = new Tile();
+            tiles[index].setIsInGrid(false);
+            Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
+                                                    // method call AC 3-23-2016
+            this.addButtons(rightPanel, tiles[index], 1, index, 1, 1, GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH, inset);
+            this.addActionListener(tiles[index], window);
+        }
+
+    }
     SideButtons(GameWindow window,
             ArrayList<ArrayList<float[]>> allTilesLineCoords, ArrayList<Integer> rotations)
     {
