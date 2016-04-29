@@ -117,7 +117,7 @@ public class MazeIcon
         for (int j = 0; j < numLines; j++)
         {
             float[] coords = lineCoords.get(j);
-            graphic.setStroke(new BasicStroke(1));
+            graphic.setStroke(new BasicStroke(3));
             Line2D line = new Line2D.Float(coords[0], coords[1], coords[2], coords[3]);
             graphic.draw(line); 
                                                        

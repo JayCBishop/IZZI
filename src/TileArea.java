@@ -94,15 +94,7 @@ public abstract class TileArea extends JPanel
                 // Second Tile Clicked
                 else if (window.getFirstClicked() != null)
                 {
-                    // Two sideTile selected
-                    if (!tile.isInGrid()
-                            && !window.getFirstClicked().isInGrid())
-                    {
-                        deselectTile(window, window.getFirstClicked());
-                        tileInfractionOccured(tile);
-                    }
-                    // Both tiles have images
-                    else if (window.getFirstClicked().getIcon() != null
+                    if (window.getFirstClicked().getIcon() != null
                             && tile.getIcon() != null)
                     {
                         deselectTile(window, window.getFirstClicked());
