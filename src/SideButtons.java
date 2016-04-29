@@ -95,7 +95,7 @@ public class SideButtons extends TileArea
         }
         else
         {
-            setUp(false);
+            setUp(true);
             //this branch does not have the shuffle method
             for (int i = 0; i < 16; i++)
             {

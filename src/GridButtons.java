@@ -84,19 +84,31 @@ public class GridButtons extends TileArea
         else
         {
             this.allTilesLineCoords = allTilesLineCoords;
+            System.out.println(allTilesLineCoords);
             this.window = window;
             this.rotations = rotations;
+            System.out.println(rotations);
 
-            side.setUp(false);
+            //side.setUp(false);
             //this branch does not have the shuffle method
-            //started at index 16 because this is where the grid starts DK 4/28/16
-            for (int i = 16; i < 32; i++)
+            //DK 4/28/16
+            for (int i = 0; i < 16; i++)
             {
                 tiles[i] = new Tile(window);
-                tiles[i].setMazeIcon(tiles[i].getMazeIcon());
+                if(allTilesLineCoords != null)
+                {
+                tiles[i].setMazeIcon(null);
+                }
                 //rotate the tile we created by 90 * whatever the integer number is 
                 //stored in the rotations array we passed in. 
-                tiles[i].rotate(rotations.get(i) * 90);
+              //  tiles[i].rotate(rotations.get(i + 16) * 90);
+                
+                tiles[i].setIsInGrid(true);
+                Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
+                                                        // method call AC 3-23-2016
+                this.addButtons(this, tiles[i], (i % 4), (i / 4), 1, 1, GridBagConstraints.CENTER,
+                        GridBagConstraints.BOTH, inset);
+                this.addActionListener(tiles[i], window);
             }
                 
                 
