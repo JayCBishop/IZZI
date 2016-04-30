@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -45,12 +44,11 @@ public class Main
         // This is where we read in the tiles and draw their images.
         // Anna Carrigan and Kyle Bobak, 4/8/2016
 
-        File file = new File("default.mze");
+        File file = new File("default.mze");        
         
         if(!file.exists())
         {
-            //INVOKE EVAN'S LOAD METHOD HERE!
-            //file = game.load();
+            game.invalFileName();
         }
         
         ByteFileStreamReader reader;

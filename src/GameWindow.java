@@ -122,13 +122,19 @@ public class GameWindow extends JFrame implements ActionListener
     //This method alerts the player that the file
     //they used has an invalid file format  DK 4/29/16
     public void alertInvalFileFormat()
-    {
-        
+    { 
         JOptionPane.showMessageDialog(panel,
         "The first four bytes of the file have an error."
         + " The game will start with no maze loaded.",
-        "Invalid File Format", JOptionPane.ERROR_MESSAGE);
-        
+        "Invalid File Format", JOptionPane.ERROR_MESSAGE); 
+    }
+    
+    public void invalFileName()
+    {
+        JOptionPane.showMessageDialog(panel,
+        "default.mze could not be found.",
+        "Invalid File Name", JOptionPane.ERROR_MESSAGE);
+      //INVOKE EVAN'S LOAD METHOD HERE!
     }
 
     // method to reset the side panels and grid area to original state
