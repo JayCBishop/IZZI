@@ -403,13 +403,17 @@ public class GameWindow extends JFrame implements ActionListener
         popup.show(Main.fileButton,0,Main.fileButton.getHeight());
     }
     
+    /**
+     * Gets a fileName from the user via a file chooser and restarts the
+     * program with that fileName as the new ifle to be loaded.
+     */
     public void load()
     {   
         String newFileName = "default.mze";
         
         final JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        chooser.showSaveDialog(null);
+        chooser.showOpenDialog(null);
 
         String path=chooser.getSelectedFile().getAbsolutePath();
         newFileName=chooser.getSelectedFile().getName();
