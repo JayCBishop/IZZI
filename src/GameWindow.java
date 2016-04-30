@@ -224,17 +224,12 @@ public class GameWindow extends JFrame implements ActionListener
         {
             grid = new GridButtons(this);
             createBlankGame(gbc);
-        }
-
-        
-        
+        } 
         else
         {
             createGrid();
             createSidePanels();
         }
-        
-
         return;
     }
     /**
