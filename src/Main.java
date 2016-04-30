@@ -23,13 +23,14 @@ public class Main
 
     // Probably should declare any buttons here
     public static JButton fileButton, resetButton, quitButton;
+    public static boolean blank;
+    public static String fileName = "default.mze";
 
     public static void main(String[] args)
     {
         // This is the play area
         // Named the GameWindow after our group D.K.
         GameWindow game = new GameWindow("Group G aMaze");
-        Boolean blank = false;
         // have to override the default layout to reposition things!!!!!!!
 
         game.setSize(new Dimension(900, 1000));
@@ -44,7 +45,7 @@ public class Main
         // This is where we read in the tiles and draw their images.
         // Anna Carrigan and Kyle Bobak, 4/8/2016
 
-        File file = new File("default.mze");        
+        File file = new File(fileName);        
         
         if(!file.exists())
         {

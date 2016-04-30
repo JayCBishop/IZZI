@@ -18,6 +18,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 public class GameWindow extends JFrame implements ActionListener
@@ -134,7 +135,7 @@ public class GameWindow extends JFrame implements ActionListener
         JOptionPane.showMessageDialog(panel,
         "default.mze could not be found.",
         "Invalid File Name", JOptionPane.ERROR_MESSAGE);
-      //INVOKE EVAN'S LOAD METHOD HERE!
+        load();
     }
 
     // method to reset the side panels and grid area to original state
@@ -378,7 +379,7 @@ public class GameWindow extends JFrame implements ActionListener
         JMenuItem load = new JMenuItem("     Load");
         load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-              //EVAN CALL YOUR LOAD METHOD FROM HERE
+                load();
             }
         });
         
@@ -400,5 +401,21 @@ public class GameWindow extends JFrame implements ActionListener
         
         popup.setPopupSize(Main.fileButton.getWidth(), Main.fileButton.getHeight()*2);
         popup.show(Main.fileButton,0,Main.fileButton.getHeight());
+    }
+    
+    public void load()
+    {   
+        String newFileName = "default.mze";
+        
+        final JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        chooser.showSaveDialog(null);
+
+        String path=chooser.getSelectedFile().getAbsolutePath();
+        newFileName=chooser.getSelectedFile().getName();
+        
+        Main.fileName = newFileName;
+        Main.main(null);
+        this.dispose();
     }
 };
