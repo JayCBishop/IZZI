@@ -49,10 +49,13 @@ public class SideButtons extends TileArea
         for (int index = 0; index < 8; index++) {
             tiles[index] = new Tile(index);
             tiles[index].setIsInGrid(false);
+            tiles[index].setMaximumSize(tileDimen);
+            tiles[index].setMinimumSize(tileDimen);
+            tiles[index].setPreferredSize(tileDimen);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                     // method call AC 3-23-2016
-            this.addButtons(leftPanel, tiles[index], 1, index, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    inset);
+            this.addButtons(leftPanel, tiles[index], 1, index, 1, 1, GridBagConstraints.CENTER, 
+                    GridBagConstraints.BOTH, inset);
             this.addActionListener(tiles[index], window);
         }
 
@@ -62,6 +65,9 @@ public class SideButtons extends TileArea
         for (int index = 8; index < 16; index++) {
             tiles[index] = new Tile(index);
             tiles[index].setIsInGrid(false);
+            tiles[index].setMaximumSize(tileDimen);
+            tiles[index].setMinimumSize(tileDimen);
+            tiles[index].setPreferredSize(tileDimen);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                     // method call AC 3-23-2016
             this.addButtons(rightPanel, tiles[index], 1, index, 1, 1, GridBagConstraints.CENTER,
@@ -90,6 +96,9 @@ public class SideButtons extends TileArea
             for (int i = 0; i < 16; i++)
             {
                 startTiles[i] = new Tile(window, i);
+                startTiles[i].setMaximumSize(tileDimen);
+                startTiles[i].setMinimumSize(tileDimen);
+                startTiles[i].setPreferredSize(tileDimen);
                 startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
             }
         }
@@ -101,6 +110,9 @@ public class SideButtons extends TileArea
             {
                 startTiles[i] = new Tile(window, i);
                 startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
+                startTiles[i].setMaximumSize(tileDimen);
+                startTiles[i].setMinimumSize(tileDimen);
+                startTiles[i].setPreferredSize(tileDimen);
                 //rotate the tile we created by 90 * whatever the integer number is 
                 //stored in the rotations array we passed in. 
                 startTiles[i].rotate(rotations.get(i) * 90);

@@ -268,18 +268,15 @@ public class GameWindow extends JFrame implements ActionListener
         sideButtons = new SideButtons(this);
         gbc.gridy = 1;
         gbc.gridx = 0;
-        gbc.insets = new Insets(50, 25, 75, 0);
         gbc.gridheight = 8;
         add(((SideButtons) sideButtons).leftPanel, gbc);
 
         gbc.gridy = 2;
         gbc.gridx = 1;
-        gbc.insets = new Insets(250, 75, 225, 75);
         add(grid, gbc);
 
         gbc.gridy = 1;
         gbc.gridx = 2;
-        gbc.insets = new Insets(50, 0, 75, 25);
         add(((SideButtons) sideButtons).rightPanel, gbc);
     }
 

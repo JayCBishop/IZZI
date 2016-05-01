@@ -38,6 +38,9 @@ public class GridButtons extends TileArea
         for (int index = 0; index < 16; index++) {
             tiles[index] = new Tile(index+16);
             tiles[index].setIsInGrid(true);
+            tiles[index].setMaximumSize(tileDimen);
+            tiles[index].setMinimumSize(tileDimen);
+            tiles[index].setPreferredSize(tileDimen);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                     // method call AC 3-23-2016
             this.addButtons(this, tiles[index], (index % 4), (index / 4), 1, 1, GridBagConstraints.CENTER,
@@ -95,6 +98,9 @@ public class GridButtons extends TileArea
             for (int i = 0; i < 16; i++)
             {
                 tiles[i] = new Tile(window, i+16);
+                tiles[i].setMaximumSize(tileDimen);
+                tiles[i].setMinimumSize(tileDimen);
+                tiles[i].setPreferredSize(tileDimen);
                 if(allTilesLineCoords != null)
                 {
                 tiles[i].setMazeIcon(null);
