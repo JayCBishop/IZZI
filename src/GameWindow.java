@@ -130,7 +130,7 @@ public class GameWindow extends JFrame implements ActionListener
         // Yes option was selected
         if(n == 0)
         {
-            // Save
+        	save();
         }
         else
         {
@@ -154,6 +154,18 @@ public class GameWindow extends JFrame implements ActionListener
         "default.mze could not be found.",
         "Invalid File Name", JOptionPane.ERROR_MESSAGE);
         load();
+    }
+    
+    public void fileAlreadyExists()
+    { 
+        int n = JOptionPane.showConfirmDialog(panel,
+        		"This file already exists. Would you like to overwrite it?");
+        // Yes was not selected
+        if (n != 0)
+        {
+        	// reopen fileChooser for save
+        	save();
+        }
     }
 
     // method to reset the side panels and grid area to original state
@@ -463,6 +475,7 @@ public class GameWindow extends JFrame implements ActionListener
     		File file = chooser.getSelectedFile();
     		if (file.exists()) {
     			// give a warning
+    			fileAlreadyExists();
     		}
     		FileOutputStream writer;
     		try {
