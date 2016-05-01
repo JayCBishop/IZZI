@@ -392,14 +392,11 @@ public class GameWindow extends JFrame implements ActionListener
         
         // The PopupMenu
         final JPopupMenu popup = new JPopupMenu();
-        // Start in the current directory
-        JFileChooser fc = new JFileChooser(new File(System.getProperty("user.dir")));
         
         // Load MenuItem
         JMenuItem load = new JMenuItem("     Load");
         load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	//EVAN CALL YOUR LOAD METHOD FROM HERE
                 load();
             }
         });
@@ -408,66 +405,7 @@ public class GameWindow extends JFrame implements ActionListener
         JMenuItem save = new JMenuItem("     Save");
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	//EVAN CALL YOUR SAVE METHOD FROM HERE
-            	int returnVal = fc.showSaveDialog(GameWindow.this);
-            	
-            	if(returnVal == JFileChooser.APPROVE_OPTION) {
-            		// save file
-            		File file = fc.getSelectedFile();
-            		if (file.exists()) {
-            			// give a warning
-            		}
-            		FileOutputStream writer;
-            		try {
-						 writer = new FileOutputStream(file);
-					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						return;
-					}
-            		
-            		try {
-            			// Assuming file has been played
-						writer.write(new byte[]{(byte) 0xca, (byte) 0xfe,
-								(byte) 0xde, (byte) 0xed});
-						// Number of Tiles (assuming 16 for now)
-						writer.write(intToByte(16));
-						// tile settings
-						for (Component tile : sideButtons.leftPanel.getComponents()) 
-						{
-							if (tile instanceof Tile) {
-								if (((Tile)tile).isDrawn())
-								{
-									int tileNum = ((Tile)tile).getTileNumber();
-									System.out.println("Tile " + tileNum + " is drawn");
-									// tile number/placement
-									writer.write(intToByte(tileNum));
-									MazeIcon icon = ((Tile)tile).getMazeIcon();
-									int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
-									System.out.println("rotated " + rotation + " times: " + icon.getDegreesRotated());
-									// tile rotation
-									writer.write(intToByte(rotation));
-									ArrayList<float[]> lineCoords = icon.getLineCoords();
-									System.out.println(lineCoords);
-									// number of lines on the tile
-									writer.write(intToByte(lineCoords.size()));
-									for (int i = 0; i < lineCoords.size(); i++) {
-										// get coords out of array
-										float[] coordList = lineCoords.get(i);
-										for (int j = 0; j < coordList.length; j++) {
-											writer.write(floatToByte(coordList[j]));
-										}
-									}
-								}
-								
-							}
-						}
-						writer.close();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					};
-            	}
+            	save();
             }
         });
         
@@ -495,15 +433,15 @@ public class GameWindow extends JFrame implements ActionListener
     
     /**
      * Gets a fileName from the user via a file chooser and restarts the
-     * program with that fileName as the new ifle to be loaded.
+     * program with that fileName as the new file to be loaded.
      */
     public void load()
     {   
         String newFileName = "default.mze";
         
-        final JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        chooser.showOpenDialog(null);
+        // Start in directory program is run from
+        final JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
+        chooser.showOpenDialog(GameWindow.this);
 
         String path=chooser.getSelectedFile().getAbsolutePath();
         newFileName=chooser.getSelectedFile().getName();
@@ -511,5 +449,71 @@ public class GameWindow extends JFrame implements ActionListener
         Main.fileName = newFileName;
         Main.main(null);
         this.dispose();
+    }
+    
+    public void save()
+    {
+        // Start in directory program is run from
+        final JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
+        
+    	int returnVal = chooser.showSaveDialog(GameWindow.this);
+    	
+    	if(returnVal == JFileChooser.APPROVE_OPTION) {
+    		// save file
+    		File file = chooser.getSelectedFile();
+    		if (file.exists()) {
+    			// give a warning
+    		}
+    		FileOutputStream writer;
+    		try {
+				 writer = new FileOutputStream(file);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				return;
+			}
+    		
+    		try {
+    			// Assuming file has been played
+				writer.write(new byte[]{(byte) 0xca, (byte) 0xfe,
+						(byte) 0xde, (byte) 0xed});
+				// Number of Tiles (assuming 16 for now)
+				writer.write(intToByte(16));
+				// tile settings
+				for (Component tile : sideButtons.leftPanel.getComponents()) 
+				{
+					if (tile instanceof Tile) {
+						if (((Tile)tile).isDrawn())
+						{
+							int tileNum = ((Tile)tile).getTileNumber();
+							System.out.println("Tile " + tileNum + " is drawn");
+							// tile number/placement
+							writer.write(intToByte(tileNum));
+							MazeIcon icon = ((Tile)tile).getMazeIcon();
+							int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
+							System.out.println("rotated " + rotation + " times: " + icon.getDegreesRotated());
+							// tile rotation
+							writer.write(intToByte(rotation));
+							ArrayList<float[]> lineCoords = icon.getLineCoords();
+							System.out.println(lineCoords);
+							// number of lines on the tile
+							writer.write(intToByte(lineCoords.size()));
+							for (int i = 0; i < lineCoords.size(); i++) {
+								// get coords out of array
+								float[] coordList = lineCoords.get(i);
+								for (int j = 0; j < coordList.length; j++) {
+									writer.write(floatToByte(coordList[j]));
+								}
+							}
+						}
+						
+					}
+				}
+				writer.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			};
+    	}
     }
 };
