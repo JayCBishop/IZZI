@@ -32,6 +32,8 @@ public class Main
         // Named the GameWindow after our group D.K.
         GameWindow game = new GameWindow("Group G aMaze");
         // have to override the default layout to reposition things!!!!!!!
+        
+        blank = false;
 
         game.setSize(new Dimension(900, 1000));
 
