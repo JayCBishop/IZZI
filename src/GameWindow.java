@@ -141,13 +141,19 @@ public class GameWindow extends JFrame implements ActionListener
     //This method alerts the player that the file
     //they used has an invalid file format  DK 4/29/16
     public void alertInvalFileFormat()
-    {
-        
+    { 
         JOptionPane.showMessageDialog(panel,
         "The first four bytes of the file have an error."
         + " The game will start with no maze loaded.",
-        "Invalid File Format", JOptionPane.ERROR_MESSAGE);
-        
+        "Invalid File Format", JOptionPane.ERROR_MESSAGE); 
+    }
+    
+    public void invalFileName()
+    {
+        JOptionPane.showMessageDialog(panel,
+        "default.mze could not be found.",
+        "Invalid File Name", JOptionPane.ERROR_MESSAGE);
+        load();
     }
 
     // method to reset the side panels and grid area to original state
@@ -394,6 +400,7 @@ public class GameWindow extends JFrame implements ActionListener
         load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	//EVAN CALL YOUR LOAD METHOD FROM HERE
+                load();
             }
         });
         
@@ -405,7 +412,7 @@ public class GameWindow extends JFrame implements ActionListener
             	int returnVal = fc.showSaveDialog(GameWindow.this);
             	
             	if(returnVal == JFileChooser.APPROVE_OPTION) {
-            		// Load file
+            		// save file
             		File file = fc.getSelectedFile();
             		if (file.exists()) {
             			// give a warning
@@ -486,4 +493,23 @@ public class GameWindow extends JFrame implements ActionListener
     	return ByteBuffer.allocate(4).putFloat(f).array();
     }
     
+    /**
+     * Gets a fileName from the user via a file chooser and restarts the
+     * program with that fileName as the new ifle to be loaded.
+     */
+    public void load()
+    {   
+        String newFileName = "default.mze";
+        
+        final JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        chooser.showOpenDialog(null);
+
+        String path=chooser.getSelectedFile().getAbsolutePath();
+        newFileName=chooser.getSelectedFile().getName();
+        
+        Main.fileName = newFileName;
+        Main.main(null);
+        this.dispose();
+    }
 };
