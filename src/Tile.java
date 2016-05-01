@@ -25,6 +25,7 @@ public class Tile extends JButton
     private MazeIcon icon;
     private boolean isClicked;
     private int timesRotated;
+    private int tileNumber;
 
     private static final long serialVersionUID = 1;
     
@@ -32,7 +33,7 @@ public class Tile extends JButton
     //This first one is used if we need to set up
     //a blank game when there is an error in the first
     //four bytes of the file.
-    public Tile()
+    public Tile(int number)
     {
         super();
         Dimension d = new Dimension(75, 75);
@@ -40,13 +41,14 @@ public class Tile extends JButton
         this.setMaximumSize(d);
         this.setMinimumSize(d);
         this.setFont(new Font("Arial", Font.PLAIN, 20));
+        this.tileNumber = number;
     }
 
     // Added font "styles" to constructor for all tiles instead of
     // individually in SideButtons and GridButtons
     // This way when a change is needed, it can be done in
     // one place instead of three different areas. DK 3-23-2016
-    public Tile(GameWindow window)
+    public Tile(GameWindow window, int number)
     {
         super();
         Dimension d = new Dimension(75, 75);
@@ -54,6 +56,7 @@ public class Tile extends JButton
         this.setMaximumSize(d);
         this.setMinimumSize(d);
         this.setFont(new Font("Arial", Font.PLAIN, 20));
+        this.tileNumber = number;
 
         // Right click listener that rotates each tile
         // -Jay 4/19/2016
@@ -170,10 +173,12 @@ public class Tile extends JButton
         if (icon != null)
         {
             setIcon(icon.getImageIcon());
+            setIsDrawn(true);
         } 
         else
         {
             setIcon(null);
+            setIsDrawn(false);
         }
         
         invalidate();
@@ -184,5 +189,9 @@ public class Tile extends JButton
     public MazeIcon getMazeIcon()
     {
         return icon;
+    }
+    
+    public int getTileNumber() {
+    	return tileNumber;
     }
 }

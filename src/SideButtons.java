@@ -47,7 +47,7 @@ public class SideButtons extends TileArea
         // Add the numbers 0 thru 7 to the tiles DK 3-22-2016
 
         for (int index = 0; index < 8; index++) {
-            tiles[index] = new Tile();
+            tiles[index] = new Tile(index);
             tiles[index].setIsInGrid(false);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                     // method call AC 3-23-2016
@@ -60,7 +60,7 @@ public class SideButtons extends TileArea
         // Add the numbers 8 thru 15 to the tiles DK 3-22-2016
 
         for (int index = 8; index < 16; index++) {
-            tiles[index] = new Tile();
+            tiles[index] = new Tile(index);
             tiles[index].setIsInGrid(false);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                     // method call AC 3-23-2016
@@ -89,7 +89,7 @@ public class SideButtons extends TileArea
             shuffle();
             for (int i = 0; i < 16; i++)
             {
-                startTiles[i] = new Tile(window);
+                startTiles[i] = new Tile(window, i);
                 startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
             }
         }
@@ -99,7 +99,7 @@ public class SideButtons extends TileArea
             //this branch does not have the shuffle method
             for (int i = 0; i < 16; i++)
             {
-                startTiles[i] = new Tile(window);
+                startTiles[i] = new Tile(window, i);
                 startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
                 //rotate the tile we created by 90 * whatever the integer number is 
                 //stored in the rotations array we passed in. 
@@ -147,7 +147,7 @@ public class SideButtons extends TileArea
 
         for (int index = 0; index < 16; index++)
         {
-            tiles[index] = new Tile(window);
+            tiles[index] = new Tile(window, index);
             tiles[index].setIsInGrid(false);
             tiles[index].setMaximumSize(tileDimen);
             tiles[index].setMinimumSize(tileDimen);

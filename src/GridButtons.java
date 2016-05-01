@@ -36,7 +36,7 @@ public class GridButtons extends TileArea
         // Placed font size in Tile class since all Tiles have uniform font size
         // DK 3-23-2016
         for (int index = 0; index < 16; index++) {
-            tiles[index] = new Tile();
+            tiles[index] = new Tile(index+16);
             tiles[index].setIsInGrid(true);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
                                                     // method call AC 3-23-2016
@@ -69,7 +69,7 @@ public class GridButtons extends TileArea
         {
             for (int index = 0; index < 16; index++)
             {
-                tiles[index] = new Tile(window);
+                tiles[index] = new Tile(window, index+16);
                 tiles[index].setIsInGrid(true);
                 tiles[index].setMaximumSize(tileDimen);
                 tiles[index].setMinimumSize(tileDimen);
@@ -94,7 +94,7 @@ public class GridButtons extends TileArea
             //DK 4/28/16
             for (int i = 0; i < 16; i++)
             {
-                tiles[i] = new Tile(window);
+                tiles[i] = new Tile(window, i+16);
                 if(allTilesLineCoords != null)
                 {
                 tiles[i].setMazeIcon(null);

@@ -14,11 +14,30 @@
  * Should also see something that shows where the 4x4 board and the "spare"
  * tiles will be when we get them stuffed in.
  */
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JToolBar;
 
 public class GameWindow extends JFrame implements ActionListener
 {   
@@ -225,16 +244,11 @@ public class GameWindow extends JFrame implements ActionListener
             grid = new GridButtons(this);
             createBlankGame(gbc);
         }
-
-        
-        
         else
         {
             createGrid();
             createSidePanels();
         }
-        
-
         return;
     }
     /**
@@ -372,12 +386,14 @@ public class GameWindow extends JFrame implements ActionListener
         
         // The PopupMenu
         final JPopupMenu popup = new JPopupMenu();
+        // Start in the current directory
+        JFileChooser fc = new JFileChooser(new File(System.getProperty("user.dir")));
         
         // Load MenuItem
         JMenuItem load = new JMenuItem("     Load");
         load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-              //EVAN CALL YOUR LOAD METHOD FROM HERE
+            	//EVAN CALL YOUR LOAD METHOD FROM HERE
             }
         });
         
@@ -385,7 +401,66 @@ public class GameWindow extends JFrame implements ActionListener
         JMenuItem save = new JMenuItem("     Save");
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-              //EVAN CALL YOUR SAVE METHOD FROM HERE
+            	//EVAN CALL YOUR SAVE METHOD FROM HERE
+            	int returnVal = fc.showSaveDialog(GameWindow.this);
+            	
+            	if(returnVal == JFileChooser.APPROVE_OPTION) {
+            		// Load file
+            		File file = fc.getSelectedFile();
+            		if (file.exists()) {
+            			// give a warning
+            		}
+            		FileOutputStream writer;
+            		try {
+						 writer = new FileOutputStream(file);
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						return;
+					}
+            		
+            		try {
+            			// Assuming file has been played
+						writer.write(new byte[]{(byte) 0xca, (byte) 0xfe,
+								(byte) 0xde, (byte) 0xed});
+						// Number of Tiles (assuming 16 for now)
+						writer.write(intToByte(16));
+						// tile settings
+						for (Component tile : sideButtons.leftPanel.getComponents()) 
+						{
+							if (tile instanceof Tile) {
+								if (((Tile)tile).isDrawn())
+								{
+									int tileNum = ((Tile)tile).getTileNumber();
+									System.out.println("Tile " + tileNum + " is drawn");
+									// tile number/placement
+									writer.write(intToByte(tileNum));
+									MazeIcon icon = ((Tile)tile).getMazeIcon();
+									int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
+									System.out.println("rotated " + rotation + " times: " + icon.getDegreesRotated());
+									// tile rotation
+									writer.write(intToByte(rotation));
+									ArrayList<float[]> lineCoords = icon.getLineCoords();
+									System.out.println(lineCoords);
+									// number of lines on the tile
+									writer.write(intToByte(lineCoords.size()));
+									for (int i = 0; i < lineCoords.size(); i++) {
+										// get coords out of array
+										float[] coordList = lineCoords.get(i);
+										for (int j = 0; j < coordList.length; j++) {
+											writer.write(floatToByte(coordList[j]));
+										}
+									}
+								}
+								
+							}
+						}
+						writer.close();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					};
+            	}
             }
         });
         
@@ -400,4 +475,15 @@ public class GameWindow extends JFrame implements ActionListener
         popup.setPopupSize(Main.fileButton.getWidth(), Main.fileButton.getHeight()*2);
         popup.show(Main.fileButton,0,Main.fileButton.getHeight());
     }
+    
+    private byte[] intToByte(int i)
+    {
+		return ByteBuffer.allocate(4).putInt(i).array();
+    }
+    
+    private byte[] floatToByte(float f)
+    {
+    	return ByteBuffer.allocate(4).putFloat(f).array();
+    }
+    
 };
