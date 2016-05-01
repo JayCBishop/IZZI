@@ -172,14 +172,17 @@ public class GameWindow extends JFrame implements ActionListener
     // DK 4/5/2016
     private void reset()
     {
-        this.remove(sideButtons.leftPanel);
-        this.remove(sideButtons.rightPanel);
-        ((SideButtons) sideButtons).reset();
-        createSidePanels();
-        this.remove(grid);
-        createGrid();
-        this.revalidate();
-        changesMade = false;
+        if(!Main.blank)
+        {
+            this.remove(sideButtons.leftPanel);
+            this.remove(sideButtons.rightPanel);
+            ((SideButtons) sideButtons).reset();
+            createSidePanels();
+            this.remove(grid);
+            createGrid();
+            this.revalidate();
+            changesMade = false;
+        }
     }
 
     /**
