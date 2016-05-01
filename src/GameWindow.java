@@ -450,7 +450,10 @@ public class GameWindow extends JFrame implements ActionListener
         Main.main(null);
         this.dispose();
     }
-    
+    /**
+     * Gets a filename from the user via a file chooser and saves the
+     * current game to that file.
+     */
     public void save()
     {
         // Start in directory program is run from
@@ -468,7 +471,6 @@ public class GameWindow extends JFrame implements ActionListener
     		try {
 				 writer = new FileOutputStream(file);
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				return;
 			}
@@ -479,16 +481,17 @@ public class GameWindow extends JFrame implements ActionListener
 						(byte) 0xde, (byte) 0xed});
 				// Number of Tiles (assuming 16 for now)
 				writer.write(intToByte(16));
-				// tile settings
+				// Tile settings
+				// Left panel
 				for (Component tile : sideButtons.leftPanel.getComponents()) 
 				{
 					if (tile instanceof Tile) {
+						int tileNum = ((Tile)tile).getTileNumber();
+						// tile number/placement
+						writer.write(intToByte(tileNum));
 						if (((Tile)tile).isDrawn())
 						{
-							int tileNum = ((Tile)tile).getTileNumber();
 							System.out.println("Tile " + tileNum + " is drawn");
-							// tile number/placement
-							writer.write(intToByte(tileNum));
 							MazeIcon icon = ((Tile)tile).getMazeIcon();
 							int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
 							System.out.println("rotated " + rotation + " times: " + icon.getDegreesRotated());
@@ -506,14 +509,98 @@ public class GameWindow extends JFrame implements ActionListener
 								}
 							}
 						}
+						else
+						{
+							// Tile has no image use default values
+							// rotation
+							writer.write(intToByte(0));
+							// number of lines
+							writer.write(intToByte(0));
+						}
+						
+					}
+				}
+				// Right panel
+				for (Component tile : sideButtons.rightPanel.getComponents()) 
+				{
+					if (tile instanceof Tile) {
+						int tileNum = ((Tile)tile).getTileNumber();
+						// tile number/placement
+						writer.write(intToByte(tileNum));
+						if (((Tile)tile).isDrawn())
+						{
+							System.out.println("Tile " + tileNum + " is drawn");
+							MazeIcon icon = ((Tile)tile).getMazeIcon();
+							int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
+							System.out.println("rotated " + rotation + " times: " + icon.getDegreesRotated());
+							// tile rotation
+							writer.write(intToByte(rotation));
+							ArrayList<float[]> lineCoords = icon.getLineCoords();
+							System.out.println(lineCoords);
+							// number of lines on the tile
+							writer.write(intToByte(lineCoords.size()));
+							for (int i = 0; i < lineCoords.size(); i++) {
+								// get coords out of array
+								float[] coordList = lineCoords.get(i);
+								for (int j = 0; j < coordList.length; j++) {
+									writer.write(floatToByte(coordList[j]));
+								}
+							}
+						}
+						else
+						{
+							// Tile has no image use default values
+							// rotation
+							writer.write(intToByte(0));
+							// number of lines
+							writer.write(intToByte(0));
+						}
+						
+					}
+				}
+				// Grid
+				for (Component tile : grid.getComponents()) 
+				{
+					if (tile instanceof Tile) {
+						int tileNum = ((Tile)tile).getTileNumber();
+						// tile number/placement
+						writer.write(intToByte(tileNum));
+						if (((Tile)tile).isDrawn())
+						{
+							System.out.println("Tile " + tileNum + " is drawn");
+							MazeIcon icon = ((Tile)tile).getMazeIcon();
+							int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
+							System.out.println("rotated " + rotation + " times: " + icon.getDegreesRotated());
+							// tile rotation
+							writer.write(intToByte(rotation));
+							ArrayList<float[]> lineCoords = icon.getLineCoords();
+							System.out.println(lineCoords);
+							// number of lines on the tile
+							writer.write(intToByte(lineCoords.size()));
+							for (int i = 0; i < lineCoords.size(); i++) {
+								// get coords out of array
+								float[] coordList = lineCoords.get(i);
+								for (int j = 0; j < coordList.length; j++) {
+									writer.write(floatToByte(coordList[j]));
+								}
+							}
+						}
+						else
+						{
+							// Tile has no image use default values
+							// rotation
+							writer.write(intToByte(0));
+							// number of lines
+							writer.write(intToByte(0));
+						}
 						
 					}
 				}
 				writer.close();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			};
     	}
+    	setChangesMade(false);
     }
 };
