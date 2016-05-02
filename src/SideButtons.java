@@ -121,9 +121,9 @@ public class SideButtons extends TileArea
             }
             if (isNewGame)
             {
-                if (allTilesLineCoords.get(index) == null
-                        || allTilesLineCoords.get(index).size() == 0
-                        || gameType == GameType.BLANK_GAME)
+                if (gameType == GameType.BLANK_GAME
+                        || allTilesLineCoords.get(index) == null
+                        || allTilesLineCoords.get(index).size() == 0)
                 {
                     tiles[index].setMazeIcon(null);
                 } else

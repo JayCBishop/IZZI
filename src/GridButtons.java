@@ -54,9 +54,9 @@ public class GridButtons extends TileArea
             {
                 tiles[i].setMazeIcon(null);
             }
-            else if (allTilesLineCoords.get(i + 16) == null
-                    || allTilesLineCoords.get(i + 16).size() == 0
-                    || gameType == GameType.BLANK_GAME)
+            else if (gameType == GameType.BLANK_GAME
+                    || allTilesLineCoords.get(i + 16) == null
+                    || allTilesLineCoords.get(i + 16).size() == 0)
             {
                 tiles[i].setMazeIcon(null);
             }
