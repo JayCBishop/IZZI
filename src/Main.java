@@ -1,3 +1,4 @@
+
 /**
   *Additional authors for all files are Group G.  The members
  *are listed below and here-in will be listed as Group G
@@ -23,7 +24,6 @@ public class Main
 
     // Probably should declare any buttons here
     public static JButton fileButton, resetButton, quitButton;
-    public static boolean blank;
     public static String fileName = "default.mze";
 
     public static void main(String[] args)
@@ -31,9 +31,7 @@ public class Main
         // This is the play area
         // Named the GameWindow after our group D.K.
         GameWindow game = new GameWindow("Group G aMaze");
-        // have to override the default layout to reposition things!!!!!!!
-        
-        blank = false;
+        GameType gameType = GameType.ORIGINAL_GAME;
 
         game.setSize(new Dimension(900, 1000));
 
@@ -47,13 +45,13 @@ public class Main
         // This is where we read in the tiles and draw their images.
         // Anna Carrigan and Kyle Bobak, 4/8/2016
 
-        File file = new File(fileName);        
-        
-        if(!file.exists())
+        File file = new File(fileName);
+
+        if (!file.exists())
         {
-            game.invalFileName();
+            game.invalFileName(fileName);
         }
-        
+
         ByteFileStreamReader reader;
         try
         {
@@ -64,64 +62,65 @@ public class Main
             e2.printStackTrace();
             return;
         }
-        
-       /**
-        * read the first four bytes and determine
-        *if it is a played game or not
-        *cafebeef means that it is original
-        *cafedeed means that it is a saved or played game
-        * DK 4/28/16
-        */
-        
+
+        /**
+         * read the first four bytes and determine if it is a played game or not
+         * cafebeef means that it is original cafedeed means that it is a saved
+         * or played game DK 4/28/16
+         */
 
         int val = reader.readInt();
         boolean original = false;
-        
-        if(val == 0xcafebeef)
+
+        if (val == 0xcafebeef)
         {
             System.out.println("val == cafebeef");
             original = true;
-        }
-        else if (val == 0xcafedeed){
+        } else if (val == 0xcafedeed)
+        {
             System.out.println("val == cafedeed");
-        }
-        else
+        } else
         {
             System.out.println("bad file");
-            //this notifies the user that the first 4 bytes are bad
+            // this notifies the user that the first 4 bytes are bad
             game.alertInvalFileFormat();
-            //changing the boolean to true means a blank game
-            //will be setup.  DK 4/29/16
-            blank = true;
+            // changing the game type to blank means a totally blank board will
+            // be set up
+            gameType = GameType.BLANK_GAME;
         }
-        
-        //Now that we know if the file is original or a played game, we check
-        //the number of tiles.  DK 4/29/16
-        
-        int numberOfTiles = reader.readInt();
-        
-        //we create an arraylist to store the tile line coordinates for either version
-        ArrayList<ArrayList<float[]>> allTilesLineCoords = new ArrayList<ArrayList<float[]>>(numberOfTiles);
-        
-        // we also create an arraylist to store the rotation for tiles.
-        ArrayList<Integer> rotations = new ArrayList<Integer>();
-        
-        /**
-         * next 4 bytes: an integer tile number, range 0-31....ignored if original
-         * next 4 bytes: an integer tile rotation, range 0-3...ignore if original
-         *next four bytes: an integer number of lines, M...same for original
-         *next 16 bytes, the float coordinate endpoints for the lines...same for original
-         *DK 4/29/16
-         */
-        
+
+        if (!(gameType == GameType.BLANK_GAME))
+        {
+            // Now that we know if the file is original or a played game, we
+            // check
+            // the number of tiles. DK 4/29/16
+
+            int numberOfTiles = reader.readInt();
+
+            // we create an arraylist to store the tile line coordinates for
+            // either version
+            ArrayList<ArrayList<float[]>> allTilesLineCoords = new ArrayList<ArrayList<float[]>>(
+                    numberOfTiles);
+
+            // we also create an arraylist to store the rotation for tiles.
+            ArrayList<Integer> rotations = new ArrayList<Integer>();
+
+            /**
+             * next 4 bytes: an integer tile number, range 0-31....ignored if
+             * original next 4 bytes: an integer tile rotation, range
+             * 0-3...ignore if original next four bytes: an integer number of
+             * lines, M...same for original next 16 bytes, the float coordinate
+             * endpoints for the lines...same for original DK 4/29/16
+             */
+
             for (int i = 0; i < numberOfTiles; i++)
             {
                 ArrayList<float[]> lineCoords = new ArrayList<float[]>();
                 int tileNumber = reader.readInt();
                 int tileRotation = reader.readInt();
-                //if not original, then we add to ArrayList rotations
-                //otherwise rotations will stay null
-                if(!original)
+                // if not original, then we add to ArrayList rotations
+                // otherwise rotations will stay null
+                if (!original)
                 {
                     rotations.add(tileRotation);
                 }
@@ -136,22 +135,22 @@ public class Main
                     lineCoords.add(coords);
                 }
                 allTilesLineCoords.add(tileNumber, lineCoords);
-                
-            }
-           
 
-        game.allTilesLineCoords = allTilesLineCoords;
-        game.rotations = rotations;
-        try
-        {
-            reader.close();
-        } catch (IOException e1)
-        {
-            System.out.println("File not closed.");
-            e1.printStackTrace();
+            }
+
+            game.allTilesLineCoords = allTilesLineCoords;
+            game.rotations = rotations;
+            try
+            {
+                reader.close();
+            } catch (IOException e1)
+            {
+                System.out.println("File not closed.");
+                e1.printStackTrace();
+            }
         }
-       
-        game.setUp(blank);
+        
+        game.setUp(gameType);
         game.setVisible(true);
 
         try
@@ -178,6 +177,5 @@ public class Main
             // handle possible exception
         }
     }
-    
 
 };

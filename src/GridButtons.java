@@ -18,46 +18,17 @@ public class GridButtons extends TileArea
 
     private static final long serialVersionUID = 1;
     private Dimension tileDimen = new Dimension(99, 99);
-    private ArrayList<ArrayList<float[]>> allTilesLineCoords;
-    private ArrayList<Integer> rotations;
-    private GameWindow window;
-    private SideButtons side;
-
-    // Constructor for blank game DK 4/29/16
-    GridButtons(GameWindow window)
-    {
-        super();
-        GridBagLayout gbl = new GridBagLayout();
-        setLayout(gbl);
-
-        this.setBackground(Color.PINK);
-
-        // Create Gridbuttons in play area
-        // Placed font size in Tile class since all Tiles have uniform font size
-        // DK 3-23-2016
-        for (int index = 0; index < 16; index++)
-        {
-            tiles[index] = new Tile(index + 16);
-            tiles[index].setIsInGrid(true);
-            tiles[index].setMaximumSize(tileDimen);
-            tiles[index].setMinimumSize(tileDimen);
-            tiles[index].setPreferredSize(tileDimen);
-            Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
-                                                   // method call AC 3-23-2016
-            this.addButtons(this, tiles[index], (index % 4), (index / 4), 1, 1,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
-            this.addActionListener(tiles[index], window);
-        }
-    }
 
     /**
      * Constructor creates a grid from an array of 16 tiles
+     * 
+     * @param gameType
      *
      * @param frame
      */
     GridButtons(GameWindow window,
             ArrayList<ArrayList<float[]>> allTilesLineCoords,
-            ArrayList<Integer> rotations)
+            ArrayList<Integer> rotations, GameType gameType)
     {
         super();
         GridBagLayout gbl = new GridBagLayout();
@@ -69,67 +40,40 @@ public class GridButtons extends TileArea
         // Placed font size in Tile class since all Tiles have uniform font size
         // DK 3-23-2016
 
-        // if rotations is empty, this means it is an original game
-        // set everything up as previous
-        if (rotations.isEmpty())
+        for (int i = 0; i < 16; i++)
         {
-            for (int index = 0; index < 16; index++)
+            tiles[i] = new Tile(window, i + 16);
+            tiles[i].setMaximumSize(tileDimen);
+            tiles[i].setMinimumSize(tileDimen);
+            tiles[i].setPreferredSize(tileDimen);
+            if (allTilesLineCoords.get(i + 16) == null
+                    || allTilesLineCoords.get(i + 16).size() == 0
+                    || gameType == GameType.BLANK_GAME)
             {
-                tiles[index] = new Tile(window, index + 16);
-                tiles[index].setIsInGrid(true);
-                tiles[index].setMaximumSize(tileDimen);
-                tiles[index].setMinimumSize(tileDimen);
-                tiles[index].setPreferredSize(tileDimen);
-                Insets inset = new Insets(0, 0, 0, 0); // All insets same,
-                                                       // removed
-                // method call AC 3-23-2016
-                this.addButtons(this, tiles[index], (index % 4), (index / 4), 1,
-                        1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                        inset);
-                this.addActionListener(tiles[index], window);
+                tiles[i].setMazeIcon(null);
+            } else
+            {
+                tiles[i].setMazeIcon(
+                        new MazeIcon(allTilesLineCoords.get(i + 16)));
             }
-        } else
-        {
-            this.allTilesLineCoords = allTilesLineCoords;
-            System.out.println(allTilesLineCoords);
-            this.window = window;
-            this.rotations = rotations;
-            System.out.println(rotations);
-
-            // this branch does not have the shuffle method
-            // DK 4/28/16
-            for (int i = 0; i < 16; i++)
+            // rotate the tile we created by 90 * whatever the integer
+            // number is
+            // stored in the rotations array we passed in.
+            if (gameType == GameType.ORIGINAL_GAME)
             {
-                tiles[i] = new Tile(window, i + 16);
-                tiles[i].setMaximumSize(tileDimen);
-                tiles[i].setMinimumSize(tileDimen);
-                tiles[i].setPreferredSize(tileDimen);
-                if (allTilesLineCoords.get(i + 16) == null
-                        || allTilesLineCoords.get(i + 16).size() == 0)
-                {
-                    tiles[i].setMazeIcon(null);
-                }
-                else
-                {
-                    tiles[i].setMazeIcon(new MazeIcon(allTilesLineCoords.get(i + 16)));
-                }
-                // rotate the tile we created by 90 * whatever the integer
-                // number is
-                // stored in the rotations array we passed in.
-                // tiles[i].rotate(rotations.get(i + 16) * 90);
-
-                tiles[i].setIsInGrid(true);
-                Insets inset = new Insets(0, 0, 0, 0); // All insets same,
-                                                       // removed
-                                                       // method call AC
-                                                       // 3-23-2016
-                this.addButtons(this, tiles[i], (i % 4), (i / 4), 1, 1,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                        inset);
-                this.addActionListener(tiles[i], window);
+                tiles[i].rotate(rotations.get(i + 16) * 90);
             }
 
+            tiles[i].setIsInGrid(true);
+            Insets inset = new Insets(0, 0, 0, 0); // All insets same,
+                                                   // removed
+                                                   // method call AC
+                                                   // 3-23-2016
+            this.addButtons(this, tiles[i], (i % 4), (i / 4), 1, 1,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
+            this.addActionListener(tiles[i], window);
         }
+
     }
 
     /**

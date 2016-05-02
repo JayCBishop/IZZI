@@ -1,3 +1,4 @@
+
 /**
  * Added Group G as additional authors on 3-21-2016  D.K.
  * See Main for a list of Group G members
@@ -39,12 +40,12 @@ import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 
 public class GameWindow extends JFrame implements ActionListener
-{   
+{
     /**
      * because it is a serializable object, need this or javac complains a lot
      */
     public static final long serialVersionUID = 1;
-    
+
     // Boolean that is set true if any changes have been made to the board
     // Will need to be set back to false if a save method is invoked
     private boolean changesMade = false;
@@ -54,8 +55,10 @@ public class GameWindow extends JFrame implements ActionListener
     private Tile firstClicked, secondClicked;
     private JPanel panel;
     public ArrayList<ArrayList<float[]>> allTilesLineCoords;
-    //added rotations array in for the stored rotations of the played games  DK 4/28/2016
+    // added rotations array in for the stored rotations of the played games DK
+    // 4/28/2016
     public ArrayList<Integer> rotations;
+    private GameType gameType;
 
     /**
      * Constructor sets the window name using super(), changes the layout, which
@@ -88,13 +91,13 @@ public class GameWindow extends JFrame implements ActionListener
     {
         if ("Quit".equals(e.getActionCommand()))
         {
-            if(changesMade)
+            if (changesMade)
             {
                 popUpAlert();
-            }
-            else
+            } else
             {
-                System.exit(0);;
+                System.exit(0);
+                ;
             }
         }
         if ("Reset".equals(e.getActionCommand()))
@@ -106,63 +109,61 @@ public class GameWindow extends JFrame implements ActionListener
             menu();
         }
     }
-    
+
     /**
-     * Handles the pop-up window that runs when the user decides to quit
-     * -Jay 4/26/2016
+     * Handles the pop-up window that runs when the user decides to quit -Jay
+     * 4/26/2016
      */
     private void popUpAlert()
     {
-        Object[] options = {"Yes", "No"};
-        
+        Object[] options =
+        { "Yes", "No" };
+
         int n = JOptionPane.showOptionDialog(this,
-        "Changes have been made to the game board. Would"
-        + " you like to save those changes?",
-        "Warning",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.WARNING_MESSAGE,
-        null,     //do not use a custom Icon
-        options,  //the titles of buttons
-        options[0]); //default button title
-        
+                "Changes have been made to the game board. Would"
+                        + " you like to save those changes?",
+                "Warning", JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE, null, // do not use a custom Icon
+                options, // the titles of buttons
+                options[0]); // default button title
+
         // Yes option was selected
-        if(n == 0)
+        if (n == 0)
         {
-        	save();
-        }
-        else
+            save();
+        } else
         {
             System.exit(0);
         }
     }
-    
-    //This method alerts the player that the file
-    //they used has an invalid file format  DK 4/29/16
+
+    // This method alerts the player that the file
+    // they used has an invalid file format DK 4/29/16
     public void alertInvalFileFormat()
-    { 
-        JOptionPane.showMessageDialog(panel,
-        "The first four bytes of the file have an error."
-        + " The game will start with no maze loaded.",
-        "Invalid File Format", JOptionPane.ERROR_MESSAGE); 
-    }
-    
-    public void invalFileName()
     {
         JOptionPane.showMessageDialog(panel,
-        "default.mze could not be found.",
-        "Invalid File Name", JOptionPane.ERROR_MESSAGE);
+                "The first four bytes of the file have an error."
+                        + " The game will start with no maze loaded.",
+                "Invalid File Format", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void invalFileName(String name)
+    {
+        JOptionPane.showMessageDialog(panel,
+                "File: " + name + " could not be found.", "Invalid File Name",
+                JOptionPane.ERROR_MESSAGE);
         load();
     }
-    
+
     public void fileAlreadyExists()
-    { 
+    {
         int n = JOptionPane.showConfirmDialog(panel,
-        		"This file already exists. Would you like to overwrite it?");
+                "This file already exists. Would you like to overwrite it?");
         // Yes was not selected
         if (n != 0)
         {
-        	// reopen fileChooser for save
-        	save();
+            // reopen fileChooser for save
+            save();
         }
     }
 
@@ -170,7 +171,7 @@ public class GameWindow extends JFrame implements ActionListener
     // DK 4/5/2016
     private void reset()
     {
-        if(!Main.blank)
+        if (gameType != GameType.BLANK_GAME)
         {
             this.remove(sideButtons.leftPanel);
             this.remove(sideButtons.rightPanel);
@@ -184,14 +185,12 @@ public class GameWindow extends JFrame implements ActionListener
     }
 
     /**
-     * Setup establishes the initial board
-     * The boolean decides whether or not
-     * the game board will be blank i.e.
-     * not contain a maze or a maze will 
-     * be presented. DK 4/29/16
+     * Setup establishes the initial board The boolean decides whether or not
+     * the game board will be blank i.e. not contain a maze or a maze will be
+     * presented. DK 4/29/16
      */
-   
-    public void setUp(boolean blank)
+
+    public void setUp(GameType gameType)
     {
         // actually create the array for elements, make sure it is big enough
         // Need to play around with the dimensions and the gridx/y values
@@ -223,8 +222,7 @@ public class GameWindow extends JFrame implements ActionListener
         Main.fileButton.setMaximumSize(buttonDimen);
         Main.fileButton.setPreferredSize(buttonDimen);
         Main.fileButton.addActionListener(this);
-        Main.fileButton
-                .setFont(new Font("Arial", Font.PLAIN, buttonWidth / 6));
+        Main.fileButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth / 6));
 
         Main.resetButton = new JButton("Reset");
         Main.resetButton.setMinimumSize(buttonDimen);
@@ -257,41 +255,14 @@ public class GameWindow extends JFrame implements ActionListener
         gbc.gridy = 0;
 
         add(toolbar, gbc);
-        
-        if(blank)
-        {
-            grid = new GridButtons(this);
-            createBlankGame(gbc);
-        }
-        else
-        {
-            createGrid();
-            createSidePanels();
-        }
+
+        createGrid();
+        createSidePanels();
+
         return;
     }
-    /**
-     * This method sets up a blank game if the user had
-     * a file where the first four bytes had an error
-     * DK 4/29/16
-     * @param gbc
-     */
-    private void createBlankGame(GridBagConstraints gbc)
-    {
-        sideButtons = new SideButtons(this);
-        gbc.gridy = 1;
-        gbc.gridx = 0;
-        gbc.gridheight = 8;
-        add(((SideButtons) sideButtons).leftPanel, gbc);
 
-        gbc.gridy = 2;
-        gbc.gridx = 1;
-        add(grid, gbc);
 
-        gbc.gridy = 1;
-        gbc.gridx = 2;
-        add(((SideButtons) sideButtons).rightPanel, gbc);
-    }
 
     // create both the left and right side panels
     private void createSidePanels()
@@ -299,7 +270,7 @@ public class GameWindow extends JFrame implements ActionListener
         GridBagConstraints gbc = new GridBagConstraints();
         if (sideButtons == null)
         {
-            sideButtons = new SideButtons(this, allTilesLineCoords, rotations);
+            sideButtons = new SideButtons(this, allTilesLineCoords, rotations, gameType);
         }
         gbc.gridwidth = 1;
         gbc.weightx = 1;
@@ -326,7 +297,7 @@ public class GameWindow extends JFrame implements ActionListener
 
         gbc.weightx = 1;
         gbc.weighty = 1;
-        grid = new GridButtons(this, allTilesLineCoords, rotations);
+        grid = new GridButtons(this, allTilesLineCoords, rotations, gameType);
         gbc.gridy = 2;
         gbc.gridx = 1;
         gbc.insets = new Insets(0, 0, 0, 0);
@@ -374,71 +345,76 @@ public class GameWindow extends JFrame implements ActionListener
     {
         secondClicked = secClick;
     }
-    
+
     /**
-     * When invoked, simply sets changesMade so we know
-     * a change has occurred to the board for saving purposes
-     * -Is set back to false when save is invoked
+     * When invoked, simply sets changesMade so we know a change has occurred to
+     * the board for saving purposes -Is set back to false when save is invoked
      * 
-     * @param change: the boolean that sets changesMade
+     * @param change:
+     *            the boolean that sets changesMade
      * 
-     * -Jay 4/26/2016
+     *            -Jay 4/26/2016
      */
     public void setChangesMade(boolean change)
     {
         changesMade = change;
     }
-    
+
     /**
-     * When invoked, brings up a menu with a load and save item
-     * that allows the user to load and save the current state of the maze
+     * When invoked, brings up a menu with a load and save item that allows the
+     * user to load and save the current state of the maze
      * 
      * -Jay 4/27/2016
      */
     public void menu()
     {
-        // The Font for the MenuItems 
+        // The Font for the MenuItems
         Font f = new Font("sans-serif", Font.PLAIN, 24);
-        
+
         // The PopupMenu
         final JPopupMenu popup = new JPopupMenu();
-        
+
         // Load MenuItem
         JMenuItem load = new JMenuItem("     Load");
-        load.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        load.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
                 load();
             }
         });
-        
+
         // Save MenuItem
         JMenuItem save = new JMenuItem("     Save");
-        save.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	save();
+        save.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                save();
             }
         });
-        
+
         // Set the MenuItem fonts
         load.setFont(f);
         save.setFont(f);
-        
+
         // Add the MenuItems
         popup.add(load);
         popup.add(save);
-        
-        popup.setPopupSize(Main.fileButton.getWidth(), Main.fileButton.getHeight()*2);
-        popup.show(Main.fileButton,0,Main.fileButton.getHeight());
+
+        popup.setPopupSize(Main.fileButton.getWidth(),
+                Main.fileButton.getHeight() * 2);
+        popup.show(Main.fileButton, 0, Main.fileButton.getHeight());
     }
-    
+
     private byte[] intToByte(int i)
     {
         byte[] bytes = new byte[4];
         ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
         buffer.putInt(i);
-        return buffer.array();    
+        return buffer.array();
     }
-    
+
     private byte[] floatToByte(float f)
     {
         byte[] bytes = new byte[4];
@@ -446,145 +422,158 @@ public class GameWindow extends JFrame implements ActionListener
         buffer.putFloat(f);
         return buffer.array();
     }
-    
+
     /**
-     * Gets a fileName from the user via a file chooser and restarts the
-     * program with that fileName as the new file to be loaded.
+     * Gets a fileName from the user via a file chooser and restarts the program
+     * with that fileName as the new file to be loaded.
      */
     public void load()
-    {   
+    {
         String newFileName = "default.mze";
-        
+
         // Start in directory program is run from
-        final JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
+        final JFileChooser chooser = new JFileChooser(
+                new File(System.getProperty("user.dir")));
         chooser.showOpenDialog(GameWindow.this);
 
-        if(chooser.getSelectedFile() != null)
+        if (chooser.getSelectedFile() != null)
         {
-            newFileName=chooser.getSelectedFile().getName();
+            newFileName = chooser.getSelectedFile().getName();
             Main.fileName = newFileName;
             Main.main(null);
         }
-        
+
         this.dispose();
     }
+
     /**
-     * Gets a filename from the user via a file chooser and saves the
-     * current game to that file.
+     * Gets a filename from the user via a file chooser and saves the current
+     * game to that file.
      */
     public void save()
     {
         // Start in directory program is run from
-        final JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
-        
-    	int returnVal = chooser.showSaveDialog(GameWindow.this);
-    	
-    	if(returnVal == JFileChooser.APPROVE_OPTION) {
-    		// save file
-    		File file = chooser.getSelectedFile();
-    		if (file.exists()) {
-    			// give a warning
-    			fileAlreadyExists();
-    		}
-    		FileOutputStream writer;
-    		try {
-				 writer = new FileOutputStream(file);
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-				return;
-			}
-    		
-    		try {
-    			// Assuming file has been played
-				writer.write(new byte[]{(byte) 0xca, (byte) 0xfe,
-						(byte) 0xde, (byte) 0xed});
-				// Number of Tiles (assuming 32 for now)
-				writer.write(intToByte(32));
-				// Tile settings
+        final JFileChooser chooser = new JFileChooser(
+                new File(System.getProperty("user.dir")));
 
-				// Sidebuttons
-				for (Tile tile : sideButtons.getTiles()) 
-				{
-						int tileNum = tile.getTileNumber();
-						// tile number/placement
-						writer.write(intToByte(tileNum));
-						if (tile.isDrawn())
-						{
-							System.out.println("Tile " + tileNum + " is drawn");
-							MazeIcon icon = tile.getMazeIcon();
-							int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
-							System.out.println("rotated " + rotation + " times: " + icon.getDegreesRotated());
-							// tile rotation
-							writer.write(intToByte(rotation));
-							ArrayList<float[]> lineCoords = icon.getLineCoords();
-							System.out.println(lineCoords);
-							// number of lines on the tile
-							writer.write(intToByte(lineCoords.size()));
-							for (int i = 0; i < lineCoords.size(); i++) {
-								// get coords out of array
-								float[] coordList = lineCoords.get(i);
-								for (int j = 0; j < coordList.length; j++) {
-									writer.write(floatToByte(coordList[j]));
-								}
-							}
-						}
-						else
-						{
-							// Tile has no image use default values
-							// rotation
-							writer.write(intToByte(0));
-							// number of lines
-							writer.write(intToByte(0));
-						}
-						
-					
-				}
-				// Grid
-				for (Tile tile : grid.getTiles()) 
-				{
-						int tileNum = tile.getTileNumber();
-	                      writer.write(intToByte(tileNum));
+        int returnVal = chooser.showSaveDialog(GameWindow.this);
 
-						// tile number/placement
-						writer.write(intToByte(tileNum));
-						if (tile.isDrawn())
-						{
-							System.out.println("Tile " + tileNum + " is drawn");
-							MazeIcon icon = tile.getMazeIcon();
-							int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
-							System.out.println("rotated " + rotation + " times: " + icon.getDegreesRotated());
-							// tile rotation
-							writer.write(intToByte(rotation));
-							ArrayList<float[]> lineCoords = icon.getLineCoords();
-							System.out.println(lineCoords);
-							// number of lines on the tile
-							int boop = lineCoords.size();
-							System.out.println("BOOP " + boop);
-							writer.write(intToByte(lineCoords.size()));
-							for (int i = 0; i < lineCoords.size(); i++) {
-								// get coords out of array
-								float[] coordList = lineCoords.get(i);
-								for (int j = 0; j < coordList.length; j++) {
-									writer.write(floatToByte(coordList[j]));
-								}
-							}
-						}
-						else
-						{
-							// Tile has no image use default values
-							// rotation
-							writer.write(intToByte(0));
-							// number of lines
-							writer.write(intToByte(0));
-						}
-						
-					
-				}
-				writer.close();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			};
-    	}
-    	setChangesMade(false);
+        if (returnVal == JFileChooser.APPROVE_OPTION)
+        {
+            // save file
+            File file = chooser.getSelectedFile();
+            if (file.exists())
+            {
+                // give a warning
+                fileAlreadyExists();
+            }
+            FileOutputStream writer;
+            try
+            {
+                writer = new FileOutputStream(file);
+            } catch (FileNotFoundException e1)
+            {
+                e1.printStackTrace();
+                return;
+            }
+
+            try
+            {
+                // Assuming file has been played
+                writer.write(new byte[]
+                { (byte) 0xca, (byte) 0xfe, (byte) 0xde, (byte) 0xed });
+                // Number of Tiles (assuming 32 for now)
+                writer.write(intToByte(32));
+                // Tile settings
+
+                // Sidebuttons
+                for (Tile tile : sideButtons.getTiles())
+                {
+                    int tileNum = tile.getTileNumber();
+                    // tile number/placement
+                    writer.write(intToByte(tileNum));
+                    if (tile.isDrawn())
+                    {
+                        System.out.println("Tile " + tileNum + " is drawn");
+                        MazeIcon icon = tile.getMazeIcon();
+                        int rotation = (int) (icon.getDegreesRotated() / 90)
+                                % 4;
+                        System.out.println("rotated " + rotation + " times: "
+                                + icon.getDegreesRotated());
+                        // tile rotation
+                        writer.write(intToByte(rotation));
+                        ArrayList<float[]> lineCoords = icon.getLineCoords();
+                        System.out.println(lineCoords);
+                        // number of lines on the tile
+                        writer.write(intToByte(lineCoords.size()));
+                        for (int i = 0; i < lineCoords.size(); i++)
+                        {
+                            // get coords out of array
+                            float[] coordList = lineCoords.get(i);
+                            for (int j = 0; j < coordList.length; j++)
+                            {
+                                writer.write(floatToByte(coordList[j]));
+                            }
+                        }
+                    } else
+                    {
+                        // Tile has no image use default values
+                        // rotation
+                        writer.write(intToByte(0));
+                        // number of lines
+                        writer.write(intToByte(0));
+                    }
+
+                }
+                // Grid
+                for (Tile tile : grid.getTiles())
+                {
+                    int tileNum = tile.getTileNumber();
+                    writer.write(intToByte(tileNum));
+
+                    // tile number/placement
+                    if (tile.isDrawn())
+                    {
+                        System.out.println("Tile " + tileNum + " is drawn");
+                        MazeIcon icon = tile.getMazeIcon();
+                        int rotation = (int) (icon.getDegreesRotated() / 90)
+                                % 4;
+                        System.out.println("rotated " + rotation + " times: "
+                                + icon.getDegreesRotated());
+                        // tile rotation
+                        writer.write(intToByte(rotation));
+                        ArrayList<float[]> lineCoords = icon.getLineCoords();
+                        System.out.println(lineCoords);
+                        // number of lines on the tile
+                        int boop = lineCoords.size();
+                        System.out.println("BOOP " + boop);
+                        writer.write(intToByte(lineCoords.size()));
+                        for (int i = 0; i < lineCoords.size(); i++)
+                        {
+                            // get coords out of array
+                            float[] coordList = lineCoords.get(i);
+                            for (int j = 0; j < coordList.length; j++)
+                            {
+                                writer.write(floatToByte(coordList[j]));
+                            }
+                        }
+                    } else
+                    {
+                        // Tile has no image use default values
+                        // rotation
+                        writer.write(intToByte(0));
+                        // number of lines
+                        writer.write(intToByte(0));
+                    }
+
+                }
+                writer.close();
+            } catch (IOException e1)
+            {
+                e1.printStackTrace();
+            }
+            ;
+        }
+        setChangesMade(false);
     }
 };

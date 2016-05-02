@@ -25,75 +25,35 @@ public class SideButtons extends TileArea
     private Tile[] startTiles = new Tile[16];
     private GameWindow window;
     private ArrayList<ArrayList<float[]>> allTilesLineCoords;
-    /**
-     * Constructor creates both the side panels from two arrays of 8 tiles
-     * 
-     * @param images
-     *
-     * @param frame
-     */
-    // This constructor is used for a blank game DK 4/29/16
-    SideButtons(GameWindow window)
-    {
-        GridBagLayout gbl = new GridBagLayout();
-        leftPanel.setLayout(gbl);
-        rightPanel.setLayout(gbl);
-        leftPanel.setBackground(Color.cyan);
-        rightPanel.setBackground(Color.cyan);
-
-        // Add the left SideButton panel
-        // Add the numbers 0 thru 7 to the tiles DK 3-22-2016
-
-        for (int index = 0; index < 8; index++)
-        {
-            tiles[index] = new Tile(index);
-            tiles[index].setIsInGrid(false);
-            tiles[index].setMaximumSize(tileDimen);
-            tiles[index].setMinimumSize(tileDimen);
-            tiles[index].setPreferredSize(tileDimen);
-            Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
-                                                   // method call AC 3-23-2016
-            this.addButtons(leftPanel, tiles[index], 1, index, 1, 1,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
-            this.addActionListener(tiles[index], window);
-        }
-
-        // Add the right SideButtons panel
-        // Add the numbers 8 thru 15 to the tiles DK 3-22-2016
-
-        for (int index = 8; index < 16; index++)
-        {
-            tiles[index] = new Tile(index);
-            tiles[index].setIsInGrid(false);
-            tiles[index].setMaximumSize(tileDimen);
-            tiles[index].setMinimumSize(tileDimen);
-            tiles[index].setPreferredSize(tileDimen);
-            Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
-                                                   // method call AC 3-23-2016
-            this.addButtons(rightPanel, tiles[index], 1, index, 1, 1,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
-            this.addActionListener(tiles[index], window);
-        }
-
-    }
+    private GameType gameType;
 
     SideButtons(GameWindow window,
             ArrayList<ArrayList<float[]>> allTilesLineCoords,
-            ArrayList<Integer> rotations)
+            ArrayList<Integer> rotations, GameType gameType)
     {
         this.allTilesLineCoords = allTilesLineCoords;
         this.window = window;
+        this.gameType = gameType;
         GridBagLayout gbl = new GridBagLayout();
         leftPanel.setLayout(gbl);
         rightPanel.setLayout(gbl);
         leftPanel.setBackground(Color.cyan);
         rightPanel.setBackground(Color.cyan);
 
-        // setUp(true);
-        if (rotations.isEmpty())
+        if (!(gameType == GameType.BLANK_GAME))
         {
             setUp(true);
-            shuffle();
+            if (gameType == GameType.ORIGINAL_GAME)
+            {
+                shuffle();
+            }
+            if(gameType == GameType.PLAYED_GAME)
+            {
+                for(int i = 0; i < 16; i++)
+                {
+                    tiles[i].rotate(rotations.get(i) * 90);
+                }
+            }
             for (int i = 0; i < 16; i++)
             {
                 startTiles[i] = new Tile(window, i);
@@ -105,20 +65,6 @@ public class SideButtons extends TileArea
         } else
         {
             setUp(true);
-            // this branch does not have the shuffle method
-            for (int i = 0; i < 16; i++)
-            {
-                startTiles[i] = new Tile(window, i);
-                startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
-                startTiles[i].setMaximumSize(tileDimen);
-                startTiles[i].setMinimumSize(tileDimen);
-                startTiles[i].setPreferredSize(tileDimen);
-                // rotate the tile we created by 90 * whatever the integer
-                // number is
-                // stored in the rotations array we passed in.
-                startTiles[i].rotate(rotations.get(i) * 90);
-            }
-
         }
     }
 
@@ -182,7 +128,8 @@ public class SideButtons extends TileArea
             if (isNewGame)
             {
                 if (allTilesLineCoords.get(index) == null
-                        || allTilesLineCoords.get(index).size() == 0)
+                        || allTilesLineCoords.get(index).size() == 0
+                        || gameType == GameType.BLANK_GAME)
                 {
                     tiles[index].setMazeIcon(null);
                 } else
@@ -190,6 +137,7 @@ public class SideButtons extends TileArea
                     tiles[index].setMazeIcon(
                             new MazeIcon(allTilesLineCoords.get(index)));
                 }
+
             } else
             {
                 tiles[index].setMazeIcon(startTiles[index].getMazeIcon());
