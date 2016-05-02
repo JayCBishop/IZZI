@@ -73,15 +73,12 @@ public class Main
 
         if (val == 0xcafebeef)
         {
-            System.out.println("val == cafebeef");
             gameType = GameType.ORIGINAL_GAME;
         } else if (val == 0xcafedeed)
         {
-            System.out.println("val == cafedeed");
             gameType = GameType.PLAYED_GAME;
         } else
         {
-            System.out.println("bad file");
             // this notifies the user that the first 4 bytes are bad
             game.alertInvalFileFormat();
             // changing the game type to blank means a totally blank board will
