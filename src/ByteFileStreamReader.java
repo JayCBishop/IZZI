@@ -108,4 +108,6 @@ public class ByteFileStreamReader extends FileInputStream
         else
             return convertByteToFloat(bytesRead);
     }
+    
+
 }

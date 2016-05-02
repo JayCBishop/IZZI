@@ -25,9 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -407,21 +405,6 @@ public class GameWindow extends JFrame implements ActionListener
         popup.show(Main.fileButton, 0, Main.fileButton.getHeight());
     }
 
-    private byte[] intToByte(int i)
-    {
-        byte[] bytes = new byte[4];
-        ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
-        buffer.putInt(i);
-        return buffer.array();
-    }
-
-    private byte[] floatToByte(float f)
-    {
-        byte[] bytes = new byte[4];
-        ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
-        buffer.putFloat(f);
-        return buffer.array();
-    }
 
     /**
      * Gets a fileName from the user via a file chooser and restarts the program
@@ -467,10 +450,10 @@ public class GameWindow extends JFrame implements ActionListener
                 // give a warning
                 fileAlreadyExists();
             }
-            FileOutputStream writer;
+            ByteFileStreamWriter writer;
             try
             {
-                writer = new FileOutputStream(file);
+                writer = new ByteFileStreamWriter(file);
             } catch (FileNotFoundException e1)
             {
                 e1.printStackTrace();
@@ -483,7 +466,7 @@ public class GameWindow extends JFrame implements ActionListener
                 writer.write(new byte[]
                 { (byte) 0xca, (byte) 0xfe, (byte) 0xde, (byte) 0xed });
                 // Number of Tiles (assuming 32 for now)
-                writer.write(intToByte(32));
+                writer.writeInt(32);
                 // Tile settings
 
                 // Sidebuttons
@@ -491,7 +474,7 @@ public class GameWindow extends JFrame implements ActionListener
                 {
                     int tileNum = tile.getTileNumber();
                     // tile number/placement
-                    writer.write(intToByte(tileNum));
+                    writer.writeInt(tileNum);
                     if (tile.isDrawn())
                     {
                         System.out.println("Tile " + tileNum + " is drawn");
@@ -501,27 +484,27 @@ public class GameWindow extends JFrame implements ActionListener
                         System.out.println("rotated " + rotation + " times: "
                                 + icon.getDegreesRotated());
                         // tile rotation
-                        writer.write(intToByte(rotation));
+                        writer.writeInt(rotation);
                         ArrayList<float[]> lineCoords = icon.getLineCoords();
                         System.out.println(lineCoords);
                         // number of lines on the tile
-                        writer.write(intToByte(lineCoords.size()));
+                        writer.writeInt(lineCoords.size());
                         for (int i = 0; i < lineCoords.size(); i++)
                         {
                             // get coords out of array
                             float[] coordList = lineCoords.get(i);
                             for (int j = 0; j < coordList.length; j++)
                             {
-                                writer.write(floatToByte(coordList[j]));
+                                writer.writeFloat(coordList[j]);
                             }
                         }
                     } else
                     {
                         // Tile has no image use default values
                         // rotation
-                        writer.write(intToByte(0));
+                        writer.writeInt(0);
                         // number of lines
-                        writer.write(intToByte(0));
+                        writer.writeInt(0);
                     }
 
                 }
@@ -529,7 +512,7 @@ public class GameWindow extends JFrame implements ActionListener
                 for (Tile tile : grid.getTiles())
                 {
                     int tileNum = tile.getTileNumber();
-                    writer.write(intToByte(tileNum));
+                    writer.writeInt(tileNum);
 
                     // tile number/placement
                     if (tile.isDrawn())
@@ -541,29 +524,29 @@ public class GameWindow extends JFrame implements ActionListener
                         System.out.println("rotated " + rotation + " times: "
                                 + icon.getDegreesRotated());
                         // tile rotation
-                        writer.write(intToByte(rotation));
+                        writer.writeInt(rotation);
                         ArrayList<float[]> lineCoords = icon.getLineCoords();
                         System.out.println(lineCoords);
                         // number of lines on the tile
                         int boop = lineCoords.size();
                         System.out.println("BOOP " + boop);
-                        writer.write(intToByte(lineCoords.size()));
+                        writer.writeInt(lineCoords.size());
                         for (int i = 0; i < lineCoords.size(); i++)
                         {
                             // get coords out of array
                             float[] coordList = lineCoords.get(i);
                             for (int j = 0; j < coordList.length; j++)
                             {
-                                writer.write(floatToByte(coordList[j]));
+                                writer.writeFloat(coordList[j]);
                             }
                         }
                     } else
                     {
                         // Tile has no image use default values
                         // rotation
-                        writer.write(intToByte(0));
+                        writer.writeInt(0);
                         // number of lines
-                        writer.write(intToByte(0));
+                        writer.writeInt(0);
                     }
 
                 }
