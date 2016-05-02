@@ -96,7 +96,6 @@ public class GameWindow extends JFrame implements ActionListener
             else
             {
                 System.exit(0);
-                ;
             }
         }
         if ("Reset".equals(e.getActionCommand()))
@@ -188,9 +187,10 @@ public class GameWindow extends JFrame implements ActionListener
             save();
         }
         else
-        {
-            System.exit(0);
-        }
+            if (n == 1)
+            {
+                System.exit(0);
+            }
     }
 
     // This method alerts the player that the file
@@ -481,8 +481,6 @@ public class GameWindow extends JFrame implements ActionListener
             Main.fileName = newFileName;
             Main.main(null);
         }
-
-        this.dispose();
     }
 
     /**
