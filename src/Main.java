@@ -73,15 +73,15 @@ public class Main
 
         if (val == 0xcafebeef)
         {
-            //System.out.println("val == cafebeef");
+            System.out.println("val == cafebeef");
             gameType = GameType.ORIGINAL_GAME;
         } else if (val == 0xcafedeed)
         {
-            //System.out.println("val == cafedeed");
+            System.out.println("val == cafedeed");
             gameType = GameType.PLAYED_GAME;
         } else
         {
-            //System.out.println("bad file");
+            System.out.println("bad file");
             // this notifies the user that the first 4 bytes are bad
             game.alertInvalFileFormat();
             // changing the game type to blank means a totally blank board will
@@ -100,11 +100,17 @@ public class Main
             // we create an arraylist to store the tile line coordinates for
             // either version
             ArrayList<ArrayList<float[]>> allTilesLineCoords = new ArrayList<ArrayList<float[]>>(
-                    numberOfTiles);
+                    numberOfTiles*2);
 
             // we also create an arraylist to store the rotation for tiles.
-            ArrayList<Integer> rotations = new ArrayList<Integer>();
+            ArrayList<Integer> rotations = new ArrayList<Integer>(numberOfTiles*2);
+            
 
+            for(int i = 0; i < numberOfTiles*2; i++)
+            {
+                allTilesLineCoords.add(null);
+                rotations.add(0);
+            }
             /**
              * next 4 bytes: an integer tile number, range 0-31....ignored if
              * original next 4 bytes: an integer tile rotation, range

@@ -470,7 +470,7 @@ public class GameWindow extends JFrame implements ActionListener
     {
         String newFileName = "default.mze";
 
-        if(checkChangesMade())
+        if (checkChangesMade())
         {
             popUpAlert();
         }
@@ -484,6 +484,7 @@ public class GameWindow extends JFrame implements ActionListener
             newFileName = chooser.getSelectedFile().getName();
             Main.fileName = newFileName;
             Main.main(null);
+            this.dispose();
         }
     }
 
@@ -525,27 +526,24 @@ public class GameWindow extends JFrame implements ActionListener
                 writer.write(new byte[]
                 { (byte) 0xca, (byte) 0xfe, (byte) 0xde, (byte) 0xed });
                 // Number of Tiles (assuming 32 for now)
-                writer.writeInt(32);
+                writer.writeInt(16);
                 // Tile settings
 
                 // Sidebuttons
                 for (Tile tile : sideButtons.getTiles())
                 {
                     int tileNum = tile.getTileNumber();
-                    // tile number/placement
-                    writer.writeInt(tileNum);
                     if (tile.isDrawn())
                     {
-                        //System.out.println("Tile " + tileNum + " is drawn");
+                        // tile number/placement
+                        writer.writeInt(tileNum);
                         MazeIcon icon = tile.getMazeIcon();
                         int rotation = (int) (icon.getDegreesRotated() / 90)
                                 % 4;
-                        //System.out.println("rotated " + rotation + " times: "
-                        //        + icon.getDegreesRotated());
                         // tile rotation
                         writer.writeInt(rotation);
                         ArrayList<float[]> lineCoords = icon.getLineCoords();
-                        //System.out.println(lineCoords);
+                        System.out.println(lineCoords);
                         // number of lines on the tile
                         writer.writeInt(lineCoords.size());
                         for (int i = 0; i < lineCoords.size(); i++)
@@ -561,11 +559,6 @@ public class GameWindow extends JFrame implements ActionListener
                     }
                     else
                     {
-                        // Tile has no image use default values
-                        // rotation
-                        writer.writeInt(0);
-                        // number of lines
-                        writer.writeInt(0);
                         savedIcons[tileNum] = null;
                     }
 
@@ -574,24 +567,21 @@ public class GameWindow extends JFrame implements ActionListener
                 for (Tile tile : grid.getTiles())
                 {
                     int tileNum = tile.getTileNumber();
-                    writer.writeInt(tileNum);
 
                     // tile number/placement
                     if (tile.isDrawn())
                     {
-                        //System.out.println("Tile " + tileNum + " is drawn");
+                        writer.writeInt(tileNum);
+                        System.out.println("Tile " + tileNum + " is drawn");
                         MazeIcon icon = tile.getMazeIcon();
                         int rotation = (int) (icon.getDegreesRotated() / 90)
                                 % 4;
-                        //System.out.println("rotated " + rotation + " times: "
-                        //        + icon.getDegreesRotated());
+                        System.out.println("rotated " + rotation + " times: "
+                                + icon.getDegreesRotated());
                         // tile rotation
                         writer.writeInt(rotation);
                         ArrayList<float[]> lineCoords = icon.getLineCoords();
-                        //System.out.println(lineCoords);
                         // number of lines on the tile
-                        int boop = lineCoords.size();
-                        //System.out.println("BOOP " + boop);
                         writer.writeInt(lineCoords.size());
                         for (int i = 0; i < lineCoords.size(); i++)
                         {
@@ -606,15 +596,8 @@ public class GameWindow extends JFrame implements ActionListener
                     }
                     else
                     {
-                        // Tile has no image, use default values
-                        // rotation
-                        writer.writeInt(0);
-                        // number of lines
-                        writer.writeInt(0);
                         savedIcons[tileNum] = null;
-
                     }
-
                 }
                 writer.close();
             }
