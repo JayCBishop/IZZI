@@ -212,16 +212,18 @@ public class GameWindow extends JFrame implements ActionListener
         load();
     }
 
-    public void fileAlreadyExists()
+    public boolean fileAlreadyExists()
     {
-        int n = JOptionPane.showConfirmDialog(panel,
+        int n = JOptionPane.showConfirmDialog(this,
                 "This file already exists. Would you like to overwrite it?");
         // Yes was not selected
         if (n != 0)
         {
             // reopen fileChooser for save
             save();
+            return false;
         }
+        return true;
     }
 
     /**
@@ -506,104 +508,110 @@ public class GameWindow extends JFrame implements ActionListener
         {
             // save file
             File file = chooser.getSelectedFile();
+            boolean readyToWrite = true;
             if (file.exists())
             {
                 // give a warning
-                fileAlreadyExists();
+                readyToWrite = fileAlreadyExists();
             }
-            ByteFileStreamWriter writer;
-            try
+            if (readyToWrite)
             {
-                writer = new ByteFileStreamWriter(file);
-            }
-            catch (FileNotFoundException e1)
-            {
-                e1.printStackTrace();
-                return;
-            }
-
-            try
-            {
-                // Assuming file has been played
-                writer.write(new byte[]
-                { (byte) 0xca, (byte) 0xfe, (byte) 0xde, (byte) 0xed });
-                // Number of Tiles (assuming 32 for now)
-                writer.writeInt(16);
-                // Tile settings
-
-                // Sidebuttons
-                for (Tile tile : sideButtons.getTiles())
+                ByteFileStreamWriter writer;
+                try
                 {
-                    int tileNum = tile.getTileNumber();
-                    if (tile.isDrawn())
+                    writer = new ByteFileStreamWriter(file);
+                }
+                catch (FileNotFoundException e1)
+                {
+                    e1.printStackTrace();
+                    return;
+                }
+
+                try
+                {
+                    // Assuming file has been played
+                    writer.write(new byte[]
+                    { (byte) 0xca, (byte) 0xfe, (byte) 0xde, (byte) 0xed });
+                    // Number of Tiles (assuming 32 for now)
+                    writer.writeInt(16);
+                    // Tile settings
+
+                    // Sidebuttons
+                    for (Tile tile : sideButtons.getTiles())
                     {
+                        int tileNum = tile.getTileNumber();
+                        if (tile.isDrawn())
+                        {
+                            // tile number/placement
+                            writer.writeInt(tileNum);
+                            MazeIcon icon = tile.getMazeIcon();
+                            int rotation = (int) (icon.getDegreesRotated() / 90)
+                                    % 4;
+                            // tile rotation
+                            writer.writeInt(rotation);
+                            ArrayList<float[]> lineCoords = icon
+                                    .getLineCoords();
+                            // number of lines on the tile
+                            writer.writeInt(lineCoords.size());
+                            for (int i = 0; i < lineCoords.size(); i++)
+                            {
+                                // get coords out of array
+                                float[] coordList = lineCoords.get(i);
+                                for (int j = 0; j < coordList.length; j++)
+                                {
+                                    writer.writeFloat(coordList[j]);
+                                }
+                            }
+                            savedIcons[tileNum] = icon;
+                        }
+                        else
+                        {
+                            savedIcons[tileNum] = null;
+                        }
+
+                    }
+                    // Grid
+                    for (Tile tile : grid.getTiles())
+                    {
+                        int tileNum = tile.getTileNumber();
+
                         // tile number/placement
-                        writer.writeInt(tileNum);
-                        MazeIcon icon = tile.getMazeIcon();
-                        int rotation = (int) (icon.getDegreesRotated() / 90)
-                                % 4;
-                        // tile rotation
-                        writer.writeInt(rotation);
-                        ArrayList<float[]> lineCoords = icon.getLineCoords();
-                        // number of lines on the tile
-                        writer.writeInt(lineCoords.size());
-                        for (int i = 0; i < lineCoords.size(); i++)
+                        if (tile.isDrawn())
                         {
-                            // get coords out of array
-                            float[] coordList = lineCoords.get(i);
-                            for (int j = 0; j < coordList.length; j++)
+                            writer.writeInt(tileNum);
+                            MazeIcon icon = tile.getMazeIcon();
+                            int rotation = (int) (icon.getDegreesRotated() / 90)
+                                    % 4;
+                            // tile rotation
+                            writer.writeInt(rotation);
+                            ArrayList<float[]> lineCoords = icon
+                                    .getLineCoords();
+                            // number of lines on the tile
+                            writer.writeInt(lineCoords.size());
+                            for (int i = 0; i < lineCoords.size(); i++)
                             {
-                                writer.writeFloat(coordList[j]);
+                                // get coords out of array
+                                float[] coordList = lineCoords.get(i);
+                                for (int j = 0; j < coordList.length; j++)
+                                {
+                                    writer.writeFloat(coordList[j]);
+                                }
                             }
+                            savedIcons[tileNum] = icon;
                         }
-                        savedIcons[tileNum] = icon;
+                        else
+                        {
+                            savedIcons[tileNum] = null;
+                        }
                     }
-                    else
-                    {
-                        savedIcons[tileNum] = null;
-                    }
-
+                    writer.close();
                 }
-                // Grid
-                for (Tile tile : grid.getTiles())
+                catch (IOException e1)
                 {
-                    int tileNum = tile.getTileNumber();
-
-                    // tile number/placement
-                    if (tile.isDrawn())
-                    {
-                        writer.writeInt(tileNum);
-                        MazeIcon icon = tile.getMazeIcon();
-                        int rotation = (int) (icon.getDegreesRotated() / 90)
-                                % 4;
-                        // tile rotation
-                        writer.writeInt(rotation);
-                        ArrayList<float[]> lineCoords = icon.getLineCoords();
-                        // number of lines on the tile
-                        writer.writeInt(lineCoords.size());
-                        for (int i = 0; i < lineCoords.size(); i++)
-                        {
-                            // get coords out of array
-                            float[] coordList = lineCoords.get(i);
-                            for (int j = 0; j < coordList.length; j++)
-                            {
-                                writer.writeFloat(coordList[j]);
-                            }
-                        }
-                        savedIcons[tileNum] = icon;
-                    }
-                    else
-                    {
-                        savedIcons[tileNum] = null;
-                    }
+                    e1.printStackTrace();
                 }
-                writer.close();
+                ;
             }
-            catch (IOException e1)
-            {
-                e1.printStackTrace();
-            }
-            ;
         }
     }
 };
