@@ -538,6 +538,7 @@ public class GameWindow extends JFrame implements ActionListener
 				{
 						int tileNum = tile.getTileNumber();
 						// tile number/placement
+						writer.write(intToByte(tileNum));
 						if (tile.isDrawn())
 						{
 							System.out.println("Tile " + tileNum + " is drawn");
