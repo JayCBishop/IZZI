@@ -44,9 +44,11 @@ public abstract class TileArea extends JPanel
      * GridButtons and SideButtons
      * 
      * @param window
-     * @param coordinates of all tiles
+     * @param coordinates
+     *            of all tiles
      * @param rotations
-     * @param game type
+     * @param game
+     *            type
      */
     protected TileArea(GameWindow window,
             ArrayList<ArrayList<float[]>> allTilesLineCoords,

@@ -167,6 +167,10 @@ public class Tile extends JButton
         {
             setIcon(icon.getImageIcon());
             setIsDrawn(true);
+            if(inGrid)
+            {
+                setBorder(null);
+            }
         } 
         else
         {
