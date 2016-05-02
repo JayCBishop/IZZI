@@ -118,7 +118,7 @@ public class GameWindow extends JFrame implements ActionListener
         Object[] options = {"Yes", "No"};
         
         int n = JOptionPane.showOptionDialog(this,
-        "Changes have been made to the game board. Would"
+        "Changes have been made to the game board, would"
         + " you like to save those changes?",
         "Warning",
         JOptionPane.YES_NO_OPTION,
@@ -495,17 +495,17 @@ public class GameWindow extends JFrame implements ActionListener
 				// Number of Tiles (assuming 32 for now)
 				writer.write(intToByte(32));
 				// Tile settings
-
-				// Sidebuttons
-				for (Tile tile : sideButtons.getTiles()) 
+				// Left panel
+				for (Component tile : sideButtons.leftPanel.getComponents()) 
 				{
-						int tileNum = tile.getTileNumber();
+					if (tile instanceof Tile) {
+						int tileNum = ((Tile)tile).getTileNumber();
 						// tile number/placement
 						writer.write(intToByte(tileNum));
-						if (tile.isDrawn())
+						if (((Tile)tile).isDrawn())
 						{
 							System.out.println("Tile " + tileNum + " is drawn");
-							MazeIcon icon = tile.getMazeIcon();
+							MazeIcon icon = ((Tile)tile).getMazeIcon();
 							int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
 							System.out.println("rotated " + rotation + " times: " + icon.getDegreesRotated());
 							// tile rotation
@@ -531,17 +531,57 @@ public class GameWindow extends JFrame implements ActionListener
 							writer.write(intToByte(0));
 						}
 						
-					
+					}
+				}
+				// Right panel
+				for (Component tile : sideButtons.rightPanel.getComponents()) 
+				{
+					if (tile instanceof Tile) {
+						int tileNum = ((Tile)tile).getTileNumber();
+						// tile number/placement
+						writer.write(intToByte(tileNum));
+						if (((Tile)tile).isDrawn())
+						{
+							System.out.println("Tile " + tileNum + " is drawn");
+							MazeIcon icon = ((Tile)tile).getMazeIcon();
+							int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
+							System.out.println("rotated " + rotation + " times: " + icon.getDegreesRotated());
+							// tile rotation
+							writer.write(intToByte(rotation));
+							ArrayList<float[]> lineCoords = icon.getLineCoords();
+							System.out.println(lineCoords);
+							// number of lines on the tile
+							writer.write(intToByte(lineCoords.size()));
+							for (int i = 0; i < lineCoords.size(); i++) {
+								// get coords out of array
+								float[] coordList = lineCoords.get(i);
+								for (int j = 0; j < coordList.length; j++) {
+									writer.write(floatToByte(coordList[j]));
+								}
+							}
+						}
+						else
+						{
+							// Tile has no image use default values
+							// rotation
+							writer.write(intToByte(0));
+							// number of lines
+							writer.write(intToByte(0));
+						}
+						
+					}
 				}
 				// Grid
-				for (Tile tile : grid.getTiles()) 
+				for (Component tile : grid.getComponents()) 
 				{
-						int tileNum = tile.getTileNumber();
+					if (tile instanceof Tile) {
+						int tileNum = ((Tile)tile).getTileNumber();
 						// tile number/placement
-						if (tile.isDrawn())
+						writer.write(intToByte(tileNum));
+						if (((Tile)tile).isDrawn())
 						{
 							System.out.println("Tile " + tileNum + " is drawn");
-							MazeIcon icon = tile.getMazeIcon();
+							MazeIcon icon = ((Tile)tile).getMazeIcon();
 							int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
 							System.out.println("rotated " + rotation + " times: " + icon.getDegreesRotated());
 							// tile rotation
@@ -567,7 +607,7 @@ public class GameWindow extends JFrame implements ActionListener
 							writer.write(intToByte(0));
 						}
 						
-					
+					}
 				}
 				writer.close();
 			} catch (IOException e1) {
