@@ -536,16 +536,16 @@ public class GameWindow extends JFrame implements ActionListener
                     writer.writeInt(tileNum);
                     if (tile.isDrawn())
                     {
-                        System.out.println("Tile " + tileNum + " is drawn");
+                        //System.out.println("Tile " + tileNum + " is drawn");
                         MazeIcon icon = tile.getMazeIcon();
                         int rotation = (int) (icon.getDegreesRotated() / 90)
                                 % 4;
-                        System.out.println("rotated " + rotation + " times: "
-                                + icon.getDegreesRotated());
+                        //System.out.println("rotated " + rotation + " times: "
+                        //        + icon.getDegreesRotated());
                         // tile rotation
                         writer.writeInt(rotation);
                         ArrayList<float[]> lineCoords = icon.getLineCoords();
-                        System.out.println(lineCoords);
+                        //System.out.println(lineCoords);
                         // number of lines on the tile
                         writer.writeInt(lineCoords.size());
                         for (int i = 0; i < lineCoords.size(); i++)
@@ -579,19 +579,19 @@ public class GameWindow extends JFrame implements ActionListener
                     // tile number/placement
                     if (tile.isDrawn())
                     {
-                        System.out.println("Tile " + tileNum + " is drawn");
+                        //System.out.println("Tile " + tileNum + " is drawn");
                         MazeIcon icon = tile.getMazeIcon();
                         int rotation = (int) (icon.getDegreesRotated() / 90)
                                 % 4;
-                        System.out.println("rotated " + rotation + " times: "
-                                + icon.getDegreesRotated());
+                        //System.out.println("rotated " + rotation + " times: "
+                        //        + icon.getDegreesRotated());
                         // tile rotation
                         writer.writeInt(rotation);
                         ArrayList<float[]> lineCoords = icon.getLineCoords();
-                        System.out.println(lineCoords);
+                        //System.out.println(lineCoords);
                         // number of lines on the tile
                         int boop = lineCoords.size();
-                        System.out.println("BOOP " + boop);
+                        //System.out.println("BOOP " + boop);
                         writer.writeInt(lineCoords.size());
                         for (int i = 0; i < lineCoords.size(); i++)
                         {

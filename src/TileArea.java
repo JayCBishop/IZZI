@@ -33,7 +33,7 @@ public abstract class TileArea extends JPanel
             4);
     private static final Border ERROR_BORDER = new LineBorder(Color.RED, 4);
     protected Tile[] tiles = new Tile[16];
-    protected Dimension tileDimen = new Dimension(99, 99);
+    protected Dimension tileDimen = new Dimension(100, 100);
     protected GameWindow window;
     protected ArrayList<ArrayList<float[]>> allTilesLineCoords;
     protected GameType gameType;

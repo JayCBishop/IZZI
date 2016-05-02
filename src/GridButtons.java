@@ -64,6 +64,7 @@ public class GridButtons extends TileArea
             {
                 tiles[i].setMazeIcon(
                         new MazeIcon(allTilesLineCoords.get(i + 16)));
+                tiles[i].setBorder(null);
             }
             // rotate the tile we created by 90 * whatever the integer
             // number is
