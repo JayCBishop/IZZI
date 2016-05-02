@@ -87,7 +87,7 @@ public class Tile extends JButton
     {
         if (icon != null)
         {
-            icon = new MazeIcon(icon.getLineCoords(), degrees + icon.getDegreesRotated());
+            icon = new MazeIcon(icon.getLineCoords(), (degrees + icon.getDegreesRotated())%360);
             setIcon(icon.getImageIcon());
         }
         invalidate();

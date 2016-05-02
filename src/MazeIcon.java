@@ -66,7 +66,7 @@ public class MazeIcon
      */
     public void setDegreesRotated(double degrees)
     {
-        this.degreesRotated = degrees;
+        this.degreesRotated = degrees % 360;
         drawIcon();
     }
     
