@@ -14,6 +14,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
@@ -31,11 +33,30 @@ public abstract class TileArea extends JPanel
             4);
     private static final Border ERROR_BORDER = new LineBorder(Color.RED, 4);
     protected Tile[] tiles = new Tile[16];
+    protected Dimension tileDimen = new Dimension(99, 99);
+    protected GameWindow window;
+    protected ArrayList<ArrayList<float[]>> allTilesLineCoords;
+    protected GameType gameType;
+    protected ArrayList<Integer> rotations;
 
-    protected TileArea()
+    /**
+     * Constructor for TileArea does the heavy lifting for field assignment for
+     * GridButtons and SideButtons
+     * 
+     * @param window
+     * @param coordinates of all tiles
+     * @param rotations
+     * @param game type
+     */
+    protected TileArea(GameWindow window,
+            ArrayList<ArrayList<float[]>> allTilesLineCoords,
+            ArrayList<Integer> rotations, GameType gameType)
     {
         super();
-        // stub for constructor
+        this.allTilesLineCoords = allTilesLineCoords;
+        this.rotations = rotations;
+        this.gameType = gameType;
+        this.window = window;
     }
 
     /**
@@ -93,35 +114,37 @@ public abstract class TileArea extends JPanel
                     deselectTile(window, tile);
                 }
                 // Second Tile Clicked
-                else if (window.getFirstClicked() != null)
-                {
-                    if (window.getFirstClicked().getIcon() != null
-                            && tile.getIcon() != null)
+                else
+                    if (window.getFirstClicked() != null)
                     {
-                        deselectTile(window, window.getFirstClicked());
-                        tileInfractionOccured(tile);
+                        if (window.getFirstClicked().getIcon() != null
+                                && tile.getIcon() != null)
+                        {
+                            deselectTile(window, window.getFirstClicked());
+                            tileInfractionOccured(tile);
+                        }
+                        // Swap tiles
+                        else
+                        {
+                            window.setSecondClicked(tile);
+                            switchTiles(window.getFirstClicked(),
+                                    window.getSecondClicked(), window);
+                            deselectTile(window, window.getFirstClicked());
+                            deselectTile(window, tile);
+                        }
                     }
-                    // Swap tiles
+                    // First Tile Clicked
                     else
                     {
-                        window.setSecondClicked(tile);
-                        switchTiles(window.getFirstClicked(),
-                                window.getSecondClicked(), window);
-                        deselectTile(window, window.getFirstClicked());
-                        deselectTile(window, tile);
+                        if (tile.getIcon() != null)
+                        {
+                            selectTile(window, tile);
+                        }
+                        else
+                        {
+                            tileInfractionOccured(tile);
+                        }
                     }
-                }
-                // First Tile Clicked
-                else
-                {
-                    if (tile.getIcon() != null)
-                    {
-                        selectTile(window, tile);
-                    } else
-                    {
-                        tileInfractionOccured(tile);
-                    }
-                }
             }
         });
     }
@@ -144,7 +167,7 @@ public abstract class TileArea extends JPanel
             {
                 tile.setBackground(new JButton().getBackground());
                 tile.setForeground(Color.BLACK);
-                if(tile.isInGrid() && tile.getIcon() != null)
+                if (tile.isInGrid() && tile.getIcon() != null)
                 {
                     tile.setBorder(null);
                 }
@@ -182,7 +205,7 @@ public abstract class TileArea extends JPanel
     {
         window.setFirstClicked(null);
         tile.setIsClicked(false);
-        if(tile.isInGrid() && tile.getIcon() != null)
+        if (tile.isInGrid() && tile.getIcon() != null)
         {
             tile.setBorder(null);
         }
@@ -207,7 +230,8 @@ public abstract class TileArea extends JPanel
      * @param secondClicked
      *            -Kyle 3/22/2016 -Jay 4/7/2016
      */
-    protected void switchTiles(Tile firstClicked, Tile secondClicked, GameWindow window)
+    protected void switchTiles(Tile firstClicked, Tile secondClicked,
+            GameWindow window)
     {
         MazeIcon temp = firstClicked.getMazeIcon();
         firstClicked.setMazeIcon(secondClicked.getMazeIcon());
@@ -215,7 +239,12 @@ public abstract class TileArea extends JPanel
 
         window.setChangesMade(true);
     }
-    
+
+    /**
+     * returns array of tiles from any TileArea object
+     * 
+     * @return all tiles in area
+     */
     public Tile[] getTiles()
     {
         return tiles;

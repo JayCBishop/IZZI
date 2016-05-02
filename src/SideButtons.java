@@ -20,20 +20,14 @@ public class SideButtons extends TileArea
     private static final long serialVersionUID = 1;
     public JPanel leftPanel = new JPanel();
     public JPanel rightPanel = new JPanel();
-    private Dimension tileDimen = new Dimension(100, 100);
-
     private Tile[] startTiles = new Tile[16];
-    private GameWindow window;
-    private ArrayList<ArrayList<float[]>> allTilesLineCoords;
-    private GameType gameType;
+
 
     SideButtons(GameWindow window,
             ArrayList<ArrayList<float[]>> allTilesLineCoords,
             ArrayList<Integer> rotations, GameType gameType)
     {
-        this.allTilesLineCoords = allTilesLineCoords;
-        this.window = window;
-        this.gameType = gameType;
+        super(window, allTilesLineCoords, rotations, gameType);
         GridBagLayout gbl = new GridBagLayout();
         leftPanel.setLayout(gbl);
         rightPanel.setLayout(gbl);

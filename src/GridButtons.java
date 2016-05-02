@@ -1,4 +1,3 @@
-
 /**
  * Added authors as Group G on 3-21-2016  D.K.
  * Members of group listed in Main.java
@@ -17,7 +16,6 @@ public class GridButtons extends TileArea
 {
 
     private static final long serialVersionUID = 1;
-    private Dimension tileDimen = new Dimension(99, 99);
 
     /**
      * Constructor creates a grid from an array of 16 tiles
@@ -30,16 +28,22 @@ public class GridButtons extends TileArea
             ArrayList<ArrayList<float[]>> allTilesLineCoords,
             ArrayList<Integer> rotations, GameType gameType)
     {
-        super();
+        super(window, allTilesLineCoords, rotations, gameType);
         GridBagLayout gbl = new GridBagLayout();
         setLayout(gbl);
 
-        this.setBackground(Color.PINK);
-
-        // Create Gridbuttons in play area
-        // Placed font size in Tile class since all Tiles have uniform font size
+        // Create GridButtons in play area
         // DK 3-23-2016
 
+        setUp();
+
+    }
+
+    /**
+     * Sets up the grid buttons
+     */
+    private void setUp()
+    {
         for (int i = 0; i < 16; i++)
         {
             tiles[i] = new Tile(window, i + 16);
@@ -51,14 +55,14 @@ public class GridButtons extends TileArea
                     || gameType == GameType.BLANK_GAME)
             {
                 tiles[i].setMazeIcon(null);
-            } else
+            }
+            else
             {
                 tiles[i].setMazeIcon(
                         new MazeIcon(allTilesLineCoords.get(i + 16)));
             }
             // rotate the tile we created by 90 * whatever the integer
             // number is
-            // stored in the rotations array we passed in.
             if (gameType == GameType.ORIGINAL_GAME)
             {
                 tiles[i].rotate(rotations.get(i + 16) * 90);
@@ -73,7 +77,6 @@ public class GridButtons extends TileArea
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
             this.addActionListener(tiles[i], window);
         }
-
     }
 
     /**
