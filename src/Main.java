@@ -8,9 +8,6 @@
  * @author Kim Buckner
  * Date: Feb 19, 2016
  *
- * A starting point for the COSC 3011 programming assignment
- * Probably need to fix a bunch of stuff, but this compiles and runs.
- *
  */
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,8 +19,10 @@ import java.awt.*;
 public class Main
 {
 
-    // Probably should declare any buttons here
+    // Button declarations
     public static JButton fileButton, resetButton, quitButton;
+    
+    // Hard-coded file to load
     public static String fileName = "default.mze";
 
     public static void main(String[] args)
@@ -44,18 +43,6 @@ public class Main
 
         // This is where we read in the tiles and draw their images.
         // Anna Carrigan and Kyle Bobak, 4/8/2016
-        
-        /**
-         * The next section of code opens an input file.  The default file
-         * must be found just within the project file, not within a sub-folder
-         * such as the src folder.
-         * For example, if I am using Windows as the OS and a workspace
-         * within Eclipse and my project is titled Program5, then my path
-         * to the default file would be:
-         * C:\Users\DEBBIE\workspace\Program5.  The direction of the
-         * slashes (forward or backward) may vary based upon the OS
-         * you are using.  DK 5/2/2016
-         */
 
         File file = new File(fileName);
 
