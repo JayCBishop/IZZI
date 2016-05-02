@@ -256,6 +256,7 @@ public class GameWindow extends JFrame implements ActionListener
 
         GridBagLayout gbl = new GridBagLayout();
         setLayout(gbl);
+        this.gameType = gameType;
 
         GridBagConstraints gbc = new GridBagConstraints();
 

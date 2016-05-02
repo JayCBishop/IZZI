@@ -50,7 +50,11 @@ public class GridButtons extends TileArea
             tiles[i].setMaximumSize(tileDimen);
             tiles[i].setMinimumSize(tileDimen);
             tiles[i].setPreferredSize(tileDimen);
-            if (allTilesLineCoords.get(i + 16) == null
+            if(gameType == GameType.ORIGINAL_GAME)
+            {
+                tiles[i].setMazeIcon(null);
+            }
+            else if (allTilesLineCoords.get(i + 16) == null
                     || allTilesLineCoords.get(i + 16).size() == 0
                     || gameType == GameType.BLANK_GAME)
             {
@@ -63,7 +67,7 @@ public class GridButtons extends TileArea
             }
             // rotate the tile we created by 90 * whatever the integer
             // number is
-            if (gameType == GameType.ORIGINAL_GAME)
+            if (gameType == GameType.PLAYED_GAME)
             {
                 tiles[i].rotate(rotations.get(i + 16) * 90);
             }
