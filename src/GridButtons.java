@@ -16,7 +16,6 @@ public class GridButtons extends TileArea
 {
 
     private static final long serialVersionUID = 1;
-    private Tile[] tiles = new Tile[16];
     private Dimension tileDimen = new Dimension(99,99);
     private ArrayList<ArrayList<float[]>> allTilesLineCoords;
     private ArrayList<Integer> rotations;
