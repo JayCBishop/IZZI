@@ -1,13 +1,14 @@
- /**
- * added authors as Group G on 3-21-2016  D.K.
- * Members listed in Main.java
- * Tile.java
- * Software Design, Spring 2016
- * @author- Group G
- * Created 2/23/2016
- * 
- * Two collections of tiles that form two side panels
- */
+
+/**
+* added authors as Group G on 3-21-2016  D.K.
+* Members listed in Main.java
+* Tile.java
+* Software Design, Spring 2016
+* @author- Group G
+* Created 2/23/2016
+* 
+* Two collections of tiles that form two side panels
+*/
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,8 +25,6 @@ public class SideButtons extends TileArea
     private Tile[] startTiles = new Tile[16];
     private GameWindow window;
     private ArrayList<ArrayList<float[]>> allTilesLineCoords;
-    private ArrayList<Integer> rotations;
-
     /**
      * Constructor creates both the side panels from two arrays of 8 tiles
      * 
@@ -33,8 +32,8 @@ public class SideButtons extends TileArea
      *
      * @param frame
      */
-    //This constructor is used for a blank game  DK 4/29/16
-    SideButtons(GameWindow window) 
+    // This constructor is used for a blank game DK 4/29/16
+    SideButtons(GameWindow window)
     {
         GridBagLayout gbl = new GridBagLayout();
         leftPanel.setLayout(gbl);
@@ -45,50 +44,53 @@ public class SideButtons extends TileArea
         // Add the left SideButton panel
         // Add the numbers 0 thru 7 to the tiles DK 3-22-2016
 
-        for (int index = 0; index < 8; index++) {
+        for (int index = 0; index < 8; index++)
+        {
             tiles[index] = new Tile(index);
             tiles[index].setIsInGrid(false);
             tiles[index].setMaximumSize(tileDimen);
             tiles[index].setMinimumSize(tileDimen);
             tiles[index].setPreferredSize(tileDimen);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
-                                                    // method call AC 3-23-2016
-            this.addButtons(leftPanel, tiles[index], 1, index, 1, 1, GridBagConstraints.CENTER, 
-                    GridBagConstraints.BOTH, inset);
+                                                   // method call AC 3-23-2016
+            this.addButtons(leftPanel, tiles[index], 1, index, 1, 1,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
             this.addActionListener(tiles[index], window);
         }
 
         // Add the right SideButtons panel
         // Add the numbers 8 thru 15 to the tiles DK 3-22-2016
 
-        for (int index = 8; index < 16; index++) {
+        for (int index = 8; index < 16; index++)
+        {
             tiles[index] = new Tile(index);
             tiles[index].setIsInGrid(false);
             tiles[index].setMaximumSize(tileDimen);
             tiles[index].setMinimumSize(tileDimen);
             tiles[index].setPreferredSize(tileDimen);
             Insets inset = new Insets(0, 0, 0, 0); // All insets same, removed
-                                                    // method call AC 3-23-2016
-            this.addButtons(rightPanel, tiles[index], 1, index, 1, 1, GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH, inset);
+                                                   // method call AC 3-23-2016
+            this.addButtons(rightPanel, tiles[index], 1, index, 1, 1,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
             this.addActionListener(tiles[index], window);
         }
 
     }
+
     SideButtons(GameWindow window,
-            ArrayList<ArrayList<float[]>> allTilesLineCoords, ArrayList<Integer> rotations)
+            ArrayList<ArrayList<float[]>> allTilesLineCoords,
+            ArrayList<Integer> rotations)
     {
         this.allTilesLineCoords = allTilesLineCoords;
         this.window = window;
-        this.rotations = rotations;
         GridBagLayout gbl = new GridBagLayout();
         leftPanel.setLayout(gbl);
         rightPanel.setLayout(gbl);
         leftPanel.setBackground(Color.cyan);
         rightPanel.setBackground(Color.cyan);
 
-        //setUp(true);
-        if(rotations.isEmpty())
+        // setUp(true);
+        if (rotations.isEmpty())
         {
             setUp(true);
             shuffle();
@@ -100,11 +102,10 @@ public class SideButtons extends TileArea
                 startTiles[i].setPreferredSize(tileDimen);
                 startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
             }
-        }
-        else
+        } else
         {
             setUp(true);
-            //this branch does not have the shuffle method
+            // this branch does not have the shuffle method
             for (int i = 0; i < 16; i++)
             {
                 startTiles[i] = new Tile(window, i);
@@ -112,12 +113,12 @@ public class SideButtons extends TileArea
                 startTiles[i].setMaximumSize(tileDimen);
                 startTiles[i].setMinimumSize(tileDimen);
                 startTiles[i].setPreferredSize(tileDimen);
-                //rotate the tile we created by 90 * whatever the integer number is 
-                //stored in the rotations array we passed in. 
+                // rotate the tile we created by 90 * whatever the integer
+                // number is
+                // stored in the rotations array we passed in.
                 startTiles[i].rotate(rotations.get(i) * 90);
             }
-            
-            
+
         }
     }
 
@@ -180,10 +181,17 @@ public class SideButtons extends TileArea
             }
             if (isNewGame)
             {
-                tiles[index].setMazeIcon(
-                        new MazeIcon(allTilesLineCoords.get(index)));
+                if (allTilesLineCoords.get(index) == null
+                        || allTilesLineCoords.get(index).size() == 0)
+                {
+                    tiles[index].setMazeIcon(null);
+                } else
+                {
+                    tiles[index].setMazeIcon(
+                            new MazeIcon(allTilesLineCoords.get(index)));
+                }
             } else
-            {   
+            {
                 tiles[index].setMazeIcon(startTiles[index].getMazeIcon());
             }
         }

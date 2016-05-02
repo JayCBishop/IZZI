@@ -15,7 +15,6 @@
  * tiles will be when we get them stuffed in.
  */
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -49,7 +48,6 @@ public class GameWindow extends JFrame implements ActionListener
     // Boolean that is set true if any changes have been made to the board
     // Will need to be set back to false if a save method is invoked
     private boolean changesMade = false;
-    private boolean blank = false;
     private TileArea grid;
     private SideButtons sideButtons;
 
@@ -435,12 +433,18 @@ public class GameWindow extends JFrame implements ActionListener
     
     private byte[] intToByte(int i)
     {
-		return ByteBuffer.allocate(4).putInt(i).array();
+        byte[] bytes = new byte[4];
+        ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
+        buffer.putInt(i);
+        return buffer.array();    
     }
     
     private byte[] floatToByte(float f)
     {
-    	return ByteBuffer.allocate(4).putFloat(f).array();
+        byte[] bytes = new byte[4];
+        ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
+        buffer.putFloat(f);
+        return buffer.array();
     }
     
     /**
@@ -455,11 +459,13 @@ public class GameWindow extends JFrame implements ActionListener
         final JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
         chooser.showOpenDialog(GameWindow.this);
 
-        String path=chooser.getSelectedFile().getAbsolutePath();
-        newFileName=chooser.getSelectedFile().getName();
+        if(chooser.getSelectedFile() != null)
+        {
+            newFileName=chooser.getSelectedFile().getName();
+            Main.fileName = newFileName;
+            Main.main(null);
+        }
         
-        Main.fileName = newFileName;
-        Main.main(null);
         this.dispose();
     }
     /**
@@ -537,6 +543,8 @@ public class GameWindow extends JFrame implements ActionListener
 				for (Tile tile : grid.getTiles()) 
 				{
 						int tileNum = tile.getTileNumber();
+	                      writer.write(intToByte(tileNum));
+
 						// tile number/placement
 						writer.write(intToByte(tileNum));
 						if (tile.isDrawn())
@@ -550,6 +558,8 @@ public class GameWindow extends JFrame implements ActionListener
 							ArrayList<float[]> lineCoords = icon.getLineCoords();
 							System.out.println(lineCoords);
 							// number of lines on the tile
+							int boop = lineCoords.size();
+							System.out.println("BOOP " + boop);
 							writer.write(intToByte(lineCoords.size()));
 							for (int i = 0; i < lineCoords.size(); i++) {
 								// get coords out of array
