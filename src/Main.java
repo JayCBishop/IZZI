@@ -23,7 +23,7 @@ public class Main
     public static JButton fileButton, resetButton, quitButton;
     
     // Hard-coded file to load
-    public static String fileName = "potato";
+    public static String fileName = "default.mze";
 
     public static void main(String[] args)
     {
@@ -46,19 +46,13 @@ public class Main
 
         File file = new File(fileName);
 
-        if (!file.exists())
-        {
-            game.invalFileName(fileName);
-        }
-
         ByteFileStreamReader reader;
         try
         {
             reader = new ByteFileStreamReader(file);
         } catch (FileNotFoundException e2)
         {
-            System.out.println("File not found!");
-            e2.printStackTrace();
+            game.invalFileName(fileName);
             return;
         }
 
