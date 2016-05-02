@@ -30,6 +30,7 @@ public abstract class TileArea extends JPanel
     private static final Border SELECTED_BORDER = new LineBorder(Color.ORANGE,
             4);
     private static final Border ERROR_BORDER = new LineBorder(Color.RED, 4);
+    protected Tile[] tiles = new Tile[16];
 
     protected TileArea()
     {
@@ -211,8 +212,13 @@ public abstract class TileArea extends JPanel
         MazeIcon temp = firstClicked.getMazeIcon();
         firstClicked.setMazeIcon(secondClicked.getMazeIcon());
         secondClicked.setMazeIcon(temp);
-        
+
         window.setChangesMade(true);
+    }
+    
+    public Tile[] getTiles()
+    {
+        return tiles;
     }
 
 }

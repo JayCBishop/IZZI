@@ -21,7 +21,6 @@ public class SideButtons extends TileArea
     public JPanel rightPanel = new JPanel();
     private Dimension tileDimen = new Dimension(100, 100);
 
-    private Tile[] tiles = new Tile[16];
     private Tile[] startTiles = new Tile[16];
     private GameWindow window;
     private ArrayList<ArrayList<float[]>> allTilesLineCoords;
