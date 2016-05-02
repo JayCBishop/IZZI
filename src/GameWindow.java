@@ -435,6 +435,11 @@ public class GameWindow extends JFrame implements ActionListener
         {
             public void actionPerformed(ActionEvent e)
             {
+
+                if (checkChangesMade())
+                {
+                    popUpAlert();
+                }
                 load();
             }
         });
@@ -470,10 +475,6 @@ public class GameWindow extends JFrame implements ActionListener
     {
         String newFileName = "default.mze";
 
-        if (checkChangesMade())
-        {
-            popUpAlert();
-        }
         // Start in directory program is run from
         final JFileChooser chooser = new JFileChooser(
                 new File(System.getProperty("user.dir")));

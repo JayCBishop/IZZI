@@ -23,7 +23,7 @@ public class Main
     public static JButton fileButton, resetButton, quitButton;
     
     // Hard-coded file to load
-    public static String fileName = "default.mze";
+    public static String fileName = "potato";
 
     public static void main(String[] args)
     {
