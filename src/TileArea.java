@@ -236,8 +236,6 @@ public abstract class TileArea extends JPanel
         MazeIcon temp = firstClicked.getMazeIcon();
         firstClicked.setMazeIcon(secondClicked.getMazeIcon());
         secondClicked.setMazeIcon(temp);
-
-        window.setChangesMade(true);
     }
 
     /**

@@ -46,7 +46,6 @@ public class GameWindow extends JFrame implements ActionListener
 
     // Boolean that is set true if any changes have been made to the board
     // Will need to be set back to false if a save method is invoked
-    private boolean changesMade = false;
     private TileArea grid;
     private SideButtons sideButtons;
 
@@ -57,6 +56,7 @@ public class GameWindow extends JFrame implements ActionListener
     // 4/28/2016
     public ArrayList<Integer> rotations;
     private GameType gameType;
+    private MazeIcon[] savedIcons = new MazeIcon[32];
 
     /**
      * Constructor sets the window name using super(), changes the layout, which
@@ -89,10 +89,11 @@ public class GameWindow extends JFrame implements ActionListener
     {
         if ("Quit".equals(e.getActionCommand()))
         {
-            if (changesMade)
+            if (checkChangesMade())
             {
                 popUpAlert();
-            } else
+            }
+            else
             {
                 System.exit(0);
                 ;
@@ -106,6 +107,62 @@ public class GameWindow extends JFrame implements ActionListener
         {
             menu();
         }
+    }
+
+    private boolean checkChangesMade()
+    {
+        Tile[] sideTiles = sideButtons.getTiles();
+        Tile[] gridTiles = grid.getTiles();
+        for (int i = 0; i < 16; i++)
+        {
+            if (sideTiles[i].getMazeIcon() == null)
+            {
+                if (savedIcons[i] != null)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (!(sideTiles[i].getMazeIcon().getLineCoords()
+                        .equals(savedIcons[i].getLineCoords())))
+                {
+                    return true;
+                }
+                if (!(sideTiles[i].getMazeIcon()
+                        .getDegreesRotated() == savedIcons[i]
+                                .getDegreesRotated()))
+                {
+                    return true;
+                }
+            }
+        }
+        for (int i = 16; i < 32; i++)
+        {
+            if (gridTiles[i - 16].getMazeIcon() == null)
+            {
+                if (savedIcons[i] != null)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (!(gridTiles[i - 16].getMazeIcon().getLineCoords()
+                        .equals(savedIcons[i].getLineCoords())))
+                {
+                    return true;
+                }
+                if (!(gridTiles[i - 16].getMazeIcon()
+                        .getDegreesRotated() == savedIcons[i]
+                                .getDegreesRotated()))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -129,7 +186,8 @@ public class GameWindow extends JFrame implements ActionListener
         if (n == 0)
         {
             save();
-        } else
+        }
+        else
         {
             System.exit(0);
         }
@@ -165,7 +223,9 @@ public class GameWindow extends JFrame implements ActionListener
         }
     }
 
-    // method to reset the side panels and grid area to original state
+    /**
+     * Resets the game to its original state
+     */
     // DK 4/5/2016
     private void reset()
     {
@@ -178,7 +238,6 @@ public class GameWindow extends JFrame implements ActionListener
             this.remove(grid);
             createGrid();
             this.revalidate();
-            changesMade = false;
         }
     }
 
@@ -260,15 +319,14 @@ public class GameWindow extends JFrame implements ActionListener
         return;
     }
 
-
-
     // create both the left and right side panels
     private void createSidePanels()
     {
         GridBagConstraints gbc = new GridBagConstraints();
         if (sideButtons == null)
         {
-            sideButtons = new SideButtons(this, allTilesLineCoords, rotations, gameType);
+            sideButtons = new SideButtons(this, allTilesLineCoords, rotations,
+                    gameType);
         }
         gbc.gridwidth = 1;
         gbc.weightx = 1;
@@ -283,6 +341,11 @@ public class GameWindow extends JFrame implements ActionListener
         gbc.gridx = 2;
         gbc.insets = new Insets(0, 0, 0, 0);
         add(((SideButtons) sideButtons).rightPanel, gbc);
+
+        for (int i = 0; i < 16; i++)
+        {
+            savedIcons[i] = sideButtons.getTiles()[i].getMazeIcon();
+        }
         invalidate();
     }
 
@@ -300,6 +363,13 @@ public class GameWindow extends JFrame implements ActionListener
         gbc.gridx = 1;
         gbc.insets = new Insets(0, 0, 0, 0);
         add(grid, gbc);
+
+        Tile[] gridTiles = grid.getTiles();
+        for (int i = 0; i < 16; i++)
+        {
+            savedIcons[i + 16] = gridTiles[i].getMazeIcon();
+        }
+        invalidate();
     }
 
     /**
@@ -342,20 +412,6 @@ public class GameWindow extends JFrame implements ActionListener
     public void setSecondClicked(Tile secClick)
     {
         secondClicked = secClick;
-    }
-
-    /**
-     * When invoked, simply sets changesMade so we know a change has occurred to
-     * the board for saving purposes -Is set back to false when save is invoked
-     * 
-     * @param change:
-     *            the boolean that sets changesMade
-     * 
-     *            -Jay 4/26/2016
-     */
-    public void setChangesMade(boolean change)
-    {
-        changesMade = change;
     }
 
     /**
@@ -405,7 +461,6 @@ public class GameWindow extends JFrame implements ActionListener
         popup.show(Main.fileButton, 0, Main.fileButton.getHeight());
     }
 
-
     /**
      * Gets a fileName from the user via a file chooser and restarts the program
      * with that fileName as the new file to be loaded.
@@ -454,7 +509,8 @@ public class GameWindow extends JFrame implements ActionListener
             try
             {
                 writer = new ByteFileStreamWriter(file);
-            } catch (FileNotFoundException e1)
+            }
+            catch (FileNotFoundException e1)
             {
                 e1.printStackTrace();
                 return;
@@ -498,13 +554,16 @@ public class GameWindow extends JFrame implements ActionListener
                                 writer.writeFloat(coordList[j]);
                             }
                         }
-                    } else
+                        savedIcons[tileNum] = icon;
+                    }
+                    else
                     {
                         // Tile has no image use default values
                         // rotation
                         writer.writeInt(0);
                         // number of lines
                         writer.writeInt(0);
+                        savedIcons[tileNum] = null;
                     }
 
                 }
@@ -540,23 +599,27 @@ public class GameWindow extends JFrame implements ActionListener
                                 writer.writeFloat(coordList[j]);
                             }
                         }
-                    } else
+                        savedIcons[tileNum] = icon;
+                    }
+                    else
                     {
-                        // Tile has no image use default values
+                        // Tile has no image, use default values
                         // rotation
                         writer.writeInt(0);
                         // number of lines
                         writer.writeInt(0);
+                        savedIcons[tileNum] = null;
+
                     }
 
                 }
                 writer.close();
-            } catch (IOException e1)
+            }
+            catch (IOException e1)
             {
                 e1.printStackTrace();
             }
             ;
         }
-        setChangesMade(false);
     }
 };
