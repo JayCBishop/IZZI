@@ -93,10 +93,7 @@ public class GameWindow extends JFrame implements ActionListener
             {
                 popUpAlert();
             }
-            else
-            {
-                System.exit(0);
-            }
+            System.exit(0);
         }
         if ("Reset".equals(e.getActionCommand()))
         {
