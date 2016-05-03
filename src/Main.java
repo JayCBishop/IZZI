@@ -21,7 +21,7 @@ public class Main
 
     // Button declarations
     public static JButton fileButton, resetButton, quitButton;
-    
+
     // Hard-coded file to load
     public static String fileName = "default.mze";
 
@@ -44,13 +44,24 @@ public class Main
         // This is where we read in the tiles and draw their images.
         // Anna Carrigan and Kyle Bobak, 4/8/2016
 
+        /**
+         * The next section of code opens an input file. The default file must
+         * be found just within the project file, not within a sub-folder such
+         * as the src folder. For example, if I am using Windows as the OS and a
+         * workspace within Eclipse and my project is titled Program5, then my
+         * path to the default file would be:
+         * C:\Users\DEBBIE\workspace\Program5. The direction of the slashes
+         * (forward or backward) may vary based upon the OS you are using. DK
+         * 5/2/2016
+         */
         File file = new File(fileName);
 
         ByteFileStreamReader reader;
         try
         {
             reader = new ByteFileStreamReader(file);
-        } catch (FileNotFoundException e2)
+        }
+        catch (FileNotFoundException e2)
         {
             game.invalFileName(fileName);
             return;
@@ -68,17 +79,21 @@ public class Main
         if (val == 0xcafebeef)
         {
             gameType = GameType.ORIGINAL_GAME;
-        } else if (val == 0xcafedeed)
-        {
-            gameType = GameType.PLAYED_GAME;
-        } else
-        {
-            // this notifies the user that the first 4 bytes are bad
-            game.alertInvalFileFormat();
-            // changing the game type to blank means a totally blank board will
-            // be set up
-            gameType = GameType.BLANK_GAME;
         }
+        else
+            if (val == 0xcafedeed)
+            {
+                gameType = GameType.PLAYED_GAME;
+            }
+            else
+            {
+                // this notifies the user that the first 4 bytes are bad
+                game.alertInvalFileFormat();
+                // changing the game type to blank means a totally blank board
+                // will
+                // be set up
+                gameType = GameType.BLANK_GAME;
+            }
 
         if (!(gameType == GameType.BLANK_GAME))
         {
@@ -91,13 +106,13 @@ public class Main
             // we create an arraylist to store the tile line coordinates for
             // either version
             ArrayList<ArrayList<float[]>> allTilesLineCoords = new ArrayList<ArrayList<float[]>>(
-                    numberOfTiles*2);
+                    numberOfTiles * 2);
 
             // we also create an arraylist to store the rotation for tiles.
-            ArrayList<Integer> rotations = new ArrayList<Integer>(numberOfTiles*2);
-            
+            ArrayList<Integer> rotations = new ArrayList<Integer>(
+                    numberOfTiles * 2);
 
-            for(int i = 0; i < numberOfTiles*2; i++)
+            for (int i = 0; i < numberOfTiles * 2; i++)
             {
                 allTilesLineCoords.add(null);
                 rotations.add(0);
@@ -140,13 +155,14 @@ public class Main
             try
             {
                 reader.close();
-            } catch (IOException e1)
+            }
+            catch (IOException e1)
             {
                 System.out.println("File not closed.");
                 e1.printStackTrace();
             }
         }
-        
+
         game.setUp(gameType);
         game.setVisible(true);
 
@@ -160,16 +176,20 @@ public class Main
             // Linux only
             UIManager.setLookAndFeel(
                     "com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-        } catch (UnsupportedLookAndFeelException e)
+        }
+        catch (UnsupportedLookAndFeelException e)
         {
             // handle possible exception
-        } catch (ClassNotFoundException e)
+        }
+        catch (ClassNotFoundException e)
         {
             // handle possible exception
-        } catch (InstantiationException e)
+        }
+        catch (InstantiationException e)
         {
             // handle possible exception
-        } catch (IllegalAccessException e)
+        }
+        catch (IllegalAccessException e)
         {
             // handle possible exception
         }
