@@ -186,11 +186,6 @@ public class GameWindow extends JFrame implements ActionListener
         {
             save();
         }
-        else
-            if (n == 1)
-            {
-                System.exit(0);
-            }
     }
 
     // This method alerts the player that the file
@@ -206,8 +201,7 @@ public class GameWindow extends JFrame implements ActionListener
     public void invalFileName(String name)
     {
         JOptionPane.showMessageDialog(panel,
-                "File: " + name + " could not be found. Please select"
-                 + " another file.", "Invalid File Name",
+                "File: " + name + " could not be found.", "Invalid File Name",
                 JOptionPane.ERROR_MESSAGE);
         load();
     }

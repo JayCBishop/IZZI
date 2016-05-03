@@ -15,12 +15,21 @@ import java.nio.ByteBuffer;
 
 public class ByteFileStreamWriter extends FileOutputStream
 {
-
+/**
+ * Constructor that just calls super    
+ * @param file
+ * @throws FileNotFoundException
+ */
     public ByteFileStreamWriter(File file) throws FileNotFoundException
     {
         super(file);
     }
 
+    /**
+     * Converts int to a byte array
+     * @param int
+     * @return
+     */
     private byte[] intToByte(int i)
     {
         byte[] bytes = new byte[4];
@@ -29,6 +38,11 @@ public class ByteFileStreamWriter extends FileOutputStream
         return buffer.array();
     }
 
+    /**
+     * Converts float to a byte array
+     * @param float
+     * @return
+     */
     private byte[] floatToByte(float f)
     {
         byte[] bytes = new byte[4];
@@ -36,12 +50,21 @@ public class ByteFileStreamWriter extends FileOutputStream
         buffer.putFloat(f);
         return buffer.array();
     }
-    
+    /**
+     * Writes int to a file in bytes
+     * @param int
+     * @throws IOException
+     */
     public void writeInt(int i) throws IOException
     {
         write(intToByte(i));
     }
     
+    /**
+     * Writes float to a file in bytes
+     * @param float
+     * @throws IOException
+     */
     public void writeFloat(float f) throws IOException
     {
         write(floatToByte(f));
