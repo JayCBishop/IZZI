@@ -56,7 +56,8 @@ public class GameWindow extends JFrame implements ActionListener
     // 4/28/2016
     public ArrayList<Integer> rotations;
     private GameType gameType;
-    private MazeIcon[] savedIcons = new MazeIcon[32];
+    public int numTiles = 16;
+    private MazeIcon[] savedIcons;
 
     /**
      * Constructor sets the window name using super(), changes the layout, which
@@ -109,7 +110,7 @@ public class GameWindow extends JFrame implements ActionListener
     {
         Tile[] sideTiles = sideButtons.getTiles();
         Tile[] gridTiles = grid.getTiles();
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < sideTiles.length; i++)
         {
             if (sideTiles[i].getMazeIcon() == null)
             {
@@ -133,9 +134,9 @@ public class GameWindow extends JFrame implements ActionListener
                 }
             }
         }
-        for (int i = 16; i < 32; i++)
+        for (int i = numTiles; i < 2 * numTiles; i++)
         {
-            if (gridTiles[i - 16].getMazeIcon() == null)
+            if (gridTiles[i - numTiles].getMazeIcon() == null)
             {
                 if (savedIcons[i] != null)
                 {
@@ -144,12 +145,12 @@ public class GameWindow extends JFrame implements ActionListener
             }
             else
             {
-                if (!(gridTiles[i - 16].getMazeIcon().getLineCoords()
+                if (!(gridTiles[i - numTiles].getMazeIcon().getLineCoords()
                         .equals(savedIcons[i].getLineCoords())))
                 {
                     return true;
                 }
-                if (!(gridTiles[i - 16].getMazeIcon()
+                if (!(gridTiles[i - numTiles].getMazeIcon()
                         .getDegreesRotated() == savedIcons[i]
                                 .getDegreesRotated()))
                 {
@@ -308,6 +309,7 @@ public class GameWindow extends JFrame implements ActionListener
 
         add(toolbar, gbc);
 
+        savedIcons = new MazeIcon[numTiles * 2];
         createGrid();
         createSidePanels();
 

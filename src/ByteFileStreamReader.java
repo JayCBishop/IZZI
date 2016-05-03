@@ -1,3 +1,4 @@
+
 /**
  * Members are listed in Main.java
  * Software Design, Spring 2016
@@ -69,7 +70,8 @@ public class ByteFileStreamReader extends FileInputStream
         try
         {
             checkIfValid = read(bytesRead);
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             System.out.println("File not read.");
             e.printStackTrace();
@@ -97,7 +99,8 @@ public class ByteFileStreamReader extends FileInputStream
         try
         {
             checkIfValid = read(bytesRead);
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             System.out.println("File not read.");
             e.printStackTrace();
@@ -108,6 +111,5 @@ public class ByteFileStreamReader extends FileInputStream
         else
             return convertByteToFloat(bytesRead);
     }
-    
 
 }

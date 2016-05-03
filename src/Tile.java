@@ -1,3 +1,4 @@
+
 /**
  * Added authors as Group G on 3-21-2016  D.K.
  * Tile.java
@@ -27,11 +28,11 @@ public class Tile extends JButton
     private int tileNumber;
 
     private static final long serialVersionUID = 1;
-    
-    //we now have two constructors for Tile.
-    //This first one is used if we need to set up
-    //a blank game when there is an error in the first
-    //four bytes of the file.
+
+    // we now have two constructors for Tile.
+    // This first one is used if we need to set up
+    // a blank game when there is an error in the first
+    // four bytes of the file.
     public Tile(int number)
     {
         super();
@@ -73,13 +74,10 @@ public class Tile extends JButton
     }
 
     /**
-     * Rotates the tile 90 degrees clockwise
-     *  when the user right clicks.
-     *  parameter changed from degreesRotated
-     *  to degrees to avoid confusing with
-     *  degreesRotated used in MazeIcon.
-     *            - DK 4/22/2016
-     *     
+     * Rotates the tile 90 degrees clockwise when the user right clicks.
+     * parameter changed from degreesRotated to degrees to avoid confusing with
+     * degreesRotated used in MazeIcon. - DK 4/22/2016
+     * 
      * @param degrees
      *            -Evan 4/17/2016 -Jay 4/19/2016
      */
@@ -87,7 +85,8 @@ public class Tile extends JButton
     {
         if (icon != null)
         {
-            icon = new MazeIcon(icon.getLineCoords(), (degrees + icon.getDegreesRotated())%360);
+            icon = new MazeIcon(icon.getLineCoords(),
+                    (degrees + icon.getDegreesRotated()) % 360);
             setIcon(icon.getImageIcon());
         }
         invalidate();
@@ -160,6 +159,10 @@ public class Tile extends JButton
         return isClicked;
     }
 
+    /**
+     * Sets the icon of the tile
+     * @param maze icon
+     */
     public void setMazeIcon(MazeIcon icon)
     {
         this.icon = icon;
@@ -167,28 +170,37 @@ public class Tile extends JButton
         {
             setIcon(icon.getImageIcon());
             setIsDrawn(true);
-            if(inGrid)
+            if (inGrid)
             {
                 setBorder(null);
             }
-        } 
+        }
         else
         {
             setIcon(null);
             setIsDrawn(false);
         }
-        
+
         invalidate();
         revalidate();
         repaint();
     }
 
+    /**
+     * Returns the maze icon
+     * @return
+     */
     public MazeIcon getMazeIcon()
     {
         return icon;
     }
-    
-    public int getTileNumber() {
-    	return tileNumber;
+
+    /**
+     * Returns the number of the tile (where it is in the game)
+     * @return
+     */
+    public int getTileNumber()
+    {
+        return tileNumber;
     }
 }

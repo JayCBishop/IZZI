@@ -1,3 +1,4 @@
+
 /**
  * Members are listed in Main.java
  * Software Design, Spring 2016
@@ -15,11 +16,12 @@ import java.nio.ByteBuffer;
 
 public class ByteFileStreamWriter extends FileOutputStream
 {
-/**
- * Constructor that just calls super    
- * @param file
- * @throws FileNotFoundException
- */
+    /**
+     * Constructor that just calls super
+     * 
+     * @param file
+     * @throws FileNotFoundException
+     */
     public ByteFileStreamWriter(File file) throws FileNotFoundException
     {
         super(file);
@@ -27,6 +29,7 @@ public class ByteFileStreamWriter extends FileOutputStream
 
     /**
      * Converts int to a byte array
+     * 
      * @param int
      * @return
      */
@@ -40,6 +43,7 @@ public class ByteFileStreamWriter extends FileOutputStream
 
     /**
      * Converts float to a byte array
+     * 
      * @param float
      * @return
      */
@@ -50,8 +54,10 @@ public class ByteFileStreamWriter extends FileOutputStream
         buffer.putFloat(f);
         return buffer.array();
     }
+
     /**
      * Writes int to a file in bytes
+     * 
      * @param int
      * @throws IOException
      */
@@ -59,9 +65,10 @@ public class ByteFileStreamWriter extends FileOutputStream
     {
         write(intToByte(i));
     }
-    
+
     /**
      * Writes float to a file in bytes
+     * 
      * @param float
      * @throws IOException
      */

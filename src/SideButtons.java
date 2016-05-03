@@ -22,7 +22,6 @@ public class SideButtons extends TileArea
     public JPanel rightPanel = new JPanel();
     private Tile[] startTiles = new Tile[16];
 
-
     SideButtons(GameWindow window,
             ArrayList<ArrayList<float[]>> allTilesLineCoords,
             ArrayList<Integer> rotations, GameType gameType)
@@ -41,9 +40,9 @@ public class SideButtons extends TileArea
             {
                 shuffle();
             }
-            if(gameType == GameType.PLAYED_GAME)
+            if (gameType == GameType.PLAYED_GAME)
             {
-                for(int i = 0; i < 16; i++)
+                for (int i = 0; i < window.numTiles; i++)
                 {
                     tiles[i].rotate(rotations.get(i) * 90);
                 }
@@ -56,7 +55,8 @@ public class SideButtons extends TileArea
                 startTiles[i].setPreferredSize(tileDimen);
                 startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
             }
-        } else
+        }
+        else
         {
             setUp(true);
         }
@@ -96,8 +96,7 @@ public class SideButtons extends TileArea
     public void setUp(boolean isNewGame)
     {
         // Add the side button panels
-
-        for (int index = 0; index < 16; index++)
+        for (int index = 0; index < window.numTiles; index++)
         {
             tiles[index] = new Tile(window, index);
             tiles[index].setIsInGrid(false);
@@ -108,12 +107,13 @@ public class SideButtons extends TileArea
                                                    // method call AC 3-23-2016
 
             this.addActionListener(tiles[index], window);
-            if (index < 8)
+            if (index < window.numTiles / 2)
             {
                 this.addButtons(leftPanel, tiles[index], 1, index, 1, 1,
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                         inset);
-            } else
+            }
+            else
             {
                 this.addButtons(rightPanel, tiles[index], 1, index, 1, 1,
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -126,13 +126,15 @@ public class SideButtons extends TileArea
                         || allTilesLineCoords.get(index).size() == 0)
                 {
                     tiles[index].setMazeIcon(null);
-                } else
+                }
+                else
                 {
                     tiles[index].setMazeIcon(
                             new MazeIcon(allTilesLineCoords.get(index)));
                 }
 
-            } else
+            }
+            else
             {
                 tiles[index].setMazeIcon(startTiles[index].getMazeIcon());
             }

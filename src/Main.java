@@ -102,6 +102,7 @@ public class Main
             // the number of tiles. DK 4/29/16
 
             int numberOfTiles = reader.readInt();
+            game.numTiles = numberOfTiles;
 
             // we create an arraylist to store the tile line coordinates for
             // either version

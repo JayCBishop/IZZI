@@ -151,7 +151,7 @@ public abstract class TileArea extends JPanel
         });
     }
 
-    /**  
+    /**
      * Lights a tile momentarily if an illegal move happens
      * 
      * @param tile:

@@ -1,3 +1,4 @@
+
 /**
  * Added authors as Group G on 3-21-2016  D.K.
  * Members of group listed in Main.java
@@ -44,33 +45,35 @@ public class GridButtons extends TileArea
      */
     private void setUp()
     {
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < window.numTiles; i++)
         {
-            tiles[i] = new Tile(window, i + 16);
+            tiles[i] = new Tile(window, i + window.numTiles);
             tiles[i].setMaximumSize(tileDimen);
             tiles[i].setMinimumSize(tileDimen);
             tiles[i].setPreferredSize(tileDimen);
-            if(gameType == GameType.ORIGINAL_GAME)
-            {
-                tiles[i].setMazeIcon(null);
-            }
-            else if (gameType == GameType.BLANK_GAME
-                    || allTilesLineCoords.get(i + 16) == null
-                    || allTilesLineCoords.get(i + 16).size() == 0)
+            if (gameType == GameType.ORIGINAL_GAME)
             {
                 tiles[i].setMazeIcon(null);
             }
             else
-            {
-                tiles[i].setMazeIcon(
-                        new MazeIcon(allTilesLineCoords.get(i + 16)));
-                tiles[i].setBorder(null);
-            }
+                if (gameType == GameType.BLANK_GAME
+                        || allTilesLineCoords.get(i + window.numTiles) == null
+                        || allTilesLineCoords.get(i + window.numTiles)
+                                .size() == 0)
+                {
+                    tiles[i].setMazeIcon(null);
+                }
+                else
+                {
+                    tiles[i].setMazeIcon(new MazeIcon(
+                            allTilesLineCoords.get(i + window.numTiles)));
+                    tiles[i].setBorder(null);
+                }
             // rotate the tile we created by 90 * whatever the integer
             // number is
             if (gameType == GameType.PLAYED_GAME)
             {
-                tiles[i].rotate(rotations.get(i + 16) * 90);
+                tiles[i].rotate(rotations.get(i + window.numTiles) * 90);
             }
 
             tiles[i].setIsInGrid(true);
@@ -78,8 +81,10 @@ public class GridButtons extends TileArea
                                                    // removed
                                                    // method call AC
                                                    // 3-23-2016
-            this.addButtons(this, tiles[i], (i % 4), (i / 4), 1, 1,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH, inset);
+            int rowLength = (int) Math.sqrt(window.numTiles);
+            this.addButtons(this, tiles[i], (i % rowLength), (i / rowLength), 1,
+                    1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    inset);
             this.addActionListener(tiles[i], window);
         }
     }
