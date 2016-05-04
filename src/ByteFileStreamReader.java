@@ -41,6 +41,17 @@ public class ByteFileStreamReader extends FileInputStream
         ByteBuffer buffer = ByteBuffer.wrap(b);
         return buffer.getInt();
     }
+    
+    /*
+     * @param b
+     * b is the placeholder for the long data
+     * 
+     * @return returns data type as a long DK 5/4/16
+     */
+    public long convertByteToLong(byte[] b) {
+        ByteBuffer buffer = ByteBuffer.wrap(b);
+        return buffer.getLong();
+    }
 
     /**
      * 
@@ -110,6 +121,27 @@ public class ByteFileStreamReader extends FileInputStream
             return checkIfValid;
         else
             return convertByteToFloat(bytesRead);
+    }
+    
+    public long readLong()
+    {
+        byte[] bytesRead = new byte[4];
+        int checkIfValid = 0;
+        try
+        {
+            checkIfValid = read(bytesRead);
+        }
+        catch (IOException e)
+        {
+            System.out.println("File not read.");
+            e.printStackTrace();
+        }
+
+        if (checkIfValid == -1)
+            return checkIfValid;
+        else
+            return convertByteToLong(bytesRead);
+
     }
 
 }
