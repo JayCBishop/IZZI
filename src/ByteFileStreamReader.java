@@ -125,7 +125,7 @@ public class ByteFileStreamReader extends FileInputStream
     
     public long readLong()
     {
-        byte[] bytesRead = new byte[4];
+        byte[] bytesRead = new byte[8];
         int checkIfValid = 0;
         try
         {

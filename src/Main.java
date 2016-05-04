@@ -81,11 +81,13 @@ public class Main
         if (val == 0xcafebeef)
         {
             gameType = GameType.ORIGINAL_GAME;
+            System.out.println("This is an original game");
         }
         else
             if (val == 0xcafedeed)
             {
                 gameType = GameType.PLAYED_GAME;
+                System.out.println("This is a played game");
             }
             else
             {
@@ -117,11 +119,10 @@ public class Main
             // we also create an arraylist to store the rotation for tiles.
             ArrayList<Integer> rotations = new ArrayList<Integer>(
                     numberOfTiles * 2);
-            if(gameType == GameType.PLAYED_GAME )
-            {
-                long time = reader.readLong();
-                System.out.println(time);
-            }
+            
+            //This is the time in seconds
+            long time = reader.readLong();
+            System.out.println("The time in seconds is: " + time);
 
             for (int i = 0; i < numberOfTiles * 2; i++)
             {
