@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -108,6 +110,9 @@ public class Main
             // either version
             ArrayList<ArrayList<float[]>> allTilesLineCoords = new ArrayList<ArrayList<float[]>>(
                     numberOfTiles * 2);
+            ArrayList<ArrayList<float[]>>solution = new ArrayList <ArrayList<float[]>>(numberOfTiles);
+            // HashMap doesn't support primitive types, so use Integer
+            HashMap<ArrayList<float[]>, Integer> coordsToTile = new HashMap(numberOfTiles);
 
             // we also create an arraylist to store the rotation for tiles.
             ArrayList<Integer> rotations = new ArrayList<Integer>(
@@ -148,6 +153,8 @@ public class Main
                     lineCoords.add(coords);
                 }
                 allTilesLineCoords.add(tileNumber, lineCoords);
+                solution.add(lineCoords);
+                coordsToTile.put(lineCoords, tileNumber);
 
             }
 
