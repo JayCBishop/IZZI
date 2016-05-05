@@ -526,8 +526,10 @@ public class GameWindow extends JFrame implements ActionListener
                     // Assuming file has been played
                     writer.write(new byte[]
                     { (byte) 0xca, (byte) 0xfe, (byte) 0xde, (byte) 0xed });
-                    // Number of Tiles (assuming 32 for now)
+                    // Number of Tiles
                     writer.writeInt(16);
+                    // Time maze has played
+                    writer.writeLong(time);
                     // Tile settings
 
                     // Sidebuttons

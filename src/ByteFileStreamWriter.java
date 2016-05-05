@@ -54,6 +54,20 @@ public class ByteFileStreamWriter extends FileOutputStream
         buffer.putFloat(f);
         return buffer.array();
     }
+    
+    /**
+     * Converts long to a byte array
+     * 
+     * @param long
+     * @return
+     */
+    private byte[] longToByte(long l)
+    {
+    	byte[] bytes = new byte[8];
+    	ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
+    	buffer.putLong(l);
+    	return buffer.array();
+    }
 
     /**
      * Writes int to a file in bytes
@@ -75,5 +89,16 @@ public class ByteFileStreamWriter extends FileOutputStream
     public void writeFloat(float f) throws IOException
     {
         write(floatToByte(f));
+    }
+    
+    /**
+     * Writes long to a file in bytes
+     * 
+     * @param long
+     * @throws IOException
+     */
+    public void writeLong(long l) throws IOException
+    {
+        write(longToByte(l));
     }
 }
