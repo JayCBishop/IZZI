@@ -123,6 +123,7 @@ public class Main
             //This is the time in seconds
             long time = reader.readLong();
             System.out.println("The time in seconds is: " + time);
+            game.time = time;
 
             for (int i = 0; i < numberOfTiles * 2; i++)
             {

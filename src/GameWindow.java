@@ -57,6 +57,7 @@ public class GameWindow extends JFrame implements ActionListener
     public ArrayList<Integer> rotations;
     private GameType gameType;
     public int numTiles = 16;
+    public long time = 0;
     private MazeIcon[] savedIcons;
 
     /**
