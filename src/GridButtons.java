@@ -102,7 +102,7 @@ public class GridButtons extends TileArea
         // Third solution array
         int[] solutionThree = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0};
         // Fourth solution array
-        int[] solutionFour = {};
+        int[] solutionFour = {3,7,11,15,2,6,10,14,1,5,9,13,0,4,8,12};
         
         for(int i = 0; i < window.numTiles; i++)
         {
@@ -116,7 +116,16 @@ public class GridButtons extends TileArea
                     // Solution 2
                     && (solutionTwo[i] != window.coordsToTile.get(
                             myTiles[i].getMazeIcon().getLineCoords())
-                        || ((int)myTiles[i].getMazeIcon().getDegreesRotated()/90 != 1)))
+                        || ((int)myTiles[i].getMazeIcon().getDegreesRotated()/90 != 1))
+                    // Solution 3
+                    && (solutionThree[i] != window.coordsToTile.get(
+                            myTiles[i].getMazeIcon().getLineCoords())
+                        || ((int)myTiles[i].getMazeIcon().getDegreesRotated()/90 != 2))
+                    // Solution 4
+                    && (solutionFour[i] != window.coordsToTile.get(
+                            myTiles[i].getMazeIcon().getLineCoords())
+                        || ((int)myTiles[i].getMazeIcon().getDegreesRotated()/90 != 3)))
+
                 {
                     return false;
                 }
