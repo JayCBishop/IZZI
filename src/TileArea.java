@@ -125,7 +125,7 @@ public abstract class TileArea extends JPanel
                             deselectTile(window, window.getFirstClicked());
                             tileInfractionOccured(tile);
                         }
-                        // Swap tiles
+                        // Swap tiles and check for a game win
                         else
                         {
                             window.setSecondClicked(tile);
@@ -133,14 +133,21 @@ public abstract class TileArea extends JPanel
                                     window.getSecondClicked(), window);
                             deselectTile(window, window.getFirstClicked());
                             deselectTile(window, tile);
+                            if(window.getGrid().isSolution())
+                            {
+                                System.out.println("Game Won!");
+                            }
                         }
                     }
                     // First Tile Clicked
                     else
                     {
+                        System.out.println(tile.getTileNumber());   
                         if (tile.getIcon() != null)
                         {
                             selectTile(window, tile);
+                            System.out.println(((int)tile.getMazeIcon().getDegreesRotated())/90);
+                            System.out.println(window.coordsToTile.get(tile.getMazeIcon().getLineCoords()));
                         }
                         else
                         {

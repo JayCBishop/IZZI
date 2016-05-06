@@ -161,12 +161,12 @@ public class Main
                 }
                 allTilesLineCoords.add(tileNumber, lineCoords);
                 solution.add(lineCoords);
-                coordsToTile.put(lineCoords, tileNumber);
-
+                coordsToTile.put(lineCoords, i);
             }
 
             game.allTilesLineCoords = allTilesLineCoords;
             game.rotations = rotations;
+            game.coordsToTile = coordsToTile;
             try
             {
                 reader.close();

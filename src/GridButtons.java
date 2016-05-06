@@ -17,6 +17,7 @@ public class GridButtons extends TileArea
 {
 
     private static final long serialVersionUID = 1;
+    Tile[] myTiles = new Tile[16];
 
     /**
      * Constructor creates a grid from an array of 16 tiles
@@ -37,7 +38,6 @@ public class GridButtons extends TileArea
         // DK 3-23-2016
 
         setUp();
-
     }
 
     /**
@@ -74,6 +74,7 @@ public class GridButtons extends TileArea
             if (gameType == GameType.PLAYED_GAME)
             {
                 tiles[i].rotate(rotations.get(i + window.numTiles) * 90);
+                tiles[i].setRotation(window.rotations.get(i));
             }
 
             tiles[i].setIsInGrid(true);
@@ -86,6 +87,7 @@ public class GridButtons extends TileArea
                     1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     inset);
             this.addActionListener(tiles[i], window);
+            myTiles[i] = tiles[i];
         }
     }
 
@@ -96,8 +98,35 @@ public class GridButtons extends TileArea
      */
     public boolean isSolution()
     {
-        // stub
-        return false;
+        // Second solution array
+        int[] solutionTwo = {12,8,4,0,13,9,5,1,14,10,6,2,15,11,7,3};
+        // Third solution array
+        int[] solutionThree = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0};
+        // Fourth solution array
+        int[] solutionFour = {};
+        
+        for(int i = 0; i < window.numTiles; i++)
+        {
+            if(myTiles[i].getMazeIcon() != null)
+            {
+                // Solution 1
+                if((myTiles[i].getTileNumber() - 16 != 
+                        window.coordsToTile.get(
+                                myTiles[i].getMazeIcon().getLineCoords())
+                        || ((int)myTiles[i].getMazeIcon().getDegreesRotated()/90 != 0))
+                    // Solution 2
+                    && (solutionTwo[i] != window.coordsToTile.get(
+                            myTiles[i].getMazeIcon().getLineCoords())
+                        || ((int)myTiles[i].getMazeIcon().getDegreesRotated()/90 != 1)))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
     }
-
 }

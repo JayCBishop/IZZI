@@ -54,6 +54,7 @@ public class SideButtons extends TileArea
                 startTiles[i].setMinimumSize(tileDimen);
                 startTiles[i].setPreferredSize(tileDimen);
                 startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
+                startTiles[i].setRotation(window.rotations.get(i));
             }
         }
         else

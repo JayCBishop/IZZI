@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -46,7 +47,7 @@ public class GameWindow extends JFrame implements ActionListener
 
     // Boolean that is set true if any changes have been made to the board
     // Will need to be set back to false if a save method is invoked
-    private TileArea grid;
+    private GridButtons grid;
     private SideButtons sideButtons;
 
     private Tile firstClicked, secondClicked;
@@ -59,6 +60,8 @@ public class GameWindow extends JFrame implements ActionListener
     public int numTiles = 16;
     public long time = 0;
     private MazeIcon[] savedIcons;
+    
+    public HashMap<ArrayList<float[]>, Integer> coordsToTile;
 
     /**
      * Constructor sets the window name using super(), changes the layout, which
@@ -609,5 +612,14 @@ public class GameWindow extends JFrame implements ActionListener
                 ;
             }
         }
+    }
+    
+    /**
+     * Gets the grid
+     * @return
+     */
+    public GridButtons getGrid()
+    {
+        return grid;
     }
 };

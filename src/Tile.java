@@ -25,7 +25,12 @@ public class Tile extends JButton
     private boolean inGrid;
     private MazeIcon icon;
     private boolean isClicked;
+    
+    // The actual tileNumber the tile is currently on
     private int tileNumber;
+    
+    // The tiles current rotation
+    private int rotation;
 
     private static final long serialVersionUID = 1;
 
@@ -68,6 +73,10 @@ public class Tile extends JButton
                 if (e.getButton() == MouseEvent.BUTTON3)
                 {
                     rotate(90);
+                    if(window.getGrid().isSolution())
+                    {
+                        System.out.println("Game Won!");
+                    }
                 }
             }
         });
@@ -88,6 +97,7 @@ public class Tile extends JButton
             icon = new MazeIcon(icon.getLineCoords(),
                     (degrees + icon.getDegreesRotated()) % 360);
             setIcon(icon.getImageIcon());
+            setRotation(((int) (icon.getDegreesRotated() % 360))/90);
         }
         invalidate();
     }
@@ -202,5 +212,25 @@ public class Tile extends JButton
     public int getTileNumber()
     {
         return tileNumber;
+    }
+    
+    /**
+     * Sets the rotation of the tile
+     * @param myRotation
+     * @author jaycg
+     */
+    public void setRotation(int myRotation)
+    {
+        rotation = myRotation;
+    }
+    
+    /**
+     * Gets the tiles current rotation
+     * @return
+     * @author jaycg
+     */
+    public int getRotation()
+    {
+        return rotation;
     }
 }
