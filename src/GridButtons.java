@@ -73,8 +73,7 @@ public class GridButtons extends TileArea
             // number is
             if (gameType == GameType.PLAYED_GAME)
             {
-                tiles[i].rotate(rotations.get(i + window.numTiles) * 90);
-                tiles[i].setRotation(window.rotations.get(i));
+               tiles[i].rotate(rotations.get(i + window.numTiles) * 90);
             }
 
             tiles[i].setIsInGrid(true);

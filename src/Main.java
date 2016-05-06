@@ -76,7 +76,6 @@ public class Main
          */
 
         int val = reader.readInt();
-        boolean original = false;
 
         if (val == 0xcafebeef)
         {
@@ -145,9 +144,9 @@ public class Main
                 int tileRotation = reader.readInt();
                 // if not original, then we add to ArrayList rotations
                 // otherwise rotations will stay null
-                if (!original)
+                if (gameType == GameType.PLAYED_GAME)
                 {
-                    rotations.add(tileRotation);
+                    rotations.add(tileNumber, tileRotation);
                 }
                 int numLines = reader.readInt();
                 for (int j = 0; j < numLines; j++)
