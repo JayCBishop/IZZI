@@ -486,10 +486,15 @@ public class GameWindow extends JFrame implements ActionListener
         final JFileChooser chooser = new JFileChooser(
                 new File(System.getProperty("user.dir")));
         chooser.showOpenDialog(GameWindow.this);
+        
+        //this part of the code allows the user to choose a file
+        //that is not part of the directory
 
         if (chooser.getSelectedFile() != null)
         {
-            newFileName = chooser.getSelectedFile().getName();
+            chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            File file = chooser.getSelectedFile();
+            newFileName = file.getAbsolutePath();
             Main.fileName = newFileName;
             Main.main(null);
             this.dispose();
