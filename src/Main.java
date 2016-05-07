@@ -1,4 +1,3 @@
-
 /**
   *Additional authors for all files are Group G.  The members
  *are listed below and here-in will be listed as Group G
@@ -26,16 +25,30 @@ public class Main
 
     // Hard-coded file to load
     public static String fileName = "default.mze";
-
+    
+    /*The variable gameBoardIsPresent monitors if a gameBoard has been
+      created in the game yet. It is used from GameWindow 
+      when a user tries to load a game.  If the user selects load from
+      the menu and then chooses to cancel, and a gameboard has never been
+      loaded in the first place, instead of exiting altogether, a blank
+      game will appear and at least the user has the option to Quit or Load
+      another file (instead of being abruptly ejected from the game. 
+      If a gameboard has been created when the user cancels
+      from the load function, then the program defaults back to whatever
+      gameboard was in play at the time the user selected the cancel option.
+      DK 5/7/2016 
+     */ 
+      public static boolean gameBoardIsPresent = false;
+    
     public static void main(String[] args)
     {
         // This is the play area
         // Named the GameWindow after our group D.K.
         GameWindow game = new GameWindow("Group G aMaze");
         GameType gameType = GameType.ORIGINAL_GAME;
-
         game.setSize(new Dimension(900, 1000));
-
+       
+        
         // So the debate here was, do I make the GameWindow object the game
         // or do I make main() the game, manipulating a window?
         // Should GameWindow methods know what they store?
@@ -80,12 +93,14 @@ public class Main
         if (val == 0xcafebeef)
         {
             gameType = GameType.ORIGINAL_GAME;
+            gameBoardIsPresent = true;
             System.out.println("This is an original game");
         }
         else
             if (val == 0xcafedeed)
             {
                 gameType = GameType.PLAYED_GAME;
+                gameBoardIsPresent = true;
                 System.out.println("This is a played game");
             }
             else
@@ -95,6 +110,7 @@ public class Main
                 // changing the game type to blank means a totally blank board
                 // will
                 // be set up
+                gameBoardIsPresent = true;
                 gameType = GameType.BLANK_GAME;
             }
 

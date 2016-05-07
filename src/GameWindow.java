@@ -1,4 +1,3 @@
-
 /**
  * Added Group G as additional authors on 3-21-2016  D.K.
  * See Main for a list of Group G members
@@ -485,12 +484,41 @@ public class GameWindow extends JFrame implements ActionListener
         // Start in directory program is run from
         final JFileChooser chooser = new JFileChooser(
                 new File(System.getProperty("user.dir")));
-        chooser.showOpenDialog(GameWindow.this);
+        //chooser.showOpenDialog(GameWindow.this);
+        int result = chooser.showOpenDialog(GameWindow.this);
+        
+        //if the user chooses to cancel and a gameboard has not
+        //yet been created, instead of exiting completely, a blank 
+        //game will be set up.  This gives the user the option to
+        //Quit or to try load a different file.  
+        if (result == JFileChooser.CANCEL_OPTION)
+        {
+            System.out.println("The value of gameboard is: " + Main.gameBoardIsPresent);
+           
+            if(Main.gameBoardIsPresent == false)
+            {
+                alertSelectedCancel();
+                this.dispose();
+                Main.gameBoardIsPresent = true;
+                GameWindow game = new GameWindow("Group G aMaze");
+                gameType = GameType.BLANK_GAME;
+                game.setSize(new Dimension(900, 1000));
+                game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                game.getContentPane().setBackground(Color.cyan);
+                game.setUp(gameType);
+                game.setVisible(true);
+               
+            }
+            else
+            {
+                return;
+            }
+        }
         
         //this part of the code allows the user to choose a file
-        //that is not part of the directory
-
-        if (chooser.getSelectedFile() != null)
+        //that is either in the current directory or located
+        //in another location.  DK 5/7/2016
+        else
         {
             chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
             File file = chooser.getSelectedFile();
@@ -498,7 +526,19 @@ public class GameWindow extends JFrame implements ActionListener
             Main.fileName = newFileName;
             Main.main(null);
             this.dispose();
+            
         }
+    }
+
+    private void alertSelectedCancel()
+    {
+        {
+            JOptionPane.showMessageDialog(panel,
+                    "Since cancel was selected and there is not a gameboard to default to,"
+                            + " a blank game will load.",
+                    "Cancel Selected", JOptionPane.WARNING_MESSAGE);
+        }
+        
     }
 
     /**
