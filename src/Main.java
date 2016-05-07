@@ -160,7 +160,7 @@ public class Main
                 }
                 allTilesLineCoords.add(tileNumber, lineCoords);
                 solution.add(lineCoords);
-                coordsToTile.put(lineCoords, i);
+                coordsToTile.put(lineCoords, tileNumber);
             }
 
             game.allTilesLineCoords = allTilesLineCoords;
