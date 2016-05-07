@@ -75,7 +75,7 @@ public class Tile extends JButton
                     rotate(90);
                     if(window.getGrid().isSolution())
                     {
-                        System.out.println("Game Won!");
+                        window.gameWon();
                     }
                 }
             }

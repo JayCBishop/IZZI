@@ -116,7 +116,6 @@ public class GridButtons extends TileArea
                                 myTiles[i].getMazeIcon().getLineCoords())
                         || ((int)myTiles[i].getMazeIcon().getDegreesRotated()/90 
                                 != myTiles[0].getRotation())))
-
                 {
                     return false;
                 }

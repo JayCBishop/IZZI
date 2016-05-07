@@ -207,6 +207,13 @@ public class GameWindow extends JFrame implements ActionListener
                 JOptionPane.ERROR_MESSAGE);
         load();
     }
+    
+    public void gameWon()
+    {
+        JOptionPane.showMessageDialog(panel,
+                "You Won!",
+                "Maze Complete", JOptionPane.WARNING_MESSAGE);
+    }
 
     public boolean fileAlreadyExists()
     {
