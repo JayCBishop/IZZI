@@ -493,7 +493,6 @@ public class GameWindow extends JFrame implements ActionListener
         //Quit or to try load a different file.  
         if (result == JFileChooser.CANCEL_OPTION)
         {
-            System.out.println("The value of gameboard is: " + Main.gameBoardIsPresent);
            
             if(Main.gameBoardIsPresent == false)
             {
