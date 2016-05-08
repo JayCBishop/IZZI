@@ -58,7 +58,10 @@ public class GameWindow extends JFrame implements ActionListener
     public ArrayList<Integer> rotations;
     private GameType gameType;
     public int numTiles = 16;
+    
     public long time = 0;
+    public long startTime = 0;
+    
     private MazeIcon[] savedIcons;
     
     public ArrayList<ArrayList<float[]>> solution;
@@ -211,9 +214,10 @@ public class GameWindow extends JFrame implements ActionListener
     
     public void gameWon()
     {
+    	endTimer();
         JOptionPane.showMessageDialog(panel,
                 "You Won!",
-                "Maze Complete", JOptionPane.WARNING_MESSAGE);
+                "Maze Completed in: " + convertToHMS(time), JOptionPane.WARNING_MESSAGE);
     }
 
     public boolean fileAlreadyExists()
@@ -245,6 +249,7 @@ public class GameWindow extends JFrame implements ActionListener
             this.remove(grid);
             createGrid();
             this.revalidate();
+            startTimer();
         }
     }
 
@@ -325,6 +330,8 @@ public class GameWindow extends JFrame implements ActionListener
         createGrid();
         createSidePanels();
 
+        startTimer();
+        
         return;
     }
 
@@ -563,6 +570,7 @@ public class GameWindow extends JFrame implements ActionListener
 
         if (returnVal == JFileChooser.APPROVE_OPTION)
         {
+        	endTimer();
             // save file
             File file = chooser.getSelectedFile();
             boolean readyToWrite = true;
@@ -648,4 +656,22 @@ public class GameWindow extends JFrame implements ActionListener
     {
         return grid;
     }
+    
+    public void startTimer()
+    {
+    	startTime = System.currentTimeMillis() / 1000L;
+    }
+    
+    public void endTimer()
+    {
+    	time = time + ((System.currentTimeMillis() / 1000L) - startTime);
+    }
+
+	public String convertToHMS(long seconds) 
+	{
+		long sec = seconds % 60;
+		long min = (seconds / 60) % 60;
+		long hr = (seconds / (60 * 60)) % 24;
+			return String.format("%d:%02d:%02d", hr,min,sec);
+	}
 };
