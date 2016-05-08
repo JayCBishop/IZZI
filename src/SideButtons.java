@@ -81,6 +81,8 @@ public class SideButtons extends TileArea
             Random r = new Random();
             int result = r.nextInt(i + 1);
             tiles[i].setMazeIcon(icons.get(result));
+            // Update HashMap during shuffle
+            GameWindow.coordsToTile.replace(icons.get(result).getLineCoords(), i);
             icons.remove(result);
             tiles[i].rotate(rotations.get(result));
             rotations.remove(result);

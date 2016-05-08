@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -60,7 +61,8 @@ public class GameWindow extends JFrame implements ActionListener
     public long time = 0;
     private MazeIcon[] savedIcons;
     
-    public HashMap<ArrayList<float[]>, Integer> coordsToTile;
+    public ArrayList<ArrayList<float[]>> solution;
+    public static HashMap<ArrayList<float[]>, Integer> coordsToTile;
 
     /**
      * Constructor sets the window name using super(), changes the layout, which
@@ -592,74 +594,42 @@ public class GameWindow extends JFrame implements ActionListener
                     // Time maze has played
                     writer.writeLong(time);
                     // Tile settings
+                    
+                    // List of all tiles
+                    Tile[] allTiles = Arrays.copyOf(sideButtons.getTiles(), 32);
+                    System.arraycopy(grid.getTiles(), 0, allTiles, 16, 16);
+                    
+                    // fill saved icons with null so tiles not in
+                    // the solution have the correct value
+                    Arrays.fill(savedIcons, null);
+                    System.out.println("SAVE");
 
-                    // Sidebuttons
-                    for (Tile tile : sideButtons.getTiles())
+                    for (ArrayList<float[]> coords : solution)
                     {
-                        int tileNum = tile.getTileNumber();
-                        if (tile.isDrawn())
+                    	int tileNum = coordsToTile.get(coords);
+                    	System.out.println("tileNum: " + tileNum);
+                    	 // tile number/placement
+                        writer.writeInt(tileNum);
+                    	Tile tile = allTiles[tileNum];
+                    	MazeIcon icon = tile.getMazeIcon();
+                    	int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
+                    	// tile rotation
+                        writer.writeInt(rotation);
+                        ArrayList<float[]> lineCoords = icon
+                                .getLineCoords();
+                        // number of lines on the tile
+                        writer.writeInt(lineCoords.size());
+                        for (int i = 0; i < lineCoords.size(); i++)
                         {
-                            // tile number/placement
-                            writer.writeInt(tileNum);
-                            MazeIcon icon = tile.getMazeIcon();
-                            int rotation = (int) (icon.getDegreesRotated() / 90)
-                                    % 4;
-                            // tile rotation
-                            writer.writeInt(rotation);
-                            ArrayList<float[]> lineCoords = icon
-                                    .getLineCoords();
-                            // number of lines on the tile
-                            writer.writeInt(lineCoords.size());
-                            for (int i = 0; i < lineCoords.size(); i++)
+                            // get coords out of array
+                            float[] coordList = lineCoords.get(i);
+                            for (int j = 0; j < coordList.length; j++)
                             {
-                                // get coords out of array
-                                float[] coordList = lineCoords.get(i);
-                                for (int j = 0; j < coordList.length; j++)
-                                {
-                                    writer.writeFloat(coordList[j]);
-                                }
+                                writer.writeFloat(coordList[j]);
                             }
-                            savedIcons[tileNum] = icon;
                         }
-                        else
-                        {
-                            savedIcons[tileNum] = null;
-                        }
-
-                    }
-                    // Grid
-                    for (Tile tile : grid.getTiles())
-                    {
-                        int tileNum = tile.getTileNumber();
-
-                        // tile number/placement
-                        if (tile.isDrawn())
-                        {
-                            writer.writeInt(tileNum);
-                            MazeIcon icon = tile.getMazeIcon();
-                            int rotation = (int) (icon.getDegreesRotated() / 90)
-                                    % 4;
-                            // tile rotation
-                            writer.writeInt(rotation);
-                            ArrayList<float[]> lineCoords = icon
-                                    .getLineCoords();
-                            // number of lines on the tile
-                            writer.writeInt(lineCoords.size());
-                            for (int i = 0; i < lineCoords.size(); i++)
-                            {
-                                // get coords out of array
-                                float[] coordList = lineCoords.get(i);
-                                for (int j = 0; j < coordList.length; j++)
-                                {
-                                    writer.writeFloat(coordList[j]);
-                                }
-                            }
-                            savedIcons[tileNum] = icon;
-                        }
-                        else
-                        {
-                            savedIcons[tileNum] = null;
-                        }
+                        savedIcons[tileNum] = icon;
+                    	
                     }
                     writer.close();
                 }

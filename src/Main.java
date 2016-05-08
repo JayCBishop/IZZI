@@ -180,6 +180,7 @@ public class Main
             game.allTilesLineCoords = allTilesLineCoords;
             game.rotations = rotations;
             game.coordsToTile = coordsToTile;
+            game.solution = solution;
             try
             {
                 reader.close();
