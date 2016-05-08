@@ -245,7 +245,6 @@ public abstract class TileArea extends JPanel
         {
         	GameWindow.coordsToTile.replace(secondClicked.getMazeIcon().getLineCoords(), firstClicked.getTileNumber());
         }
-        System.out.println("Updated: " + GameWindow.coordsToTile.values());
         firstClicked.setMazeIcon(secondClicked.getMazeIcon());
         secondClicked.setMazeIcon(temp);
     }

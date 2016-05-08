@@ -602,12 +602,10 @@ public class GameWindow extends JFrame implements ActionListener
                     // fill saved icons with null so tiles not in
                     // the solution have the correct value
                     Arrays.fill(savedIcons, null);
-                    System.out.println("SAVE");
 
                     for (ArrayList<float[]> coords : solution)
                     {
                     	int tileNum = coordsToTile.get(coords);
-                    	System.out.println("tileNum: " + tileNum);
                     	 // tile number/placement
                         writer.writeInt(tileNum);
                     	Tile tile = allTiles[tileNum];
