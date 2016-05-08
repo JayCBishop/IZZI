@@ -1,3 +1,4 @@
+
 /**
   *Additional authors for all files are Group G.  The members
  *are listed below and here-in will be listed as Group G
@@ -25,37 +26,36 @@ public class Main
 
     // Hard-coded file to load
     public static String fileName = "default.mze";
-    
-    /*The variable gameBoardIsPresent monitors if a gameBoard has been
-      created in the game yet. It is used from GameWindow 
-      when a user tries to load a game.  If the user selects load from
-      the menu and then chooses to cancel, and a gameboard has never been
-      loaded in the first place, instead of exiting altogether, a blank
-      game will appear and at least the user has the option to Quit or Load
-      another file (instead of being abruptly ejected from the game. 
-      If a gameboard has been created when the user cancels
-      from the load function, then the program defaults back to whatever
-      gameboard was in play at the time the user selected the cancel option.
-      DK 5/7/2016 
-     */ 
-      public static boolean gameBoardIsPresent = false;
-    
+
+    /*
+     * The variable gameBoardIsPresent monitors if a gameBoard has been created
+     * in the game yet. It is used from GameWindow when a user tries to load a
+     * game. If the user selects load from the menu and then chooses to cancel,
+     * and a gameboard has never been loaded in the first place, instead of
+     * exiting altogether, a blank game will appear and at least the user has
+     * the option to Quit or Load another file (instead of being abruptly
+     * ejected from the game. If a gameboard has been created when the user
+     * cancels from the load function, then the program defaults back to
+     * whatever gameboard was in play at the time the user selected the cancel
+     * option. DK 5/7/2016
+     */
+    public static boolean gameBoardIsPresent = false;
+
     public static void main(String[] args)
     {
-        // This is the play area
-        // Named the GameWindow after our group D.K.
-        GameWindow game = new GameWindow("Group G aMaze");
+        
         GameType gameType = GameType.ORIGINAL_GAME;
-        game.setSize(new Dimension(900, 1000));
-       
         
         // So the debate here was, do I make the GameWindow object the game
         // or do I make main() the game, manipulating a window?
         // Should GameWindow methods know what they store?
         // Answer is, have the "game" do it.
-        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.getContentPane().setBackground(Color.cyan);
-
+        
+        // This is the play area
+        // Named the GameWindow after our group D.K.
+        GameWindow game = new GameWindow("Group G aMaze");
+        game.createWindowShell(game);
+        
         // This is where we read in the tiles and draw their images.
         // Anna Carrigan and Kyle Bobak, 4/8/2016
 
@@ -75,8 +75,7 @@ public class Main
         try
         {
             reader = new ByteFileStreamReader(file);
-        }
-        catch (FileNotFoundException e2)
+        } catch (FileNotFoundException e2)
         {
             game.invalFileName(fileName);
             return;
@@ -95,24 +94,21 @@ public class Main
             gameType = GameType.ORIGINAL_GAME;
             gameBoardIsPresent = true;
             System.out.println("This is an original game");
+        } else if (val == 0xcafedeed)
+        {
+            gameType = GameType.PLAYED_GAME;
+            gameBoardIsPresent = true;
+            System.out.println("This is a played game");
+        } else
+        {
+            // this notifies the user that the first 4 bytes are bad
+            game.alertInvalFileFormat();
+            // changing the game type to blank means a totally blank board
+            // will
+            // be set up
+            gameBoardIsPresent = true;
+            gameType = GameType.BLANK_GAME;
         }
-        else
-            if (val == 0xcafedeed)
-            {
-                gameType = GameType.PLAYED_GAME;
-                gameBoardIsPresent = true;
-                System.out.println("This is a played game");
-            }
-            else
-            {
-                // this notifies the user that the first 4 bytes are bad
-                game.alertInvalFileFormat();
-                // changing the game type to blank means a totally blank board
-                // will
-                // be set up
-                gameBoardIsPresent = true;
-                gameType = GameType.BLANK_GAME;
-            }
 
         if (!(gameType == GameType.BLANK_GAME))
         {
@@ -127,15 +123,17 @@ public class Main
             // either version
             ArrayList<ArrayList<float[]>> allTilesLineCoords = new ArrayList<ArrayList<float[]>>(
                     numberOfTiles * 2);
-            ArrayList<ArrayList<float[]>>solution = new ArrayList <ArrayList<float[]>>(numberOfTiles);
+            ArrayList<ArrayList<float[]>> solution = new ArrayList<ArrayList<float[]>>(
+                    numberOfTiles);
             // HashMap doesn't support primitive types, so use Integer
-            HashMap<ArrayList<float[]>, Integer> coordsToTile = new HashMap(numberOfTiles);
+            HashMap<ArrayList<float[]>, Integer> coordsToTile = new HashMap(
+                    numberOfTiles);
 
             // we also create an arraylist to store the rotation for tiles.
             ArrayList<Integer> rotations = new ArrayList<Integer>(
                     numberOfTiles * 2);
-            
-            //This is the time in seconds
+
+            // This is the time in seconds
             long time = reader.readLong();
             System.out.println("The time in seconds is: " + time);
             game.time = time;
@@ -185,8 +183,7 @@ public class Main
             try
             {
                 reader.close();
-            }
-            catch (IOException e1)
+            } catch (IOException e1)
             {
                 System.out.println("File not closed.");
                 e1.printStackTrace();
@@ -206,20 +203,16 @@ public class Main
             // Linux only
             UIManager.setLookAndFeel(
                     "com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-        }
-        catch (UnsupportedLookAndFeelException e)
+        } catch (UnsupportedLookAndFeelException e)
         {
             // handle possible exception
-        }
-        catch (ClassNotFoundException e)
+        } catch (ClassNotFoundException e)
         {
             // handle possible exception
-        }
-        catch (InstantiationException e)
+        } catch (InstantiationException e)
         {
             // handle possible exception
-        }
-        catch (IllegalAccessException e)
+        } catch (IllegalAccessException e)
         {
             // handle possible exception
         }

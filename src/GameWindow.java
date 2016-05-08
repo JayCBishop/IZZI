@@ -480,7 +480,7 @@ public class GameWindow extends JFrame implements ActionListener
     public void load()
     {
         String newFileName = "default.mze";
-
+ 
         // Start in directory program is run from
         final JFileChooser chooser = new JFileChooser(
                 new File(System.getProperty("user.dir")));
@@ -497,27 +497,25 @@ public class GameWindow extends JFrame implements ActionListener
             if(Main.gameBoardIsPresent == false)
             {
                 alertSelectedCancel();
-                this.dispose();
                 Main.gameBoardIsPresent = true;
                 GameWindow game = new GameWindow("Group G aMaze");
                 gameType = GameType.BLANK_GAME;
-                game.setSize(new Dimension(900, 1000));
-                game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                game.getContentPane().setBackground(Color.cyan);
+                createWindowShell(game);
                 game.setUp(gameType);
                 game.setVisible(true);
                
             }
-            else
+            else if (Main.gameBoardIsPresent == true)
             {
-                return;
+                
+                System.out.println("You selected cancel");         
             }
         }
         
         //this part of the code allows the user to choose a file
         //that is either in the current directory or located
         //in another location.  DK 5/7/2016
-        else
+        else if (result == JFileChooser.APPROVE_OPTION)
         {
             chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
             File file = chooser.getSelectedFile();
@@ -527,6 +525,15 @@ public class GameWindow extends JFrame implements ActionListener
             this.dispose();
             
         }
+    }
+    //creates the game window shell
+    //the setup functions will populate the shell with the appropriate game
+    //based on the gameType
+    public void createWindowShell(GameWindow game)
+    {
+        game.setSize(new Dimension(900, 1000));
+        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        game.getContentPane().setBackground(Color.cyan);
     }
 
     private void alertSelectedCancel()
