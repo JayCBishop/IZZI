@@ -73,7 +73,10 @@ public class GridButtons extends TileArea
             // number is
             if (gameType == GameType.PLAYED_GAME)
             {
-               tiles[i].rotate(rotations.get(i + window.numTiles) * 90);
+                if (rotations.get(i + window.numTiles) != null)
+                {
+                    tiles[i].rotate(rotations.get(i + window.numTiles) * 90);
+                }
             }
 
             tiles[i].setIsInGrid(true);
@@ -96,16 +99,15 @@ public class GridButtons extends TileArea
      */
     public boolean isSolution()
     {
-        for(int i = 0; i < window.numTiles; i++)
+        for (int i = 0; i < window.numTiles; i++)
         {
-            if(tiles[i].getMazeIcon() != null)
+            if (tiles[i].getMazeIcon() != null)
             {
                 // Solution 1
-                if((tiles[i].getTileNumber() != 
-                        window.coordsToTile.get(
-                                tiles[i].getMazeIcon().getLineCoords())
-                        || ((int)tiles[i].getMazeIcon().getDegreesRotated()/90 
-                                != tiles[0].getRotation())))
+                if ((tiles[i].getTileNumber() != window.coordsToTile
+                        .get(tiles[i].getMazeIcon().getLineCoords())
+                        || ((int) tiles[i].getMazeIcon().getDegreesRotated()
+                                / 90 != tiles[0].getRotation())))
                 {
                     return false;
                 }

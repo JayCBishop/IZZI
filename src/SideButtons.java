@@ -91,7 +91,10 @@ public class SideButtons extends TileArea
             // Update HashMap during shuffle
             window.coordsToTile.replace(icons.get(result).getLineCoords(), i);
             icons.remove(result);
-            tiles[i].rotate(rotations.get(result));
+            if (rotations.get(result) != null)
+            {
+                tiles[i].rotate(rotations.get(result));
+            }
             rotations.remove(result);
         }
     }
