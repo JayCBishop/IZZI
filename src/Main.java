@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Main
 {
@@ -123,29 +122,25 @@ public class Main
             int numberOfTiles = reader.readInt();
             game.numTiles = numberOfTiles;
 
-            // we create an arraylist to store the tile line coordinates for
+            // we create a hashmap to store the tile line coordinates for
             // either version
             HashMap<Integer, ArrayList<float[]>> allTilesLineCoords = new HashMap<Integer, ArrayList<float[]>>(
                     numberOfTiles * 2);
             ArrayList<ArrayList<float[]>> solution = new ArrayList<ArrayList<float[]>>(
                     numberOfTiles);
             // HashMap doesn't support primitive types, so use Integer
-            HashMap<ArrayList<float[]>, Integer> coordsToTile = new HashMap(
+            HashMap<ArrayList<float[]>, Integer> coordsToTile = new HashMap<ArrayList<float[]>, Integer>(
                     numberOfTiles);
 
-            // we also create an arraylist to store the rotation for tiles.
-            ArrayList<Integer> rotations = new ArrayList<Integer>(
+            // we also create a hashmap to store the rotation for tiles.
+            HashMap<Integer, Integer> rotations = new HashMap<Integer, Integer>(
                     numberOfTiles * 2);
 
             // This is the time in seconds
             long time = reader.readLong();
             System.out.println("The time in seconds is: " + time);
             game.time = time;
-
-            for (int i = 0; i < numberOfTiles * 2; i++)
-            {
-                rotations.add(0);
-            }
+            
             /**
              * next 4 bytes: an integer tile number, range 0-31....ignored if
              * original next 4 bytes: an integer tile rotation, range
@@ -163,7 +158,7 @@ public class Main
                 // otherwise rotations will stay null
                 if (gameType == GameType.PLAYED_GAME)
                 {
-                    rotations.add(tileNumber, tileRotation);
+                    rotations.put(tileNumber, tileRotation);
                 }
                 int numLines = reader.readInt();
                 for (int j = 0; j < numLines; j++)

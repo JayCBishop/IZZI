@@ -29,7 +29,7 @@ public class GridButtons extends TileArea
      */
     GridButtons(GameWindow window,
             HashMap<Integer, ArrayList<float[]>> allTilesLineCoords,
-            ArrayList<Integer> rotations, GameType gameType)
+            HashMap<Integer, Integer> rotations, GameType gameType)
     {
         super(window, allTilesLineCoords, rotations, gameType);
         GridBagLayout gbl = new GridBagLayout();

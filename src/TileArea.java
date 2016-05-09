@@ -38,7 +38,7 @@ public abstract class TileArea extends JPanel
     protected GameWindow window;
     protected HashMap<Integer, ArrayList<float[]>> allTilesLineCoords;
     protected GameType gameType;
-    protected ArrayList<Integer> rotations;
+    protected HashMap<Integer, Integer> rotations;
 
     /**
      * Constructor for TileArea does the heavy lifting for field assignment for
@@ -53,7 +53,7 @@ public abstract class TileArea extends JPanel
      */
     protected TileArea(GameWindow window,
             HashMap<Integer, ArrayList<float[]>> allTilesLineCoords,
-            ArrayList<Integer> rotations, GameType gameType)
+            HashMap<Integer, Integer> rotations, GameType gameType)
     {
         super();
         this.allTilesLineCoords = allTilesLineCoords;

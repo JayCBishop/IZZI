@@ -25,7 +25,7 @@ public class SideButtons extends TileArea
 
     SideButtons(GameWindow window,
             HashMap<Integer, ArrayList<float[]>> allTilesLineCoords,
-            ArrayList<Integer> rotations, GameType gameType)
+            HashMap<Integer, Integer> rotations, GameType gameType)
     {
         super(window, allTilesLineCoords, rotations, gameType);
         GridBagLayout gbl = new GridBagLayout();
@@ -55,7 +55,10 @@ public class SideButtons extends TileArea
                 startTiles[i].setMinimumSize(tileDimen);
                 startTiles[i].setPreferredSize(tileDimen);
                 startTiles[i].setMazeIcon(tiles[i].getMazeIcon());
-                startTiles[i].setRotation(window.rotations.get(i));
+                if (window.rotations.get(i) != null)
+                {
+                    startTiles[i].setRotation(window.rotations.get(i));
+                }
             }
         }
         else
@@ -83,7 +86,8 @@ public class SideButtons extends TileArea
             int result = r.nextInt(i + 1);
             tiles[i].setMazeIcon(icons.get(result));
             // Update HashMap during shuffle
-            GameWindow.coordsToTile.replace(icons.get(result).getLineCoords(), i);
+            GameWindow.coordsToTile.replace(icons.get(result).getLineCoords(),
+                    i);
             icons.remove(result);
             tiles[i].rotate(rotations.get(result));
             rotations.remove(result);

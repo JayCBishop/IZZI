@@ -55,7 +55,7 @@ public class GameWindow extends JFrame implements ActionListener
     public HashMap<Integer, ArrayList<float[]>> allTilesLineCoords;
     // added rotations array in for the stored rotations of the played games DK
     // 4/28/2016
-    public ArrayList<Integer> rotations;
+    public HashMap<Integer, Integer> rotations;
     private GameType gameType;
     public int numTiles = 16;
     
