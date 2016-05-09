@@ -98,15 +98,6 @@ public class GridButtons extends TileArea
      */
     public boolean isSolution()
     {
-        // Second solution array
-        int[] solutionTwo = {12,8,4,0,13,9,5,1,14,10,6,2,15,11,7,3};
-        // Third solution array
-        int[] solutionThree = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0};
-        // Fourth solution array
-        int[] solutionFour = {3,7,11,15,2,6,10,14,1,5,9,13,0,4,8,12};
-        
-        
-        
         for(int i = 0; i < window.numTiles; i++)
         {
             if(myTiles[i].getMazeIcon() != null)
