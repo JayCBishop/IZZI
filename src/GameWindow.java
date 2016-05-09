@@ -608,8 +608,9 @@ public class GameWindow extends JFrame implements ActionListener
                     // the solution have the correct value
                     Arrays.fill(savedIcons, null);
 
-                    for (ArrayList<float[]> coords : solution)
+                    for (int i = 0; i < solution.size(); i++)
                     {
+                        ArrayList<float[]> coords = solution.get(i);
                     	int tileNum = coordsToTile.get(coords);
                     	 // tile number/placement
                         writer.writeInt(tileNum);
@@ -620,7 +621,7 @@ public class GameWindow extends JFrame implements ActionListener
                         }
                         else
                         {
-                            tile = grid.tiles[tileNum];
+                            tile = grid.tiles[tileNum - 16];
                         }
                     	MazeIcon icon = tile.getMazeIcon();
                     	int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
@@ -630,13 +631,13 @@ public class GameWindow extends JFrame implements ActionListener
                                 .getLineCoords();
                         // number of lines on the tile
                         writer.writeInt(lineCoords.size());
-                        for (int i = 0; i < lineCoords.size(); i++)
+                        for (int j = 0; j < lineCoords.size(); j++)
                         {
                             // get coords out of array
-                            float[] coordList = lineCoords.get(i);
-                            for (int j = 0; j < coordList.length; j++)
+                            float[] coordList = lineCoords.get(j);
+                            for (int k = 0; k < coordList.length; k++)
                             {
-                                writer.writeFloat(coordList[j]);
+                                writer.writeFloat(coordList[k]);
                             }
                         }
                         savedIcons[tileNum] = icon;

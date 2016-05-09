@@ -139,8 +139,14 @@ public class Main
             // This is the time in seconds
             long time = reader.readLong();
             System.out.println("The time in seconds is: " + time);
+            if(gameType == GameType.PLAYED_GAME)
+            {
             game.time = time;
-            
+            }
+            else
+            {
+                game.time = 0;
+            }
             /**
              * next 4 bytes: an integer tile number, range 0-31....ignored if
              * original next 4 bytes: an integer tile rotation, range

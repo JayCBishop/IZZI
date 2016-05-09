@@ -242,10 +242,7 @@ public abstract class TileArea extends JPanel
     {
         MazeIcon temp = firstClicked.getMazeIcon();
         window.coordsToTile.replace(temp.getLineCoords(), secondClicked.getTileNumber());
-        if (secondClicked.isDrawn())
-        {
-        	window.coordsToTile.replace(secondClicked.getMazeIcon().getLineCoords(), firstClicked.getTileNumber());
-        }
+
         firstClicked.setMazeIcon(secondClicked.getMazeIcon());
         secondClicked.setMazeIcon(temp);
     }
