@@ -217,8 +217,8 @@ public class GameWindow extends JFrame implements ActionListener
     {
     	endTimer();
         JOptionPane.showMessageDialog(panel,
-                "You Won!",
-                "Maze Completed in: " + convertToHMS(time), JOptionPane.WARNING_MESSAGE);
+                "You Won!" + "\n" +
+                "Maze completed in: " + convertToHMS(time), "Maze Complete", JOptionPane.WARNING_MESSAGE);
     }
 
     public boolean fileAlreadyExists()

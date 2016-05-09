@@ -45,7 +45,10 @@ public class SideButtons extends TileArea
             {
                 for (int i = 0; i < window.numTiles; i++)
                 {
-                    tiles[i].rotate(rotations.get(i) * 90);
+                    if (rotations.get(i) != null)
+                    {
+                        tiles[i].rotate(rotations.get(i) * 90);
+                    }
                 }
             }
             for (int i = 0; i < 16; i++)
@@ -86,8 +89,7 @@ public class SideButtons extends TileArea
             int result = r.nextInt(i + 1);
             tiles[i].setMazeIcon(icons.get(result));
             // Update HashMap during shuffle
-            window.coordsToTile.replace(icons.get(result).getLineCoords(),
-                    i);
+            window.coordsToTile.replace(icons.get(result).getLineCoords(), i);
             icons.remove(result);
             tiles[i].rotate(rotations.get(result));
             rotations.remove(result);
