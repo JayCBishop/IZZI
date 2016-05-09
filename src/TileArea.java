@@ -241,10 +241,10 @@ public abstract class TileArea extends JPanel
             GameWindow window)
     {
         MazeIcon temp = firstClicked.getMazeIcon();
-        GameWindow.coordsToTile.replace(temp.getLineCoords(), secondClicked.getTileNumber());
+        window.coordsToTile.replace(temp.getLineCoords(), secondClicked.getTileNumber());
         if (secondClicked.isDrawn())
         {
-        	GameWindow.coordsToTile.replace(secondClicked.getMazeIcon().getLineCoords(), firstClicked.getTileNumber());
+        	window.coordsToTile.replace(secondClicked.getMazeIcon().getLineCoords(), firstClicked.getTileNumber());
         }
         firstClicked.setMazeIcon(secondClicked.getMazeIcon());
         secondClicked.setMazeIcon(temp);

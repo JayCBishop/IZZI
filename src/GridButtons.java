@@ -18,7 +18,6 @@ public class GridButtons extends TileArea
 {
 
     private static final long serialVersionUID = 1;
-    Tile[] myTiles = new Tile[16];
 
     /**
      * Constructor creates a grid from an array of 16 tiles
@@ -87,7 +86,6 @@ public class GridButtons extends TileArea
                     1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     inset);
             this.addActionListener(tiles[i], window);
-            myTiles[i] = tiles[i];
         }
     }
 
@@ -100,14 +98,14 @@ public class GridButtons extends TileArea
     {
         for(int i = 0; i < window.numTiles; i++)
         {
-            if(myTiles[i].getMazeIcon() != null)
+            if(tiles[i].getMazeIcon() != null)
             {
                 // Solution 1
-                if((myTiles[i].getTileNumber() != 
+                if((tiles[i].getTileNumber() != 
                         window.coordsToTile.get(
-                                myTiles[i].getMazeIcon().getLineCoords())
-                        || ((int)myTiles[i].getMazeIcon().getDegreesRotated()/90 
-                                != myTiles[0].getRotation())))
+                                tiles[i].getMazeIcon().getLineCoords())
+                        || ((int)tiles[i].getMazeIcon().getDegreesRotated()/90 
+                                != tiles[0].getRotation())))
                 {
                     return false;
                 }

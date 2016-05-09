@@ -65,7 +65,7 @@ public class GameWindow extends JFrame implements ActionListener
     private MazeIcon[] savedIcons;
     
     public ArrayList<ArrayList<float[]>> solution;
-    public static HashMap<ArrayList<float[]>, Integer> coordsToTile;
+    public HashMap<ArrayList<float[]>, Integer> coordsToTile;
 
     /**
      * Constructor sets the window name using super(), changes the layout, which
@@ -603,11 +603,7 @@ public class GameWindow extends JFrame implements ActionListener
                     // Time maze has played
                     writer.writeLong(time);
                     // Tile settings
-                    
-                    // List of all tiles
-                    Tile[] allTiles = Arrays.copyOf(sideButtons.getTiles(), 32);
-                    System.arraycopy(grid.getTiles(), 0, allTiles, 16, 16);
-                    
+                                       
                     // fill saved icons with null so tiles not in
                     // the solution have the correct value
                     Arrays.fill(savedIcons, null);
@@ -617,7 +613,15 @@ public class GameWindow extends JFrame implements ActionListener
                     	int tileNum = coordsToTile.get(coords);
                     	 // tile number/placement
                         writer.writeInt(tileNum);
-                    	Tile tile = allTiles[tileNum];
+                        Tile tile;
+                        if(tileNum < 16)
+                        {
+                            tile = sideButtons.tiles[tileNum];
+                        }
+                        else
+                        {
+                            tile = grid.tiles[tileNum];
+                        }
                     	MazeIcon icon = tile.getMazeIcon();
                     	int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
                     	// tile rotation
