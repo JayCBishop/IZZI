@@ -43,19 +43,19 @@ public class Main
 
     public static void main(String[] args)
     {
-        
+
         GameType gameType = GameType.ORIGINAL_GAME;
-        
+
         // So the debate here was, do I make the GameWindow object the game
         // or do I make main() the game, manipulating a window?
         // Should GameWindow methods know what they store?
         // Answer is, have the "game" do it.
-        
+
         // This is the play area
         // Named the GameWindow after our group D.K.
         GameWindow game = new GameWindow("Group G aMaze");
         game.createWindowShell(game);
-        
+
         // This is where we read in the tiles and draw their images.
         // Anna Carrigan and Kyle Bobak, 4/8/2016
 
@@ -75,7 +75,8 @@ public class Main
         try
         {
             reader = new ByteFileStreamReader(file);
-        } catch (FileNotFoundException e2)
+        }
+        catch (FileNotFoundException e2)
         {
             game.invalFileName(fileName);
             return;
@@ -94,21 +95,24 @@ public class Main
             gameType = GameType.ORIGINAL_GAME;
             gameBoardIsPresent = true;
             System.out.println("This is an original game");
-        } else if (val == 0xcafedeed)
-        {
-            gameType = GameType.PLAYED_GAME;
-            gameBoardIsPresent = true;
-            System.out.println("This is a played game");
-        } else
-        {
-            // this notifies the user that the first 4 bytes are bad
-            game.alertInvalFileFormat();
-            // changing the game type to blank means a totally blank board
-            // will
-            // be set up
-            gameBoardIsPresent = true;
-            gameType = GameType.BLANK_GAME;
         }
+        else
+            if (val == 0xcafedeed)
+            {
+                gameType = GameType.PLAYED_GAME;
+                gameBoardIsPresent = true;
+                System.out.println("This is a played game");
+            }
+            else
+            {
+                // this notifies the user that the first 4 bytes are bad
+                game.alertInvalFileFormat();
+                // changing the game type to blank means a totally blank board
+                // will
+                // be set up
+                gameBoardIsPresent = true;
+                gameType = GameType.BLANK_GAME;
+            }
 
         if (!(gameType == GameType.BLANK_GAME))
         {
@@ -121,7 +125,7 @@ public class Main
 
             // we create an arraylist to store the tile line coordinates for
             // either version
-            ArrayList<ArrayList<float[]>> allTilesLineCoords = new ArrayList<ArrayList<float[]>>(
+            HashMap<Integer, ArrayList<float[]>> allTilesLineCoords = new HashMap<Integer, ArrayList<float[]>>(
                     numberOfTiles * 2);
             ArrayList<ArrayList<float[]>> solution = new ArrayList<ArrayList<float[]>>(
                     numberOfTiles);
@@ -140,7 +144,6 @@ public class Main
 
             for (int i = 0; i < numberOfTiles * 2; i++)
             {
-                allTilesLineCoords.add(null);
                 rotations.add(0);
             }
             /**
@@ -172,7 +175,7 @@ public class Main
                     }
                     lineCoords.add(coords);
                 }
-                allTilesLineCoords.add(tileNumber, lineCoords);
+                allTilesLineCoords.put(tileNumber, lineCoords);
                 solution.add(lineCoords);
                 coordsToTile.put(lineCoords, tileNumber);
             }
@@ -184,7 +187,8 @@ public class Main
             try
             {
                 reader.close();
-            } catch (IOException e1)
+            }
+            catch (IOException e1)
             {
                 System.out.println("File not closed.");
                 e1.printStackTrace();
@@ -204,16 +208,20 @@ public class Main
             // Linux only
             UIManager.setLookAndFeel(
                     "com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-        } catch (UnsupportedLookAndFeelException e)
+        }
+        catch (UnsupportedLookAndFeelException e)
         {
             // handle possible exception
-        } catch (ClassNotFoundException e)
+        }
+        catch (ClassNotFoundException e)
         {
             // handle possible exception
-        } catch (InstantiationException e)
+        }
+        catch (InstantiationException e)
         {
             // handle possible exception
-        } catch (IllegalAccessException e)
+        }
+        catch (IllegalAccessException e)
         {
             // handle possible exception
         }

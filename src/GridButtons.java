@@ -12,6 +12,7 @@
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GridButtons extends TileArea
 {
@@ -27,7 +28,7 @@ public class GridButtons extends TileArea
      * @param frame
      */
     GridButtons(GameWindow window,
-            ArrayList<ArrayList<float[]>> allTilesLineCoords,
+            HashMap<Integer, ArrayList<float[]>> allTilesLineCoords,
             ArrayList<Integer> rotations, GameType gameType)
     {
         super(window, allTilesLineCoords, rotations, gameType);

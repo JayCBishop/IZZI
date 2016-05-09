@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -35,7 +36,7 @@ public abstract class TileArea extends JPanel
     protected Tile[] tiles = new Tile[16];
     protected Dimension tileDimen = new Dimension(100, 100);
     protected GameWindow window;
-    protected ArrayList<ArrayList<float[]>> allTilesLineCoords;
+    protected HashMap<Integer, ArrayList<float[]>> allTilesLineCoords;
     protected GameType gameType;
     protected ArrayList<Integer> rotations;
 
@@ -51,7 +52,7 @@ public abstract class TileArea extends JPanel
      *            type
      */
     protected TileArea(GameWindow window,
-            ArrayList<ArrayList<float[]>> allTilesLineCoords,
+            HashMap<Integer, ArrayList<float[]>> allTilesLineCoords,
             ArrayList<Integer> rotations, GameType gameType)
     {
         super();

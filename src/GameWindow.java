@@ -52,7 +52,7 @@ public class GameWindow extends JFrame implements ActionListener
 
     private Tile firstClicked, secondClicked;
     private JPanel panel;
-    public ArrayList<ArrayList<float[]>> allTilesLineCoords;
+    public HashMap<Integer, ArrayList<float[]>> allTilesLineCoords;
     // added rotations array in for the stored rotations of the played games DK
     // 4/28/2016
     public ArrayList<Integer> rotations;
@@ -102,6 +102,7 @@ public class GameWindow extends JFrame implements ActionListener
             {
                 popUpAlert();
             }
+            System.out.println(time);
             System.exit(0);
         }
         if ("Reset".equals(e.getActionCommand()))

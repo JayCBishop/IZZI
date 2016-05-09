@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SideButtons extends TileArea
 {
@@ -23,7 +24,7 @@ public class SideButtons extends TileArea
     private Tile[] startTiles = new Tile[16];
 
     SideButtons(GameWindow window,
-            ArrayList<ArrayList<float[]>> allTilesLineCoords,
+            HashMap<Integer, ArrayList<float[]>> allTilesLineCoords,
             ArrayList<Integer> rotations, GameType gameType)
     {
         super(window, allTilesLineCoords, rotations, gameType);
