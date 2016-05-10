@@ -78,6 +78,10 @@ public class Tile extends JButton
                         window.gameWon();
                     }
                 }
+                if(window.startTime == 0)
+                {
+                    window.startTimer();
+                }
             }
         });
     }

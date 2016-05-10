@@ -1,3 +1,4 @@
+
 /**
  * Added Group G as additional authors on 3-21-2016  D.K.
  * See Main for a list of Group G members
@@ -58,12 +59,12 @@ public class GameWindow extends JFrame implements ActionListener
     public HashMap<Integer, Integer> rotations;
     private GameType gameType;
     public int numTiles = 16;
-    
+
     public long time = 0;
     public long startTime = 0;
-    
+
     private MazeIcon[] savedIcons;
-    
+
     public ArrayList<ArrayList<float[]>> solution;
     public HashMap<ArrayList<float[]>, Integer> coordsToTile;
 
@@ -212,13 +213,13 @@ public class GameWindow extends JFrame implements ActionListener
                 JOptionPane.ERROR_MESSAGE);
         load();
     }
-    
+
     public void gameWon()
     {
-    	endTimer();
+        endTimer();
         JOptionPane.showMessageDialog(panel,
-                "You Won!" + "\n" +
-                "Maze completed in: " + convertToHMS(time), "Maze Complete", JOptionPane.WARNING_MESSAGE);
+                "You Won!" + "\n" + "Maze completed in: " + convertToHMS(time),
+                "Maze Complete", JOptionPane.WARNING_MESSAGE);
     }
 
     public boolean fileAlreadyExists()
@@ -250,7 +251,6 @@ public class GameWindow extends JFrame implements ActionListener
             this.remove(grid);
             createGrid();
             this.revalidate();
-            startTimer();
         }
     }
 
@@ -330,9 +330,6 @@ public class GameWindow extends JFrame implements ActionListener
         savedIcons = new MazeIcon[numTiles * 2];
         createGrid();
         createSidePanels();
-
-        startTimer();
-        
         return;
     }
 
@@ -490,21 +487,21 @@ public class GameWindow extends JFrame implements ActionListener
     public void load()
     {
         String newFileName = "default.mze";
- 
+
         // Start in directory program is run from
         final JFileChooser chooser = new JFileChooser(
                 new File(System.getProperty("user.dir")));
-        //chooser.showOpenDialog(GameWindow.this);
+        // chooser.showOpenDialog(GameWindow.this);
         int result = chooser.showOpenDialog(GameWindow.this);
-        
-        //if the user chooses to cancel and a gameboard has not
-        //yet been created, instead of exiting completely, a blank 
-        //game will be set up.  This gives the user the option to
-        //Quit or to try load a different file.  
+
+        // if the user chooses to cancel and a gameboard has not
+        // yet been created, instead of exiting completely, a blank
+        // game will be set up. This gives the user the option to
+        // Quit or to try load a different file.
         if (result == JFileChooser.CANCEL_OPTION)
         {
-           
-            if(Main.gameBoardIsPresent == false)
+
+            if (Main.gameBoardIsPresent == false)
             {
                 alertSelectedCancel();
                 Main.gameBoardIsPresent = true;
@@ -513,32 +510,36 @@ public class GameWindow extends JFrame implements ActionListener
                 createWindowShell(game);
                 game.setUp(gameType);
                 game.setVisible(true);
-               
+
             }
-            else if (Main.gameBoardIsPresent == true)
+            else
+                if (Main.gameBoardIsPresent == true)
+                {
+
+                    System.out.println("You selected cancel");
+                }
+        }
+
+        // this part of the code allows the user to choose a file
+        // that is either in the current directory or located
+        // in another location. DK 5/7/2016
+        else
+            if (result == JFileChooser.APPROVE_OPTION)
             {
-                
-                System.out.println("You selected cancel");         
+                chooser.setFileSelectionMode(
+                        JFileChooser.FILES_AND_DIRECTORIES);
+                File file = chooser.getSelectedFile();
+                newFileName = file.getAbsolutePath();
+                Main.fileName = newFileName;
+                Main.main(null);
+                this.dispose();
+
             }
-        }
-        
-        //this part of the code allows the user to choose a file
-        //that is either in the current directory or located
-        //in another location.  DK 5/7/2016
-        else if (result == JFileChooser.APPROVE_OPTION)
-        {
-            chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-            File file = chooser.getSelectedFile();
-            newFileName = file.getAbsolutePath();
-            Main.fileName = newFileName;
-            Main.main(null);
-            this.dispose();
-            
-        }
     }
-    //creates the game window shell
-    //the setup functions will populate the shell with the appropriate game
-    //based on the gameType
+
+    // creates the game window shell
+    // the setup functions will populate the shell with the appropriate game
+    // based on the gameType
     public void createWindowShell(GameWindow game)
     {
         game.setSize(new Dimension(900, 1000));
@@ -554,7 +555,7 @@ public class GameWindow extends JFrame implements ActionListener
                             + " a blank game will load.",
                     "Cancel Selected", JOptionPane.WARNING_MESSAGE);
         }
-        
+
     }
 
     /**
@@ -571,7 +572,7 @@ public class GameWindow extends JFrame implements ActionListener
 
         if (returnVal == JFileChooser.APPROVE_OPTION)
         {
-        	endTimer();
+            endTimer();
             // save file
             File file = chooser.getSelectedFile();
             boolean readyToWrite = true;
@@ -603,7 +604,7 @@ public class GameWindow extends JFrame implements ActionListener
                     // Time maze has played
                     writer.writeLong(time);
                     // Tile settings
-                                       
+
                     // fill saved icons with null so tiles not in
                     // the solution have the correct value
                     Arrays.fill(savedIcons, null);
@@ -611,11 +612,11 @@ public class GameWindow extends JFrame implements ActionListener
                     for (int i = 0; i < solution.size(); i++)
                     {
                         ArrayList<float[]> coords = solution.get(i);
-                    	int tileNum = coordsToTile.get(coords);
-                    	 // tile number/placement
+                        int tileNum = coordsToTile.get(coords);
+                        // tile number/placement
                         writer.writeInt(tileNum);
                         Tile tile;
-                        if(tileNum < 16)
+                        if (tileNum < 16)
                         {
                             tile = sideButtons.tiles[tileNum];
                         }
@@ -623,12 +624,12 @@ public class GameWindow extends JFrame implements ActionListener
                         {
                             tile = grid.tiles[tileNum - 16];
                         }
-                    	MazeIcon icon = tile.getMazeIcon();
-                    	int rotation = (int) (icon.getDegreesRotated() / 90) % 4;
-                    	// tile rotation
+                        MazeIcon icon = tile.getMazeIcon();
+                        int rotation = (int) (icon.getDegreesRotated() / 90)
+                                % 4;
+                        // tile rotation
                         writer.writeInt(rotation);
-                        ArrayList<float[]> lineCoords = icon
-                                .getLineCoords();
+                        ArrayList<float[]> lineCoords = icon.getLineCoords();
                         // number of lines on the tile
                         writer.writeInt(lineCoords.size());
                         for (int j = 0; j < lineCoords.size(); j++)
@@ -641,7 +642,7 @@ public class GameWindow extends JFrame implements ActionListener
                             }
                         }
                         savedIcons[tileNum] = icon;
-                    	
+
                     }
                     writer.close();
                 }
@@ -653,31 +654,36 @@ public class GameWindow extends JFrame implements ActionListener
             }
         }
     }
-    
+
     /**
      * Gets the grid
+     * 
      * @return
      */
     public GridButtons getGrid()
     {
         return grid;
     }
-    
+
     public void startTimer()
     {
-    	startTime = System.currentTimeMillis() / 1000L;
-    }
-    
-    public void endTimer()
-    {
-    	time = time + ((System.currentTimeMillis() / 1000L) - startTime);
+        startTime = System.currentTimeMillis() / 1000L;
     }
 
-	public String convertToHMS(long seconds) 
-	{
-		long sec = seconds % 60;
-		long min = (seconds / 60) % 60;
-		long hr = (seconds / (60 * 60)) % 24;
-			return String.format("%d:%02d:%02d", hr,min,sec);
-	}
+    public void endTimer()
+    {
+        if (startTime != 0)
+        {
+            time = time + ((System.currentTimeMillis() / 1000L) - startTime);
+            startTime = 0;
+        }
+    }
+
+    public String convertToHMS(long seconds)
+    {
+        long sec = seconds % 60;
+        long min = (seconds / 60) % 60;
+        long hr = (seconds / (60 * 60)) % 24;
+        return String.format("%d:%02d:%02d", hr, min, sec);
+    }
 };
