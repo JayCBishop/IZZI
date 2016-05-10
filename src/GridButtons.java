@@ -99,16 +99,13 @@ public class GridButtons extends TileArea
      */
     public boolean isSolution()
     {
-        
-        //Check for first solution
+        // Check for first solution
         for (int i = 0; i < window.numTiles; i++)
         {
-            if (tiles[i].getMazeIcon() != null)
+            if(tiles[i].getMazeIcon()!=null)
             {
-                // Solution 1
-                if ((!tiles[i].getMazeIcon().getLineCoords().equals(window.solution.get(i))
-                        || ((int) (tiles[i].getMazeIcon().getDegreesRotated()))
-                                != tiles[0].getRotation()))
+                if(window.solution.get(i) != tiles[i].getMazeIcon().getLineCoords()
+                        || tiles[i].getMazeIcon().getDegreesRotated() /90 != 0)
                 {
                     return false;
                 }
@@ -116,7 +113,7 @@ public class GridButtons extends TileArea
             else
             {
                 return false;
-            }
+            }          
         }
         return true;
     }

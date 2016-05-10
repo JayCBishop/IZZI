@@ -20,6 +20,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -216,10 +219,18 @@ public class GameWindow extends JFrame implements ActionListener
 
     public void gameWon()
     {
-        endTimer();
-        JOptionPane.showMessageDialog(panel,
-                "You Won!" + "\n" + "Maze completed in: " + convertToHMS(time),
-                "Maze Complete", JOptionPane.WARNING_MESSAGE);
+        Image image = null;
+        try
+        {
+            image = ImageIO.read(new File("kbuckner.jpg"));
+        } catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        JOptionPane.showMessageDialog(this,
+                "You have won in " + convertToHMS(time),
+                "Maze Completed", JOptionPane.WARNING_MESSAGE, new ImageIcon(image));
     }
 
     public boolean fileAlreadyExists()
