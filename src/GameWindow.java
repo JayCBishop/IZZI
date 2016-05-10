@@ -235,8 +235,7 @@ public class GameWindow extends JFrame implements ActionListener
         try
         {
             image = ImageIO
-                    .read((new File(System.getProperty("user.dir")
-                            + "/src/kbuckner.jpg")));
+                    .read((new File("./kbuckner.jpg")));
         }
         catch (IOException e)
         {
