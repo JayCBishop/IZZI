@@ -4,9 +4,8 @@
  *are listed below and here-in will be listed as Group G
  * @author- Jay Bishop, Evan Turner, Anna Carrigan, Kyle Bobak,
  *          Debbie Kretzschmar -- 3-21-2016  D.K. 
- * 
  * @author Kim Buckner
- * Date: Feb 19, 2016
+ * Date: May 9, 2016
  *
  */
 import java.io.File;
@@ -19,7 +18,6 @@ import javax.swing.*;
 
 public class Main
 {
-
     // Button declarations
     public static JButton fileButton, resetButton, quitButton;
 
@@ -83,7 +81,7 @@ public class Main
 
         /**
          * read the first four bytes and determine if it is a played game or not
-         * cafebeef means that it is original cafedeed means that it is a saved
+         * cafebeef means that it is original, cafedeed means that it is a saved
          * or played game DK 4/28/16
          */
 
@@ -93,14 +91,12 @@ public class Main
         {
             gameType = GameType.ORIGINAL_GAME;
             gameBoardIsPresent = true;
-            System.out.println("This is an original game");
         }
         else
             if (val == 0xcafedeed)
             {
                 gameType = GameType.PLAYED_GAME;
                 gameBoardIsPresent = true;
-                System.out.println("This is a played game");
             }
             else
             {
@@ -116,19 +112,21 @@ public class Main
         if (!(gameType == GameType.BLANK_GAME))
         {
             // Now that we know if the file is original or a played game, we
-            // check
-            // the number of tiles. DK 4/29/16
+            // check the number of tiles. DK 4/29/16
 
             int numberOfTiles = reader.readInt();
             game.numTiles = numberOfTiles;
 
-            // we create a hashmap to store the tile line coordinates for
-            // either version
+            // Maps tiles to coordinates
+            // And yes, we need this AND coordsToTile because HashMaps
             HashMap<Integer, ArrayList<float[]>> allTilesLineCoords = new HashMap<Integer, ArrayList<float[]>>(
                     numberOfTiles * 2);
+            
+            // Lists the coordinate of solution (in order!)
             ArrayList<ArrayList<float[]>> solution = new ArrayList<ArrayList<float[]>>(
                     numberOfTiles);
-            // HashMap doesn't support primitive types, so use Integer
+            
+            // Maps coordinates to tile, so we can look up tile number if we have coords
             HashMap<ArrayList<float[]>, Integer> coordsToTile = new HashMap<ArrayList<float[]>, Integer>(
                     numberOfTiles);
 
@@ -138,35 +136,42 @@ public class Main
 
             // This is the time in seconds
             long time = reader.readLong();
-            System.out.println("The time in seconds is: " + time);
-            if(gameType == GameType.PLAYED_GAME)
+            
+            // If the game is played, we care about the time...
+            if (gameType == GameType.PLAYED_GAME)
             {
-            game.time = time;
+                game.time = time;
             }
+            // Otherwise, just throw it out and start over
             else
             {
                 game.time = 0;
             }
+            
             /**
              * next 4 bytes: an integer tile number, range 0-31....ignored if
              * original next 4 bytes: an integer tile rotation, range
              * 0-3...ignore if original next four bytes: an integer number of
              * lines, M...same for original next 16 bytes, the float coordinate
-             * endpoints for the lines...same for original DK 4/29/16
+             * end points for the lines...same for original DK 4/29/16
              */
 
             for (int i = 0; i < numberOfTiles; i++)
             {
                 ArrayList<float[]> lineCoords = new ArrayList<float[]>();
+                
                 int tileNumber = reader.readInt();
                 int tileRotation = reader.readInt();
+                
                 // if not original, then we add to ArrayList rotations
                 // otherwise rotations will stay null
                 if (gameType == GameType.PLAYED_GAME)
                 {
                     rotations.put(tileNumber, tileRotation);
                 }
+                
                 int numLines = reader.readInt();
+                
                 for (int j = 0; j < numLines; j++)
                 {
                     float[] coords = new float[4];
@@ -176,15 +181,18 @@ public class Main
                     }
                     lineCoords.add(coords);
                 }
+                
                 allTilesLineCoords.put(tileNumber, lineCoords);
                 solution.add(lineCoords);
                 coordsToTile.put(lineCoords, tileNumber);
             }
 
+            // Transfer information to our GameWindow
             game.allTilesLineCoords = allTilesLineCoords;
             game.rotations = rotations;
             game.coordsToTile = coordsToTile;
             game.solution = solution;
+            
             try
             {
                 reader.close();
@@ -196,17 +204,12 @@ public class Main
             }
         }
 
+        // Set up our game!
         game.setUp(gameType);
         game.setVisible(true);
 
         try
         {
-            // The 4 that installed on Linux here
-            // May have to test on Windows boxes to see what is there.
-            // UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-            // This is the "Java" or CrossPlatform version and the default
-            // UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-            // Linux only
             UIManager.setLookAndFeel(
                     "com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
         }

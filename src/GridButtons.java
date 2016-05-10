@@ -10,7 +10,9 @@
  * Is a collection of multiple tiles that form a grid
  */
 
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,7 +38,6 @@ public class GridButtons extends TileArea
 
         // Create GridButtons in play area
         // DK 3-23-2016
-
         setUp();
     }
 

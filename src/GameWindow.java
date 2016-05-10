@@ -104,9 +104,12 @@ public class GameWindow extends JFrame implements ActionListener
         {
             if (checkChangesMade())
             {
-                popUpAlert();
+                int n = popUpAlert();
+                if (n == -1)
+                {
+                    return;
+                }
             }
-            System.out.println(time);
             System.exit(0);
         }
         if ("Reset".equals(e.getActionCommand()))
@@ -158,7 +161,8 @@ public class GameWindow extends JFrame implements ActionListener
             }
             else
             {
-                if (!(gridTiles[i - numTiles].getMazeIcon().getLineCoords()
+                if (!(gridTiles[i - numTiles].getMazeIcon()
+                        .getLineCoords()
                         .equals(savedIcons[i].getLineCoords())))
                 {
                     return true;
@@ -179,7 +183,7 @@ public class GameWindow extends JFrame implements ActionListener
      * Handles the pop-up window that runs when the user decides to quit -Jay
      * 4/26/2016
      */
-    private void popUpAlert()
+    private int popUpAlert()
     {
         Object[] options =
         { "Yes", "No" };
@@ -197,6 +201,8 @@ public class GameWindow extends JFrame implements ActionListener
         {
             save();
         }
+
+        return n;
     }
 
     // This method alerts the player that the file
@@ -212,27 +218,52 @@ public class GameWindow extends JFrame implements ActionListener
     public void invalFileName(String name)
     {
         JOptionPane.showMessageDialog(panel,
-                "File: " + name + " could not be found.", "Invalid File Name",
-                JOptionPane.ERROR_MESSAGE);
+                "File: " + name + " could not be found.",
+                "Invalid File Name", JOptionPane.ERROR_MESSAGE);
         load();
     }
 
+    /**
+     * Called to notify user that game is won.
+     */
     public void gameWon()
     {
+        endTimer();
+
+        // Load image for dialog
         Image image = null;
         try
         {
-            image = ImageIO.read(new File("kbuckner.jpg"));
-        } catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            image = ImageIO
+                    .read((new File(System.getProperty("user.dir")
+                            + "/src/kbuckner.jpg")));
         }
+        catch (IOException e)
+        {
+            System.out.println("File not read.");
+        }
+        ImageIcon imageIcon;
+        if (image != null)
+        {
+            imageIcon = new ImageIcon(image);
+        }
+        else
+        {
+            imageIcon = null;
+        }
+
+        // Show dialog
         JOptionPane.showMessageDialog(this,
-                "You have won in " + convertToHMS(time),
-                "Maze Completed", JOptionPane.WARNING_MESSAGE, new ImageIcon(image));
+                "You have won in " + convertToHMS(time) + ".",
+                "Maze Completed!", JOptionPane.WARNING_MESSAGE,
+                imageIcon);
     }
 
+    /**
+     * Notifies user that a file already exists
+     * 
+     * @return whether or not user wants to overwrite
+     */
     public boolean fileAlreadyExists()
     {
         int n = JOptionPane.showConfirmDialog(this,
@@ -248,9 +279,8 @@ public class GameWindow extends JFrame implements ActionListener
     }
 
     /**
-     * Resets the game to its original state
+     * Resets the game to its original state - DK 4/5/2016
      */
-    // DK 4/5/2016
     private void reset()
     {
         if (gameType != GameType.BLANK_GAME)
@@ -262,6 +292,7 @@ public class GameWindow extends JFrame implements ActionListener
             this.remove(grid);
             createGrid();
             this.revalidate();
+            startTimer();
         }
     }
 
@@ -294,7 +325,8 @@ public class GameWindow extends JFrame implements ActionListener
         // Set up the button dimensions for the menu bar
         int buttonWidth = 150;
         int buttonHeight = 75;
-        Dimension buttonDimen = new Dimension(buttonWidth, buttonHeight);
+        Dimension buttonDimen = new Dimension(buttonWidth,
+                buttonHeight);
 
         // Initialize buttons
         // Font size is 1/3 of button width so it will be more consistent
@@ -304,28 +336,31 @@ public class GameWindow extends JFrame implements ActionListener
         Main.fileButton.setMaximumSize(buttonDimen);
         Main.fileButton.setPreferredSize(buttonDimen);
         Main.fileButton.addActionListener(this);
-        Main.fileButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth / 6));
+        Main.fileButton.setFont(
+                new Font("Arial", Font.PLAIN, buttonWidth / 6));
 
         Main.resetButton = new JButton("Reset");
         Main.resetButton.setMinimumSize(buttonDimen);
         Main.resetButton.setMaximumSize(buttonDimen);
         Main.resetButton.setPreferredSize(buttonDimen);
         Main.resetButton.addActionListener(this);
-        Main.resetButton
-                .setFont(new Font("Arial", Font.PLAIN, buttonWidth / 6));
+        Main.resetButton.setFont(
+                new Font("Arial", Font.PLAIN, buttonWidth / 6));
 
         Main.quitButton = new JButton("Quit");
         Main.quitButton.setMinimumSize(buttonDimen);
         Main.quitButton.setMaximumSize(buttonDimen);
         Main.quitButton.setPreferredSize(buttonDimen);
         Main.quitButton.addActionListener(this);
-        Main.quitButton.setFont(new Font("Arial", Font.PLAIN, buttonWidth / 6));
+        Main.quitButton.setFont(
+                new Font("Arial", Font.PLAIN, buttonWidth / 6));
 
         toolbar.add(Main.fileButton);
         toolbar.add(Main.resetButton);
         toolbar.add(Main.quitButton);
         toolbar.setSize(buttonWidth * 3, buttonHeight);
-        toolbar.setMinimumSize(new Dimension(buttonWidth * 3, buttonHeight));
+        toolbar.setMinimumSize(
+                new Dimension(buttonWidth * 3, buttonHeight));
 
         // Add toolbar to JFrame at index 0 (in the top left)
         gbc.gridheight = 1;
@@ -344,14 +379,16 @@ public class GameWindow extends JFrame implements ActionListener
         return;
     }
 
-    // create both the left and right side panels
+    /**
+     * Creates the left and right side panels
+     */
     private void createSidePanels()
     {
         GridBagConstraints gbc = new GridBagConstraints();
         if (sideButtons == null)
         {
-            sideButtons = new SideButtons(this, allTilesLineCoords, rotations,
-                    gameType);
+            sideButtons = new SideButtons(this, allTilesLineCoords,
+                    rotations, gameType);
         }
         gbc.gridwidth = 1;
         gbc.weightx = 1;
@@ -374,7 +411,9 @@ public class GameWindow extends JFrame implements ActionListener
         invalidate();
     }
 
-    // create the grid playing area
+    /**
+     * Creates the playing grid!
+     */
     private void createGrid()
     {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -383,7 +422,8 @@ public class GameWindow extends JFrame implements ActionListener
 
         gbc.weightx = 1;
         gbc.weighty = 1;
-        grid = new GridButtons(this, allTilesLineCoords, rotations, gameType);
+        grid = new GridButtons(this, allTilesLineCoords, rotations,
+                gameType);
         gbc.gridy = 2;
         gbc.gridx = 1;
         gbc.insets = new Insets(0, 0, 0, 0);
@@ -502,8 +542,8 @@ public class GameWindow extends JFrame implements ActionListener
         // Start in directory program is run from
         final JFileChooser chooser = new JFileChooser(
                 new File(System.getProperty("user.dir")));
-        // chooser.showOpenDialog(GameWindow.this);
-        int result = chooser.showOpenDialog(GameWindow.this);
+
+        int result = chooser.showOpenDialog(this);
 
         // if the user chooses to cancel and a gameboard has not
         // yet been created, instead of exiting completely, a blank
@@ -523,12 +563,6 @@ public class GameWindow extends JFrame implements ActionListener
                 game.setVisible(true);
 
             }
-            else
-                if (Main.gameBoardIsPresent == true)
-                {
-
-                    System.out.println("You selected cancel");
-                }
         }
 
         // this part of the code allows the user to choose a file
@@ -548,9 +582,12 @@ public class GameWindow extends JFrame implements ActionListener
             }
     }
 
-    // creates the game window shell
-    // the setup functions will populate the shell with the appropriate game
-    // based on the gameType
+    /**
+     * Creates the game window shell.
+     * The setup functions will populate the shell with the appropriate game, 
+     * based on the gameType
+     * @param game
+     */
     public void createWindowShell(GameWindow game)
     {
         game.setSize(new Dimension(900, 1000));
@@ -609,7 +646,8 @@ public class GameWindow extends JFrame implements ActionListener
                 {
                     // Assuming file has been played
                     writer.write(new byte[]
-                    { (byte) 0xca, (byte) 0xfe, (byte) 0xde, (byte) 0xed });
+                    { (byte) 0xca, (byte) 0xfe, (byte) 0xde,
+                            (byte) 0xed });
                     // Number of Tiles
                     writer.writeInt(16);
                     // Time maze has played
@@ -636,11 +674,12 @@ public class GameWindow extends JFrame implements ActionListener
                             tile = grid.tiles[tileNum - 16];
                         }
                         MazeIcon icon = tile.getMazeIcon();
-                        int rotation = (int) (icon.getDegreesRotated() / 90)
-                                % 4;
+                        int rotation = (int) (icon.getDegreesRotated()
+                                / 90) % 4;
                         // tile rotation
                         writer.writeInt(rotation);
-                        ArrayList<float[]> lineCoords = icon.getLineCoords();
+                        ArrayList<float[]> lineCoords = icon
+                                .getLineCoords();
                         // number of lines on the tile
                         writer.writeInt(lineCoords.size());
                         for (int j = 0; j < lineCoords.size(); j++)
@@ -685,7 +724,8 @@ public class GameWindow extends JFrame implements ActionListener
     {
         if (startTime != 0)
         {
-            time = time + ((System.currentTimeMillis() / 1000L) - startTime);
+            time = time + ((System.currentTimeMillis() / 1000L)
+                    - startTime);
             startTime = 0;
         }
     }

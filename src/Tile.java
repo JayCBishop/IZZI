@@ -20,7 +20,6 @@ import javax.swing.JButton;
 
 public class Tile extends JButton
 {
-
     private boolean drawn;
     private boolean inGrid;
     private MazeIcon icon;
@@ -33,21 +32,6 @@ public class Tile extends JButton
     private int rotation;
 
     private static final long serialVersionUID = 1;
-
-    // we now have two constructors for Tile.
-    // This first one is used if we need to set up
-    // a blank game when there is an error in the first
-    // four bytes of the file.
-    public Tile(int number)
-    {
-        super();
-        Dimension d = new Dimension(75, 75);
-        this.setPreferredSize(d);
-        this.setMaximumSize(d);
-        this.setMinimumSize(d);
-        this.setFont(new Font("Arial", Font.PLAIN, 20));
-        this.tileNumber = number;
-    }
 
     // Added font "styles" to constructor for all tiles instead of
     // individually in SideButtons and GridButtons
@@ -73,6 +57,7 @@ public class Tile extends JButton
                 if (e.getButton() == MouseEvent.BUTTON3)
                 {
                     rotate(90);
+                    // Checks if they just found the solution.
                     if(window.getGrid().isSolution())
                     {
                         window.gameWon();

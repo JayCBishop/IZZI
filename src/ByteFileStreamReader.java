@@ -85,7 +85,6 @@ public class ByteFileStreamReader extends FileInputStream
         catch (IOException e)
         {
             System.out.println("File not read.");
-            e.printStackTrace();
         }
 
         if (checkIfValid == -1)
@@ -114,7 +113,6 @@ public class ByteFileStreamReader extends FileInputStream
         catch (IOException e)
         {
             System.out.println("File not read.");
-            e.printStackTrace();
         }
 
         if (checkIfValid == -1)
@@ -134,7 +132,6 @@ public class ByteFileStreamReader extends FileInputStream
         catch (IOException e)
         {
             System.out.println("File not read.");
-            e.printStackTrace();
         }
 
         if (checkIfValid == -1)
