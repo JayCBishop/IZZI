@@ -621,6 +621,8 @@ public class GameWindow extends JFrame implements ActionListener
         {
             endTimer();
             // save file
+            chooser.setFileSelectionMode(
+                    JFileChooser.FILES_AND_DIRECTORIES);
             File file = chooser.getSelectedFile();
             boolean readyToWrite = true;
             if (file.exists())
