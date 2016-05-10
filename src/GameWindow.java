@@ -484,7 +484,7 @@ public class GameWindow extends JFrame implements ActionListener
      * 
      * -Jay 4/27/2016
      */
-    public void menu()
+    private void menu()
     {
         // The Font for the MenuItems
         Font f = new Font("sans-serif", Font.PLAIN, 24);
@@ -534,7 +534,7 @@ public class GameWindow extends JFrame implements ActionListener
      * Gets a fileName from the user via a file chooser and restarts the program
      * with that fileName as the new file to be loaded.
      */
-    public void load()
+    private void load()
     {
         String newFileName = "default.mze";
 
@@ -609,7 +609,7 @@ public class GameWindow extends JFrame implements ActionListener
      * Gets a filename from the user via a file chooser and saves the current
      * game to that file.
      */
-    public void save()
+    private void save()
     {
         // Start in directory program is run from
         final JFileChooser chooser = new JFileChooser(
@@ -729,7 +729,7 @@ public class GameWindow extends JFrame implements ActionListener
         }
     }
 
-    public String convertToHMS(long seconds)
+    private String convertToHMS(long seconds)
     {
         long sec = seconds % 60;
         long min = (seconds / 60) % 60;
