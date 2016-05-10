@@ -36,7 +36,7 @@ public class ByteFileStreamReader extends FileInputStream
      *            b is a placeholder for the data
      * @return returns data type as an int
      */
-    public int convertByteToInt(byte[] b)
+    private int convertByteToInt(byte[] b)
     {
         ByteBuffer buffer = ByteBuffer.wrap(b);
         return buffer.getInt();
@@ -48,7 +48,7 @@ public class ByteFileStreamReader extends FileInputStream
      * 
      * @return returns data type as a long DK 5/4/16
      */
-    public long convertByteToLong(byte[] b) {
+    private long convertByteToLong(byte[] b) {
         ByteBuffer buffer = ByteBuffer.wrap(b);
         return buffer.getLong();
     }
@@ -60,7 +60,7 @@ public class ByteFileStreamReader extends FileInputStream
      * @return returns data type as a float convertByteToFloat takes in bytes
      *         and changes data type to float
      */
-    public float convertByteToFloat(byte[] b)
+    private float convertByteToFloat(byte[] b)
     {
         ByteBuffer buffer = ByteBuffer.wrap(b);
         return buffer.getFloat();
