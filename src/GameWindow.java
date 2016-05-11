@@ -239,7 +239,7 @@ public class GameWindow extends JFrame implements ActionListener
         }
         catch (IOException e)
         {
-            System.out.println("File not read.");
+            // do nothing - it's handled later
         }
         ImageIcon imageIcon;
         if (image != null)
